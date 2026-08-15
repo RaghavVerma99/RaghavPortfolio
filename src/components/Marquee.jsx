@@ -33,7 +33,7 @@ export default function Marquee() {
 
       <div className="border-t border-line">
         <div className="relative overflow-hidden py-6">
-          <div className="marquee-track marquee-reverse flex w-max items-center gap-12 whitespace-nowrap pr-12">
+          <div className="marquee-track marquee-track-reverse flex w-max items-center gap-12 whitespace-nowrap pr-12">
             {words.map((t, i) => (
               <span
                 key={i}
