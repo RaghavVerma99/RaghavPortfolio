@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { Cpu, Zap, Code, Shield } from 'lucide-react';
 
@@ -146,4 +147,51 @@ export default function Skills() {
       })}
     </div>
   );
+=======
+import { skills } from "../data/content"
+import Watermark from "./Watermark"
+import { Reveal, Section, SectionLabel } from "./ui"
+
+const glyphs = ["{}", "</>", "=>", "[ ]", "$", "#"]
+
+export default function Skills() {
+  return (
+    <Section id="skills" className="border-t border-line">
+      <Watermark>Skills</Watermark>
+      <SectionLabel index="02" label="Skills" />
+      <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        {skills.map((cat, i) => (
+          <Reveal
+            key={cat.title}
+            delay={i * 0.05}
+            data-cursor
+            className="group bg-ink transition-colors duration-300 hover:bg-ink-2"
+          >
+            <div className="flex h-full flex-col justify-between p-8">
+              <div>
+                <div className="flex items-center justify-between font-mono text-xs text-muted">
+                  <span>0{i + 1}</span>
+                  <span className="text-lg text-muted/60 transition-colors duration-300 group-hover:text-accent">
+                    {glyphs[i]}
+                  </span>
+                </div>
+                <h3 className="mt-6 font-display text-xl font-bold">{cat.title}</h3>
+              </div>
+              <ul className="mt-8 space-y-2.5">
+                {cat.items.map((item) => (
+                  <li key={item} className="flex items-baseline gap-3 text-sm text-paper/70">
+                    <span className="text-accent transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  )
+>>>>>>> 12d808e (Updated Files)
 }

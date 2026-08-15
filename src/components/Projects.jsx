@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { GitBranch, Cpu, HardDrive, ShieldCheck, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -174,4 +175,71 @@ export default function Projects() {
       </div>
     </div>
   );
+=======
+import { projects } from "../data/content"
+import SpotlightCard from "./SpotlightCard"
+import Watermark from "./Watermark"
+import { Reveal, Section, SectionLabel } from "./ui"
+
+export default function Projects() {
+  return (
+    <Section id="work" className="border-t border-line">
+      <Watermark>Work</Watermark>
+      <SectionLabel index="05" label="Selected Work" />
+      <div className="mt-14 space-y-4">
+        {projects.map((p, i) => (
+          <Reveal key={p.title} delay={i * 0.05} className="[perspective:1400px]">
+            <SpotlightCard className="overflow-hidden rounded-2xl">
+              <a
+                href={p.link}
+                className="group relative block border border-line bg-ink-2 p-8 transition-colors duration-300 hover:border-accent/40 md:p-12"
+              >
+                <div className="relative flex flex-col justify-between gap-8 md:flex-row md:items-start">
+                  <div className="max-w-2xl">
+                    <div className="flex items-center gap-4">
+                      <span className="font-mono text-xs text-muted">({p.index})</span>
+                      <span className="h-px flex-1 bg-line" />
+                      <span className="flex items-center gap-1 font-mono text-xs text-accent opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+                        open
+                        <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                          ↗
+                        </span>
+                      </span>
+                    </div>
+                    <h3 className="mt-6 font-display text-3xl font-bold leading-tight transition-transform duration-500 group-hover:translate-x-2 md:text-5xl">
+                      {p.title}
+                    </h3>
+                    <p className="mt-4 max-w-xl leading-relaxed text-paper/60">{p.description}</p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {p.stack.map((s) => (
+                        <span
+                          key={s}
+                          className="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] text-muted transition-colors duration-300 group-hover:border-accent/40 group-hover:text-accent"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="shrink-0 md:w-44 md:text-right">
+                    <span className="font-display text-5xl font-bold text-accent">{p.metric}</span>
+                    <p className="mt-1 font-mono text-[11px] uppercase tracking-widest text-muted">
+                      {p.metricLabel}
+                    </p>
+                  </div>
+                </div>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-14 -right-8 font-display text-[12rem] font-bold leading-none text-paper/[0.03] transition-colors duration-300 group-hover:text-accent/10 md:-right-14"
+                >
+                  {p.index}
+                </span>
+              </a>
+            </SpotlightCard>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  )
+>>>>>>> 12d808e (Updated Files)
 }

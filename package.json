@@ -1,11 +1,18 @@
 {
+<<<<<<< HEAD
   "name": "backend-portfolio",
   "private": true,
   "version": "0.0.0",
+=======
+  "name": "sde-portfolio",
+  "private": true,
+  "version": "0.1.0",
+>>>>>>> 12d808e (Updated Files)
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+<<<<<<< HEAD
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -24,5 +31,20 @@
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
     "vite": "^8.1.1"
+=======
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^12.0.0",
+    "lenis": "^1.3.26",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "tailwindcss": "^4.1.0",
+    "vite": "^7.0.0"
+>>>>>>> 12d808e (Updated Files)
   }
 }
