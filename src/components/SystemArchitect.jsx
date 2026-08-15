@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Server, Database, Shield, Radio, Code, Settings } from 'lucide-react';
+import { Cpu, Server, Database, Radio, Code, Settings } from 'lucide-react';
 
 const systemNodesInfo = {
   lb: {

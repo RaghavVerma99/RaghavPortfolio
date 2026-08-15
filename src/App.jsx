@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Suspense, lazy, useEffect, useRef, useState } from "react"
 import { AnimatePresence } from "framer-motion"
 import Lenis from "lenis"
 import Cursor from "./components/Cursor"
@@ -15,7 +15,45 @@ import Education from "./components/Education"
 import Projects from "./components/Projects"
 import Stats from "./components/Stats"
 import Contact from "./components/Contact"
+import Games from "./components/Games"
 import Footer from "./components/Footer"
+
+const Architecture = lazy(() => import("./components/Architecture"))
+
+function LazyArchitecture() {
+  const ref = useRef(null)
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShow(true)
+          obs.disconnect()
+        }
+      },
+      { rootMargin: "400px" }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref}>
+      {show ? (
+        <Suspense
+          fallback={<div className="h-[600px] animate-pulse bg-ink-2" aria-hidden />}
+        >
+          <Architecture />
+        </Suspense>
+      ) : (
+        <div className="h-[600px] bg-ink-2/40" aria-hidden />
+      )}
+    </div>
+  )
+}
 
 export default function App() {
   const [loading, setLoading] = useState(true)
@@ -69,8 +107,10 @@ export default function App() {
         <Experience />
         <Education />
         <Projects />
+        <LazyArchitecture />
         <Stats />
         <Contact />
+        <Games />
       </main>
       <Footer />
       <BackToTop />

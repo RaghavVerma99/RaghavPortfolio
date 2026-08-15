@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal, Shield, ArrowRight } from 'lucide-react';
+import { Terminal, ArrowRight } from 'lucide-react';
 
 export default function InteractiveTerminal() {
   const [history, setHistory] = useState([

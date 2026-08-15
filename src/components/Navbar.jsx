@@ -45,8 +45,8 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-          scrolled ? "border-b border-line bg-ink/80 backdrop-blur-md" : "border-b border-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled ? "glass" : "border-b border-transparent"
         }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-12">

@@ -1,4 +1,6 @@
 import { site } from "../data/content"
+import portrait from "../assets/portrait.jpg"
+import ProfileStrip from "./ProfileStrip"
 import Watermark from "./Watermark"
 import { Reveal, RevealWords, Section, SectionLabel } from "./ui"
 
@@ -24,24 +26,48 @@ export default function About() {
               </span>
             ))}
           </div>
+          <ProfileStrip />
         </Reveal>
-        <Reveal delay={0.1}>
-          <div className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-line bg-ink-2">
-            {site.portrait ? (
+        <Reveal delay={0.1} className="mx-auto w-full max-w-[380px]">
+          <div className="group relative">
+            <div
+              aria-hidden
+              className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-accent/25 via-white/5 to-[#4d9bff]/25 opacity-50 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
+            />
+            <div
+              aria-hidden
+              className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent/70 via-white/10 to-[#4d9bff]/70 opacity-50 transition-opacity duration-500 group-hover:opacity-90"
+            />
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl glass">
               <img
-                src={site.portrait}
+                src={portrait}
                 alt={site.name}
-                className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                className="h-full w-full object-cover transition-all duration-700 ease-out grayscale group-hover:scale-[1.04] group-hover:grayscale-0"
               />
-            ) : (
-              <div className="flex h-full flex-col items-center justify-center gap-3 font-mono text-xs text-muted">
-                <span className="text-4xl text-accent">▢</span>
-                <span>Add your photo</span>
-                <span className="px-8 text-center text-[10px] leading-relaxed">
-                  src/data/content.js → site.portrait
-                </span>
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/20 to-transparent"
+              />
+              <div className="absolute inset-x-5 bottom-5">
+                <p className="font-display text-2xl font-bold tracking-tight text-paper">
+                  {site.name}
+                </p>
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+                  {site.role} · B.Tech CSE '27
+                </p>
               </div>
-            )}
+              <div
+                aria-hidden
+                className="absolute left-3.5 top-3.5 h-7 w-7 rounded-tl-xl border-l-2 border-t-2 border-accent/80 transition-all duration-500 group-hover:h-9 group-hover:w-9"
+              />
+              <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full border border-white/15 bg-black/30 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-paper/90 backdrop-blur">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                </span>
+                Open to work
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>

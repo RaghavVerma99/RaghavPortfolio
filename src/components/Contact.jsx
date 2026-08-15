@@ -7,7 +7,7 @@ export default function Contact() {
   return (
     <Section id="contact" className="border-t border-line">
       <Watermark>Contact</Watermark>
-      <SectionLabel index="07" label="Contact" />
+      <SectionLabel index="08" label="Contact" />
       <div className="mt-12 flex flex-col gap-12 md:mt-20 md:flex-row md:items-end md:justify-between">
         <h2 className="font-display font-bold leading-[0.95] tracking-tight">
           <StaggerWords text="Let's build" className="block text-[13vw] md:text-[7.5vw]" />

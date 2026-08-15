@@ -48,7 +48,7 @@ export default function Terminal() {
   }, [charIdx, lineIdx, done])
 
   return (
-    <div className="w-full max-w-sm rounded-xl border border-line bg-ink-2/90 p-4 font-mono text-xs shadow-2xl shadow-black/50 backdrop-blur">
+    <div className="glass w-full max-w-sm rounded-xl p-4 font-mono text-xs shadow-2xl shadow-black/50">
       <div className="flex items-center gap-1.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />

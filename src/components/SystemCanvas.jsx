@@ -74,10 +74,10 @@ function Node({ node, isSelected, onClick }) {
         e.stopPropagation();
         onClick(node);
       }}
-      onPointerOver={(e) => {
+      onPointerOver={() => {
         document.body.style.cursor = 'pointer';
       }}
-      onPointerOut={(e) => {
+      onPointerOut={() => {
         document.body.style.cursor = 'default';
       }}
     >
@@ -120,7 +120,7 @@ function NetworkTopology({ selectedNodeId, onSelectNode }) {
 
   // Generate packet delays to make them stream asynchronously
   const packets = useMemo(() => {
-    return links.flatMap(([fromId, toId], idx) => {
+    return links.flatMap(([fromId, toId]) => {
       const fromNode = nodes.find(n => n.id === fromId);
       const toNode = nodes.find(n => n.id === toId);
       if (!fromNode || !toNode) return [];

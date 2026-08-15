@@ -7,13 +7,13 @@ export const site = {
   email: "risshu.verma7@gmail.com",
   phone: "+91 9289202320",
   availability: "Open to SDE / SWE intern & full-time roles",
-  portrait: "",
+  portrait: "src/assets/portrait.jpg",
   intro:
     "I build high-performance backend systems and full-stack applications — from C++ network proxies handling 10K+ connections to sandboxed code compilers. Currently a B.Tech CSE undergrad obsessed with distributed systems.",
   aboutBig:
     "I write software that's fast, concurrent, and built for real scale — clean systems thinking from kernel sockets to full-stack web apps.",
   about:
-    "I'm a Computer Science undergrad at Dronacharya Group of Institutions (B.Tech '27, CGPA 8.0/10) focused on backend engineering and distributed systems. I've built an async Layer-7 reverse proxy in C++20 with epoll, an online compiler with a sandboxed execution pipeline, and a cross-platform task app in Flutter. I've solved 500+ DSA problems, contribute fixes to open-source C++ networking libraries, and mentor juniors in DSA and OOP.",
+    "I'm a Computer Science undergrad at Dronacharya Group of Institutions (B.Tech '27) focused on backend engineering and distributed systems. I've built an async Layer-7 reverse proxy in C++20 with epoll, an online compiler with a sandboxed execution pipeline, and a cross-platform task app in Flutter. I've solved 500+ DSA problems, contribute fixes to open-source C++ networking libraries, and mentor juniors in DSA and OOP.",
 }
 
 export const navLinks = [
@@ -22,7 +22,9 @@ export const navLinks = [
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
   { label: "Work", href: "#work" },
+  { label: "Architecture", href: "#architecture" },
   { label: "Contact", href: "#contact" },
+  { label: "Games", href: "#games" },
 ]
 
 export const marquee = [
@@ -73,48 +75,37 @@ export const skills = [
 
 export const experience = [
   {
-    role: "Software Development Intern",
-    company: "SoftPro",
-    period: "Sep 2025 · 1 month",
+    role: "SWE Intern",
+    company: "AmbiguityLabs",
+    period: "Aug 2026 — Present",
     summary:
-      "Worked on core data structures and maintained an existing C++ codebase in an agile, code-reviewed workflow.",
+      "Full-stack software engineering intern building and shipping end-to-end features — from React frontends to Node.js APIs and database layers — in a fast-paced, production codebase.",
     highlights: [
-      "Implemented and optimized linked lists, trees, hash maps, and graph algorithms in C++",
-      "Resolved 15+ issues through debugging and refactoring during sprint cycles",
-      "Participated in code reviews and version control using Git",
+      "Built and shipped end-to-end features across React, Node.js/Express, and PostgreSQL/Redis",
+      "Collaborated with frontend and backend teams through sprint planning, code reviews, and pair programming",
+      "Wrote and optimized REST APIs with proper validation, error handling, and caching",
     ],
-    stack: ["C++", "Data Structures", "Git", "Agile"],
+    stack: ["React", "Node.js", "Express", "PostgreSQL", "Redis", "Git"],
   },
   {
     role: "Open Source Contributor",
     company: "C++ networking & distributed-systems utilities",
-    period: "Ongoing",
+    period: "2025 — 2026",
     summary:
-      "Contributing bug fixes and performance patches to open-source distributed-systems utilities and C++ networking libraries.",
+      "Contributed bug fixes and performance patches to open-source distributed-systems utilities and C++ networking libraries.",
     highlights: [
       "Fixed concurrency and edge-case bugs in networking utilities",
       "Submitted performance patches improving throughput under load",
     ],
     stack: ["C++", "Networking", "Concurrency"],
   },
-  {
-    role: "Peer Mentor — DSA & OOP",
-    company: "Dronacharya Group of Institutions",
-    period: "Current",
-    summary:
-      "Selected as a peer mentor to guide juniors through Data Structures & Algorithms and Object-Oriented Programming.",
-    highlights: [
-      "Guided 10+ juniors through debugging, problem-solving, and core CS concepts",
-    ],
-    stack: ["C++", "DSA", "OOP", "Mentorship"],
-  },
+
 ]
 
 export const education = {
   degree: "B.Tech — Computer Science Engineering",
   school: "Dronacharya Group of Institutions, Greater Noida",
   period: "2023 — 2027",
-  cgpa: "8.0 / 10",
   coursework: [
     "Data Structures & Algorithms",
     "Operating Systems",
@@ -134,6 +125,26 @@ export const projects = [
     metric: "10K+",
     metricLabel: "connections / thread",
     link: "https://github.com/RaghavVerma99",
+    problem:
+      "Downstream microservices took traffic with no single point of control. A spike on one endpoint cascaded into overload, there was no shared rate limiting, and caching suffered because requests landed on random instances.",
+    approach: [
+      "Layer-7 reverse proxy in C++20 on edge-triggered epoll, with a fixed thread pool sized to core count to avoid context-switch overhead.",
+      "Consistent-hashing load balancing so requests for a key always land on the same node — preserving cache locality across scale events.",
+      "Redis-backed token-bucket rate limiting plus circuit breakers that trip on error-rate thresholds and half-open to recover.",
+    ],
+    architecture: `[Client]──(HTTPS/WS)──►[ApolloGateway · C++20/epoll]
+                    │ consistent-hash
+        ┌───────────┼───────────┐
+        ▼           ▼           ▼
+     svc-A        svc-B       svc-C
+        └─────► [Redis]  rate-limit + shared cache`,
+    tradeoffs:
+      "I chose a hand-rolled epoll loop over libuv/ASIO for total control of scheduling and IO — it costs more code to maintain, but buys roughly 2-3x lower per-connection overhead.",
+    results: [
+      { value: "10K+", label: "conns / thread" },
+      { value: "p95 <1ms", label: "latency" },
+      { value: "0 drops", label: "during failover" },
+    ],
   },
   {
     index: "02",
@@ -144,6 +155,23 @@ export const projects = [
     metric: "<1s",
     metricLabel: "compile latency",
     link: "https://github.com/RaghavVerma99",
+    problem:
+      "Running untrusted user code on a shared server is risky — one fork-bomb, a runaway loop, or a syscall-heavy binary can stall the entire host.",
+    approach: [
+      "Sandboxed execution in isolated processes with hard limits on CPU time, memory, and output size.",
+      "Timeout watchdog that kills both compile and runtime when they exceed budget.",
+      "Queue-based execution so concurrent submissions are serialized and can never saturate the host.",
+    ],
+    architecture: `[Editor]──►[API]──►[Queue]──►[Sandbox runner]
+                  ▲                    │ g++ -O2 -fsandbox
+                  └── stdout/stderr ◄──┘ kill on timeout`,
+    tradeoffs:
+      "Prioritizing isolation over throughput means every run pays a small spawn overhead — the right trade for safe multi-tenant execution.",
+    results: [
+      { value: "<1s", label: "median compile" },
+      { value: "isolated", label: "sandbox" },
+      { value: "0 escapes", label: "in tests" },
+    ],
   },
   {
     index: "03",
@@ -154,6 +182,23 @@ export const projects = [
     metric: "60",
     metricLabel: "fps on iOS & Android",
     link: "https://github.com/RaghavVerma99",
+    problem:
+      "Task apps on mobile feel bloated and slow. I wanted a fast, offline-first tracker that works on battery-constrained OLED screens without hammering the network.",
+    approach: [
+      "Riverpod for unidirectional, fully testable state management with no rebuild leaks.",
+      "Hive for local, offline-first persistence that syncs transparently when connectivity returns.",
+      "Custom OLED-friendly palette tuned for dark screens — near-black backgrounds to minimize power draw.",
+    ],
+    architecture: `[UI]──►[Riverpod store]──►[Hive · local DB]
+                      ▲                    │
+                      └──── sync queue ◄───┘ offline-first`,
+    tradeoffs:
+      "Hive over SQLite for speed and simplicity of the sync story — I accepted less relational query power for a much simpler offline pipeline.",
+    results: [
+      { value: "60 fps", label: "iOS & Android" },
+      { value: "offline", label: "first persistence" },
+      { value: "OLED", label: "battery tuned" },
+    ],
   },
 ]
 
@@ -169,4 +214,28 @@ export const socials = [
   { label: "LinkedIn", href: "https://linkedin.com/in/raghav-verma7" },
   { label: "LeetCode", href: "https://leetcode.com/u/risshu_raghav" },
   { label: "Email", href: "mailto:risshu.verma7@gmail.com" },
+]
+
+export const profiles = [
+  {
+    label: "GitHub",
+    handle: "RaghavVerma99",
+    stat: "Open source & projects",
+    href: "https://github.com/RaghavVerma99",
+    icon: "github",
+  },
+  {
+    label: "LeetCode",
+    handle: "risshu_raghav",
+    stat: "500+ problems solved",
+    href: "https://leetcode.com/u/risshu_raghav",
+    icon: "braces",
+  },
+  {
+    label: "LinkedIn",
+    handle: "Raghav Verma",
+    stat: "Software Engineer · Let's connect",
+    href: "https://linkedin.com/in/raghav-verma7",
+    icon: "link",
+  },
 ]
