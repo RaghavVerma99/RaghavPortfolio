@@ -9,7 +9,7 @@ export default function Contact() {
       <Watermark>Contact</Watermark>
       <SectionLabel index="08" label="Contact" />
       <div className="mt-12 flex flex-col gap-12 md:mt-20 md:flex-row md:items-end md:justify-between">
-        <h2 className="font-display font-bold leading-[0.95] tracking-tight">
+        <h2 className="font-display font-bold leading-[1.05] tracking-tight">
           <StaggerWords text="Let's build" className="block text-[13vw] md:text-[7.5vw]" />
           <StaggerWords
             text="something great"

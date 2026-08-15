@@ -135,12 +135,28 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(120deg, var(--color-accent), #ffffff, var(--color-accent));
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: gradient-shift 6s ease infinite;
+  color: var(--color-accent);
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .text-gradient {
+    background: linear-gradient(120deg, var(--color-accent), #ffffff, var(--color-accent));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 6s ease infinite;
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @media (pointer: fine) {

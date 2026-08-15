@@ -40,6 +40,7 @@ export function Reveal({ children, className = "", delay = 0, y = 40, ...rest })
 
 export function StaggerWords({ text, className = "", delay = 0, stagger = 0.035 }) {
   const words = text.split(" ")
+  const wordCls = className.replace(/\bblock\b/g, "").trim()
   return (
     <motion.span
       className={className}
@@ -53,9 +54,9 @@ export function StaggerWords({ text, className = "", delay = 0, stagger = 0.035 
       aria-label={text}
     >
       {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom">
+        <span key={i} className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em]">
           <motion.span
-            className="inline-block will-change-transform"
+            className="inline-block"
             variants={{
               hidden: { y: "110%", opacity: 0 },
               show: {
@@ -65,8 +66,10 @@ export function StaggerWords({ text, className = "", delay = 0, stagger = 0.035 
               },
             }}
           >
-            {w}
-            {i < words.length - 1 ? "\u00A0" : ""}
+            <span className={wordCls}>
+              {w}
+              {i < words.length - 1 ? "\u00A0" : ""}
+            </span>
           </motion.span>
         </span>
       ))}

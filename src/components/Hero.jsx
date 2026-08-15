@@ -46,7 +46,7 @@ export default function Hero() {
           {site.availability}
         </motion.div>
 
-        <h1 className="font-display font-bold leading-[0.95] tracking-tight">
+        <h1 className="font-display font-bold leading-[1.05] tracking-tight">
           {lines.map((line, i) => (
             <span key={line.text} className="block">
               <StaggerWords
