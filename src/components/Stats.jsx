@@ -12,7 +12,7 @@ export default function Stats() {
           <Reveal
             key={s.label}
             delay={i * 0.06}
-            className="group bg-white/[0.035] p-8 backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.06] md:p-10"
+            className="group bg-white/[0.035] p-8 text-center backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.06] md:p-10"
           >
             <p className="font-display text-5xl font-bold transition-colors duration-300 group-hover:text-accent md:text-6xl">
               <CountUp to={s.value} suffix={s.suffix} />

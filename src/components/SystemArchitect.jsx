@@ -228,7 +228,7 @@ export default function SystemArchitect({ selectedId }) {
   const IconComponent = node.icon;
 
   return (
-    <div className="glass-card flex flex-col justify-between" style={{ padding: '24px', height: '100%' }}>
+    <div className="glass-card flex min-w-0 flex-col justify-between overflow-hidden" style={{ padding: '24px', height: '100%' }}>
       <div>
         {/* Node Header */}
         <div className="architect-header">

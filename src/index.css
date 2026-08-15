@@ -461,6 +461,8 @@ body {
 
 .code-block {
   margin: 0;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -471,6 +473,11 @@ body {
   line-height: 1.7;
   color: var(--accent-cyan);
   white-space: pre;
+}
+
+.code-block code {
+  display: block;
+  min-width: max-content;
 }
 
 .script-block {

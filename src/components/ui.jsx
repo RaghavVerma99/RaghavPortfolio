@@ -96,7 +96,7 @@ export function RevealWords({ text, className = "", stagger = 0.015 }) {
             show: { opacity: 1, transition: { duration: 0.25 } },
           }}
         >
-          {w}&nbsp;
+          {w}{" "}
         </motion.span>
       ))}
     </motion.p>

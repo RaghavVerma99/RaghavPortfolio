@@ -1,5 +1,5 @@
 import { useState } from "react"
-import SystemCanvas from "./SystemCanvas"
+import SystemDiagram from "./SystemDiagram"
 import SystemArchitect from "./SystemArchitect"
 import InteractiveTerminal from "./InteractiveTerminal"
 import Watermark from "./Watermark"
@@ -24,22 +24,20 @@ export default function Architecture() {
         Inside the stack. <span className="text-gradient italic">Node by node.</span>
       </h2>
       <p className="mt-4 max-w-xl text-base text-muted">
-        A reference topology of the kind of distributed systems I build — drag to orbit, click a
-        node to inspect it, or drop into the shell and poke around.
+        The typical shape of the distributed systems I build — one request, from the edge down to
+        the data layer. Click a node to inspect it, or drop into the shell and poke around.
       </p>
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        <Reveal className="h-full">
-          <div className="glass h-full rounded-3xl p-4 md:p-6">
-            <SystemCanvas selectedNodeId={selected} onSelectNode={setSelected} />
-          </div>
-        </Reveal>
-        <Reveal delay={0.08} className="h-full">
+      <Reveal className="mt-10">
+        <SystemDiagram selectedId={selected} onSelectNode={setSelected} />
+      </Reveal>
+      <div className="mt-6 grid min-w-0 gap-6 lg:grid-cols-2">
+        <Reveal className="h-full min-w-0">
           <SystemArchitect selectedId={selected} />
         </Reveal>
+        <Reveal delay={0.1} className="h-full min-w-0">
+          <InteractiveTerminal />
+        </Reveal>
       </div>
-      <Reveal delay={0.12} className="mt-6">
-        <InteractiveTerminal />
-      </Reveal>
     </Section>
   )
 }
