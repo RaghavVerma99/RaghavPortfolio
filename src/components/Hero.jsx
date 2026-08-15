@@ -7,9 +7,21 @@ import { StaggerWords } from "./ui"
 const EASE = [0.16, 1, 0.3, 1]
 
 const lines = [
-  { text: "Software Engineer", cls: "text-paper" },
-  { text: "Building Systems", cls: "text-stroke" },
-  { text: "That Ship & Scale", cls: "text-gradient italic" },
+  {
+    text: "Software Engineer",
+    cls: "text-paper/80",
+    size: "text-[5.5vw] font-semibold md:text-[3.6vw]",
+  },
+  {
+    text: "Building Systems",
+    cls: "text-stroke",
+    size: "text-[13vw] md:text-[9.5vw]",
+  },
+  {
+    text: "That Ship & Scale",
+    cls: "text-gradient italic",
+    size: "text-[13vw] md:text-[9.5vw]",
+  },
 ]
 
 export default function Hero() {
@@ -46,13 +58,13 @@ export default function Hero() {
           {site.availability}
         </motion.div>
 
-        <h1 className="font-display font-bold leading-[1.05] tracking-tight">
+        <h1 className="font-display font-bold leading-[1.04] tracking-tight">
           {lines.map((line, i) => (
             <span key={line.text} className="block">
               <StaggerWords
                 text={line.text}
                 delay={1.35 + i * 0.14}
-                className={`block text-[11vw] md:text-[8.5vw] ${line.cls}`}
+                className={`block ${line.size} ${line.cls}`}
               />
             </span>
           ))}

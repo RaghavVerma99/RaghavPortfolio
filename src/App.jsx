@@ -1,19 +1,13 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react"
 import { AnimatePresence } from "framer-motion"
 import Lenis from "lenis"
-import Cursor from "./components/Cursor"
-import ScrollProgress from "./components/ScrollProgress"
-import BackToTop from "./components/BackToTop"
 import Loader from "./components/Loader"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
-import Marquee from "./components/Marquee"
 import About from "./components/About"
 import Skills from "./components/Skills"
 import Experience from "./components/Experience"
-import Education from "./components/Education"
 import Projects from "./components/Projects"
-import Stats from "./components/Stats"
 import Contact from "./components/Contact"
 import Games from "./components/Games"
 import Footer from "./components/Footer"
@@ -92,28 +86,22 @@ export default function App() {
   }, [])
 
   return (
-    <div className="grain min-h-screen bg-ink text-paper">
-      <Cursor />
-      <ScrollProgress />
+    <div className="min-h-screen bg-ink text-paper">
       <AnimatePresence>
         {loading && <Loader key="loader" onDone={() => setLoading(false)} />}
       </AnimatePresence>
       <Navbar />
       <main>
         <Hero />
-        <Marquee />
         <About />
         <Skills />
         <Experience />
-        <Education />
         <Projects />
         <LazyArchitecture />
-        <Stats />
         <Contact />
         <Games />
       </main>
       <Footer />
-      <BackToTop />
     </div>
   )
 }

@@ -63,7 +63,7 @@ export default function Projects() {
   return (
     <Section id="work" className="relative overflow-hidden">
       <Watermark>Work</Watermark>
-      <SectionLabel index="05" label="Selected Work" />
+      <SectionLabel index="04" label="Selected Work" />
       <p className="mt-6 max-w-xl text-muted">
         Click a project to open its full case study — problem, approach, architecture, and the
         trade-offs I made.
@@ -97,10 +97,7 @@ export default function Projects() {
 
                 <div className="mt-6 flex flex-wrap gap-2">
                   {p.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full border border-line bg-ink px-3 py-1 font-mono text-xs text-paper/70"
-                    >
+                    <span key={tech} className="chip chip-ink">
                       {tech}
                     </span>
                   ))}

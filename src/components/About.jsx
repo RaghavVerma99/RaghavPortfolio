@@ -1,8 +1,8 @@
-import { site } from "../data/content"
+import { site, stats } from "../data/content"
 import portrait from "../assets/portrait.jpg"
 import ProfileStrip from "./ProfileStrip"
 import Watermark from "./Watermark"
-import { Reveal, RevealWords, Section, SectionLabel } from "./ui"
+import { CountUp, Reveal, RevealWords, Section, SectionLabel } from "./ui"
 
 export default function About() {
   return (
@@ -24,6 +24,21 @@ export default function About() {
               >
                 {t}
               </span>
+            ))}
+          </div>
+          <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="bg-white/[0.025] px-5 py-6 transition-colors duration-300 hover:bg-white/[0.05]"
+              >
+                <p className="font-display text-4xl font-bold text-paper">
+                  <CountUp to={s.value} suffix={s.suffix} />
+                </p>
+                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                  {s.label}
+                </p>
+              </div>
             ))}
           </div>
           <ProfileStrip />

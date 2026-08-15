@@ -20,11 +20,10 @@ export const navLinks = [
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
-  { label: "Education", href: "#education" },
   { label: "Work", href: "#work" },
-  { label: "Architecture", href: "#architecture" },
+  { label: "Systems", href: "#systems" },
   { label: "Contact", href: "#contact" },
-  { label: "Games", href: "#games" },
+  { label: "Playground", href: "#games" },
 ]
 
 export const marquee = [
@@ -49,15 +48,19 @@ export const marquee = [
 export const skills = [
   {
     title: "Languages",
-    items: ["C++20", "Go", "Java", "JavaScript (ES6+)", "Python", "Dart"],
+    items: ["C++20", "C", "Go", "Java", "JavaScript (ES6+)", "Python", "TypeScript", "Dart"],
   },
   {
     title: "Frontend",
-    items: ["React.js", "Flutter", "Tailwind CSS", "Bootstrap", "State Management", "Responsive Design"],
+    items: ["React", "Flutter", "Tailwind CSS", "Vite", "Redux Toolkit", "Responsive Design"],
+  },
+  {
+    title: "Design & Craft",
+    items: ["Design Systems", "Typography", "Color Theory", "Motion Design", "Accessibility", "UI Engineering"],
   },
   {
     title: "Backend",
-    items: ["Node.js", "Express.js", "Fastify", "Flask", "RESTful APIs", "WebSockets"],
+    items: ["Node.js", "Express.js", "Fastify", "RESTful APIs", "WebSockets", "Flask"],
   },
   {
     title: "Databases",
@@ -66,10 +69,6 @@ export const skills = [
   {
     title: "Tools & DevOps",
     items: ["Git", "GitHub", "Docker", "Linux (Bash)", "CI / CD", "Vercel / Render"],
-  },
-  {
-    title: "Concepts",
-    items: ["System Design", "Distributed Systems", "REST API Design", "OOP", "Multithreading", "Concurrency"],
   },
 ]
 

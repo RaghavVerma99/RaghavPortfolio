@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { motion, useScroll } from "framer-motion"
-import { experience } from "../data/content"
+import { education, experience } from "../data/content"
 import Watermark from "./Watermark"
 import { Reveal, Section, SectionLabel } from "./ui"
 
@@ -14,7 +14,7 @@ export default function Experience() {
   return (
     <Section id="experience" className="border-t border-line">
       <Watermark>Experience</Watermark>
-      <SectionLabel index="03" label="Experience" />
+      <SectionLabel index="03" label="Experience & Education" />
       <div ref={ref} className="relative mt-14 space-y-16 border-l border-line pl-8 md:pl-12">
         <motion.div
           aria-hidden
@@ -45,16 +45,36 @@ export default function Experience() {
             </ul>
             <div className="mt-5 flex flex-wrap gap-2">
               {job.stack.map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] text-muted transition-colors duration-300 hover:border-accent/40 hover:text-accent"
-                >
+                <span key={s} className="chip">
                   {s}
                 </span>
               ))}
             </div>
           </Reveal>
         ))}
+
+        <Reveal className="relative">
+          <span className="absolute -left-[41px] top-1 h-3 w-3 rounded-full border-2 border-paper/30 bg-ink md:-left-[57px]" />
+          <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+            <div>
+              <h3 className="font-display text-2xl font-bold">{education.degree}</h3>
+              <p className="mt-1 font-mono text-sm text-paper/60">{education.school}</p>
+            </div>
+            <span className="font-mono text-xs uppercase tracking-widest text-muted">
+              {education.period}
+            </span>
+          </div>
+          <p className="mt-4 max-w-2xl text-sm text-paper/50">
+            Relevant coursework — foundations that keep the systems side honest.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {education.coursework.map((c) => (
+              <span key={c} className="chip">
+                {c}
+              </span>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </Section>
   )
