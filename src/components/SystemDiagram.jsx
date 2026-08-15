@@ -1,13 +1,30 @@
-import { Globe, Radio, Cpu, Server, Database, Network } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Globe, Cpu, Server, Database, Network } from "lucide-react"
 
 const NODES = {
-  lb: { label: "Load Balancer", sub: "C++ epoll · consistent hashing", color: "#4facfe", icon: Network },
-  srv1: { label: "Auth Service", sub: "Java · Spring WebFlux", color: "#bd00ff", icon: Cpu },
-  srv2: { label: "Order Engine", sub: "C++20 · lock-free match", color: "#ff4a77", icon: Server },
-  srv3: { label: "Notify Worker", sub: "Java · Netty async", color: "#f59e0b", icon: Radio },
-  cache: { label: "Redis Cache", sub: "In-memory · 94% hit rate", color: "#39ff14", icon: Database },
-  db_primary: { label: "MySQL Primary", sub: "Writes · Raft", color: "#00f2fe", icon: Database },
-  db_replica: { label: "MySQL Replica", sub: "Reads · binlog", color: "#00f2fe", icon: Database },
+  lb: { label: "Edge Proxy", sub: "C++20 · epoll · consistent hash", color: "#4facfe", icon: Network, latency: 0.4 },
+  gateway: { label: "Express API", sub: "Node.js · async I/O", color: "#39ff14", icon: Server, latency: 6 },
+  engine: { label: "Core Engine", sub: "C++20 · lock-free · µs", color: "#ff4a77", icon: Cpu, latency: 0.08 },
+  cache: { label: "Redis", sub: "in-memory cache", color: "#f59e0b", icon: Database, latency: 0.8 },
+  db: { label: "PostgreSQL", sub: "source of truth", color: "#00f2fe", icon: Database, latency: 3 },
+}
+
+function LiveLatency({ base }) {
+  const [v, setV] = useState(base)
+  useEffect(() => {
+    const id = setInterval(() => setV(base * (1 + (Math.random() - 0.5) * 0.2)), 1600)
+    return () => clearInterval(id)
+  }, [base])
+  return <span>{Number(v.toFixed(2))} ms</span>
+}
+
+function TrafficCounter() {
+  const [n, setN] = useState(42000)
+  useEffect(() => {
+    const id = setInterval(() => setN((v) => v + Math.round(Math.random() * 160) - 50), 700)
+    return () => clearInterval(id)
+  }, [])
+  return <span>{n.toLocaleString("en-US")}</span>
 }
 
 function NodeBox({ id, selected, onSelect }) {
@@ -38,6 +55,16 @@ function NodeBox({ id, selected, onSelect }) {
         <span className="font-display text-sm font-bold text-paper">{n.label}</span>
       </span>
       <span className="font-mono text-[10px] text-muted">{n.sub}</span>
+      <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[10px] text-muted">
+        <span className="relative flex h-1.5 w-1.5">
+          <span
+            className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
+            style={{ background: n.color }}
+          />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ background: n.color }} />
+        </span>
+        <LiveLatency base={n.latency} />
+      </span>
     </button>
   )
 }
@@ -86,31 +113,7 @@ function VFlow({ className = "" }) {
   )
 }
 
-function HFlow() {
-  return (
-    <svg width="64" height="20" viewBox="0 0 64 20" className="text-muted" aria-hidden>
-      <line x1="2" y1="10" x2="52" y2="10" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1.5" />
-      <path
-        d="M50 5 L56 10 L50 15"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.7"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle r="2.2" fill="#00f2fe" opacity="0.9">
-        <animateMotion dur="1.2s" repeatCount="indefinite" path="M4 10 L50 10" />
-      </circle>
-    </svg>
-  )
-}
-
-const FAN_PATHS = [
-  "M150 2 L150 18 L50 18 L50 48",
-  "M150 2 L150 48",
-  "M150 2 L150 18 L250 18 L250 48",
-]
+const FAN_PATHS = ["M150 2 L150 22 L100 22 L100 48", "M150 2 L150 22 L200 22 L200 48"]
 
 function FanOut() {
   return (
@@ -129,7 +132,7 @@ function FanOut() {
       <g fill="#00f2fe" opacity="0.9">
         {FAN_PATHS.map((p, i) => (
           <circle key={p} r="2.4">
-            <animateMotion dur="1.6s" repeatCount="indefinite" begin={`${i * 0.35}s`} path={p} />
+            <animateMotion dur="1.6s" repeatCount="indefinite" begin={`${i * 0.4}s`} path={p} />
           </circle>
         ))}
       </g>
@@ -137,11 +140,7 @@ function FanOut() {
   )
 }
 
-const CONVERGE_PATHS = [
-  "M50 2 L50 16 L150 16 L150 48",
-  "M150 2 L150 48",
-  "M250 2 L250 16 L150 16 L150 48",
-]
+const CONVERGE_PATHS = ["M100 2 L100 22 L150 22 L150 48", "M200 2 L200 22 L150 22 L150 48"]
 
 function FanIn() {
   return (
@@ -160,7 +159,7 @@ function FanIn() {
       <g fill="#00f2fe" opacity="0.9">
         {CONVERGE_PATHS.map((p, i) => (
           <circle key={p} r="2.4">
-            <animateMotion dur="1.6s" repeatCount="indefinite" begin={`${i * 0.35}s`} path={p} />
+            <animateMotion dur="1.6s" repeatCount="indefinite" begin={`${i * 0.4}s`} path={p} />
           </circle>
         ))}
       </g>
@@ -168,16 +167,42 @@ function FanIn() {
   )
 }
 
+const LOGS = [
+  { tag: "[proxy]", color: "#4facfe", msg: "routed GET /api/v1/orders → node-02 (3ms)" },
+  { tag: "[express]", color: "#39ff14", msg: "200 OK /api/v1/users · 12ms · req#48217" },
+  { tag: "[core]", color: "#ff4a77", msg: "matched order 88213 in 0.08ms" },
+  { tag: "[redis]", color: "#f59e0b", msg: "cache HIT keyspace:user:4821 · 0.6ms" },
+  { tag: "[db]", color: "#00f2fe", msg: "SELECT · 2 rows · 2.8ms · slow-log ok" },
+]
+
+function LiveLog() {
+  const [offset, setOffset] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setOffset((o) => o + 1), 2400)
+    return () => clearInterval(id)
+  }, [])
+  const lines = Array.from({ length: 3 }, (_, i) => LOGS[(offset + i) % LOGS.length])
+  return (
+    <div className="mt-4 rounded-lg border border-white/10 bg-black/40 px-3 py-2 font-mono text-[10px] leading-relaxed">
+      {lines.map((l, i) => (
+        <p key={i} className="truncate whitespace-nowrap text-paper/70">
+          <span style={{ color: l.color }}>{l.tag}</span> {l.msg}
+        </p>
+      ))}
+    </div>
+  )
+}
+
 export default function SystemDiagram({ selectedId, onSelectNode }) {
   return (
     <div className="glass overflow-hidden rounded-3xl p-5 md:p-8">
-      <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
         <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
-          Request flow · one pass
+          Request flow · C++ + Express
         </span>
         <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00f2fe]" />
-          live topology
+          <TrafficCounter /> req/s
         </span>
       </div>
 
@@ -190,8 +215,8 @@ export default function SystemDiagram({ selectedId, onSelectNode }) {
 
         <VFlow />
 
-        {/* Tier 2 — Load Balancer */}
-        <TierLabel>02 · Edge / Load Balancing</TierLabel>
+        {/* Tier 2 — Edge proxy (C++) */}
+        <TierLabel>02 · Edge · C++20</TierLabel>
         <div className="mt-2 flex w-full max-w-[260px] items-center justify-center">
           <NodeBox id="lb" selected={selectedId === "lb"} onSelect={onSelectNode} />
         </div>
@@ -202,23 +227,17 @@ export default function SystemDiagram({ selectedId, onSelectNode }) {
         </div>
         <FanOut />
 
-        {/* Tier 3 — Services */}
-        <TierLabel>03 · Service Tier · stateless & scaled</TierLabel>
-        <div className="mt-2 flex w-full max-w-[340px] flex-col items-center gap-0 md:max-w-none md:flex-row md:items-stretch md:gap-4">
+        {/* Tier 3 — Express + C++ services */}
+        <TierLabel>03 · Service Tier · Express + C++</TierLabel>
+        <div className="mt-2 flex w-full max-w-[420px] flex-col items-center gap-0 md:max-w-none md:flex-row md:items-stretch md:gap-4">
           <div className="w-full md:w-auto">
-            <NodeBox id="srv1" selected={selectedId === "srv1"} onSelect={onSelectNode} />
+            <NodeBox id="gateway" selected={selectedId === "gateway"} onSelect={onSelectNode} />
           </div>
           <div className="md:hidden">
             <VFlow />
           </div>
           <div className="w-full md:w-auto">
-            <NodeBox id="srv2" selected={selectedId === "srv2"} onSelect={onSelectNode} />
-          </div>
-          <div className="md:hidden">
-            <VFlow />
-          </div>
-          <div className="w-full md:w-auto">
-            <NodeBox id="srv3" selected={selectedId === "srv3"} onSelect={onSelectNode} />
+            <NodeBox id="engine" selected={selectedId === "engine"} onSelect={onSelectNode} />
           </div>
         </div>
 
@@ -228,7 +247,7 @@ export default function SystemDiagram({ selectedId, onSelectNode }) {
         </div>
 
         {/* Tier 4 — Cache */}
-        <TierLabel>04 · Cache Tier · read hot-path</TierLabel>
+        <TierLabel>04 · Cache Tier · Redis</TierLabel>
         <div className="mt-2 flex w-full max-w-[260px] items-center justify-center">
           <NodeBox id="cache" selected={selectedId === "cache"} onSelect={onSelectNode} />
         </div>
@@ -237,19 +256,15 @@ export default function SystemDiagram({ selectedId, onSelectNode }) {
 
         {/* Tier 5 — Storage */}
         <TierLabel>05 · Storage Tier · source of truth</TierLabel>
-        <div className="mt-2 flex w-full max-w-[420px] items-center justify-center gap-3">
-          <div className="w-1/2 max-w-[180px]">
-            <NodeBox id="db_primary" selected={selectedId === "db_primary"} onSelect={onSelectNode} />
-          </div>
-          <HFlow />
-          <div className="w-1/2 max-w-[180px]">
-            <NodeBox id="db_replica" selected={selectedId === "db_replica"} onSelect={onSelectNode} />
-          </div>
+        <div className="mt-2 flex w-full max-w-[280px] items-center justify-center">
+          <NodeBox id="db" selected={selectedId === "db"} onSelect={onSelectNode} />
         </div>
       </div>
 
-      <p className="mt-6 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-        Click any node to inspect it below →
+      <LiveLog />
+
+      <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+        Click any node for the brief →
       </p>
     </div>
   )

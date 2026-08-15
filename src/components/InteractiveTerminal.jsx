@@ -3,8 +3,8 @@ import { Terminal, ArrowRight } from 'lucide-react';
 
 export default function InteractiveTerminal() {
   const [history, setHistory] = useState([
-    { text: 'Apex Systems Dev Shell v2.4.0', type: 'system' },
-    { text: 'Type "help" to see available commands or "deploy" to run CI/CD pipeline.', type: 'info' },
+    { text: 'Backend Ops Shell v2.0.0', type: 'system' },
+    { text: 'Type "help" to see available commands or "deploy" to run the release pipeline.', type: 'info' },
     { text: '', type: 'empty' }
   ]);
   const [input, setInput] = useState('');
@@ -29,12 +29,12 @@ export default function InteractiveTerminal() {
         newHistory.push({
           text: `Available Commands:
   about           - Profile summary of the engineer
-  skills          - Detail core tech stack & system metrics
-  projects        - List production-grade systems built
-  cat arch.txt    - View text-based system architecture
-  ping db_replica - Check replication latency
-  deploy          - Execute simulated automated release script
-  system-status   - Check real-time Load Balancer and health stats
+  skills          - Core stack & runtime metrics
+  projects        - Backend systems built
+  cat arch.txt    - View text-based architecture
+  ping cache      - Check Redis latency
+  deploy          - Execute simulated release pipeline
+  system-status   - Live proxy & DB health stats
   clear           - Clear terminal log output`,
           type: 'output'
         });
@@ -42,37 +42,38 @@ export default function InteractiveTerminal() {
 
       case 'about':
         newHistory.push({
-          text: `ApexEngine // Backend Architect & Distributed Systems Engineer
+          text: `Raghav Verma // Backend Engineer — C++ & Node.js (Express)
 ------------------------------------------------------------------
-Specialized in writing low-latency backend systems, consensus 
-implementations, custom networking layers, and high-performance APIs.
-Tech Stack: C++, Java, JavaScript, Shell Scripting, Docker, Redis, MySQL.`,
+Specialized in low-latency backend systems: epoll-based proxies in
+C++20, async REST/WebSocket APIs in Express, and Redis/PostgreSQL
+underneath. No blocking I/O, no wasted allocations.
+Stack: C++, JavaScript (Node.js/Express), Redis, PostgreSQL, Docker.`,
           type: 'output'
         });
         break;
 
       case 'skills':
         newHistory.push({
-          text: `Language       Concur. Model    Latency Prof.   Core Specialty
+          text: `Language       Concurrency    Latency        Specialty
 ------------------------------------------------------------------
-C++            Thread Pool      Sub-ms          High-perf Engines, HTTP Servers
-Java           Virtual Threads  ~5-10ms         Microservices, Raft Consensus
-JavaScript     Async Event Loop ~15-30ms        BFF, API Gateways, WebSockets
-Shell Script   Sync Scripting   N/A             Automation, CI/CD, Pipelines`,
+C++            Thread pool    Sub-ms         epoll proxies, match engines
+JavaScript     Event loop     ~5-15ms        Express REST/WS APIs, BFF
+Shell Script   Sync scripts   N/A            CI/CD, automation, deploys`,
           type: 'output'
         });
         break;
 
       case 'projects':
         newHistory.push({
-          text: `Featured Distributed Systems:
+          text: `Backend Systems Built:
 ------------------------------------------------------------------
-1. HydraHTTP (C++)
-   - Event-driven, multithreaded HTTP/1.1 server. Custom thread pool.
-2. DistriQueue (Java)
-   - Distributed message broker with Raft consensus and Netty TCP networking.
+1. ApolloGateway (C++)
+   - Asynchronous reverse proxy. Edge-triggered epoll, consistent
+     hashing, Redis rate limiting.
+2. Express API Gateway (Node.js)
+   - REST + WebSocket routing with JWT auth and validated handlers.
 3. TelemetryPipe (JS + Shell)
-   - Real-time metric ingestion engine with automated Bash telemetry scripts.`,
+   - Real-time metric ingestion with automated Bash telemetry.`,
           type: 'output'
         });
         break;
@@ -86,29 +87,29 @@ Shell Script   Sync Scripting   N/A             Automation, CI/CD, Pipelines`,
         if (args[0] === 'arch.txt') {
           newHistory.push({
             text: `
-[Client Requests]
-       │ (HTTPS/WebSockets)
-       ▼
-┌──────────────┐
-│Load Balancer │ <── [Rate Limiter (Redis)]
-└──────┬───────┘
-       │ (Custom TCP Protocol - C++)
-       ├───────────────────────┬───────────────────────┐
-       ▼                       ▼                       ▼
-┌──────────────┐        ┌──────────────┐        ┌──────────────┐
-│ Auth Service │        │ Order Engine │        │ Notify Worker│
-│ (Java Spring)│        │ (C++ Core)   │        │ (Java NIO)   │
-└──────┬───────┘        └──────┬───────┘        └──────┬───────┘
-       │                       │                       │
-       ▼                       ▼                       ▼
-┌──────────────────────────────────────────────────────────────┐
-│                 Distributed Cache Layer (Redis)               │
-└──────────────────────────────┬───────────────────────────────┘
-                               ▼
-                    ┌──────────────────────┐
-                    │ MySQL Cluster (Raft) │
-                    │ [Primary] ──►Replica │
-                    └──────────────────────┘`,
+[ Clients ]  Web · Mobile · SDK
+      │  HTTPS / WebSockets
+      ▼
+┌─────────────────────────┐
+│   Edge Proxy            │  C++20 · epoll
+│   consistent hashing    │  ◄─ rate limit (Redis)
+└───────────┬─────────────┘
+      ┌─────┴─────┐
+      ▼           ▼
+┌──────────┐ ┌──────────┐
+│ Express  │ │  Core    │
+│ API      │ │  Engine  │
+│ Node.js  │ │  C++20   │
+└────┬─────┘ └────┬─────┘
+      └─────┬─────┘
+            ▼
+     ┌──────────┐
+     │  Redis   │  cache · 94% hit
+     └────┬─────┘
+          ▼
+    ┌──────────┐
+    │PostgreSQL│  source of truth
+    └──────────┘`,
             type: 'code'
           });
         } else {
@@ -117,60 +118,58 @@ Shell Script   Sync Scripting   N/A             Automation, CI/CD, Pipelines`,
         break;
 
       case 'ping':
-        if (args[0] === 'db_replica') {
-          newHistory.push({ text: 'PING db_replica (10.0.4.15) 56(84) bytes of data.', type: 'info' });
-          
-          // Simulate a multi-line ping response
+        if (args[0] === 'cache') {
+          newHistory.push({ text: 'PING cache (10.0.4.11) 56(84) bytes of data.', type: 'info' });
+
           setTimeout(() => {
             setHistory(prev => [
               ...prev,
-              { text: '64 bytes from 10.0.4.15: icmp_seq=1 ttl=64 time=0.342 ms', type: 'output' },
-              { text: '64 bytes from 10.0.4.15: icmp_seq=2 ttl=64 time=0.285 ms', type: 'output' },
-              { text: '64 bytes from 10.0.4.15: icmp_seq=3 ttl=64 time=0.311 ms', type: 'output' },
-              { text: '--- db_replica ping statistics ---', type: 'info' },
+              { text: '64 bytes from 10.0.4.11: icmp_seq=1 ttl=64 time=0.312 ms', type: 'output' },
+              { text: '64 bytes from 10.0.4.11: icmp_seq=2 ttl=64 time=0.288 ms', type: 'output' },
+              { text: '64 bytes from 10.0.4.11: icmp_seq=3 ttl=64 time=0.305 ms', type: 'output' },
+              { text: '--- cache ping statistics ---', type: 'info' },
               { text: '3 packets transmitted, 3 received, 0% packet loss, time 2002ms', type: 'output' },
-              { text: 'rtt min/avg/max/mdev = 0.285/0.312/0.342/0.023 ms (Excellent replication sync)', type: 'success' }
+              { text: 'rtt min/avg/max/mdev = 0.288/0.301/0.312/0.012 ms (warm cache)', type: 'success' }
             ]);
           }, 300);
         } else {
-          newHistory.push({ text: `Usage: ping db_replica`, type: 'error' });
+          newHistory.push({ text: `Usage: ping cache`, type: 'error' });
         }
         break;
 
       case 'deploy':
-        newHistory.push({ text: 'Starting pipeline trigger: deploy-prod.sh...', type: 'info' });
+        newHistory.push({ text: 'Starting pipeline trigger: release-v2.0.0.sh...', type: 'info' });
         newHistory.push({ text: '[STAGE 1/4] Linting and Code Analysis...', type: 'info' });
-        
+
         setTimeout(() => {
           setHistory(prev => [
             ...prev,
-            { text: '✔ oxlint check passed (0 warnings, 0 errors) [JS/React]', type: 'success' },
-            { text: '[STAGE 2/4] Compiling C++ Server Engine & Java Core...', type: 'info' }
+            { text: '✔ oxlint check passed (0 warnings, 0 errors) [Express + React]', type: 'success' },
+            { text: '[STAGE 2/4] Compiling C++ engine & bundling Express API...', type: 'info' }
           ]);
-          
+
           setTimeout(() => {
             setHistory(prev => [
               ...prev,
-              { text: '✔ C++ HydraHTTP compiled: g++ -O3 -std=c++20 (HydraHTTP bin created)', type: 'success' },
-              { text: '✔ Java DistriQueue compiled: maven package success (JAR built)', type: 'success' },
+              { text: '✔ g++ -O3 -std=c++20 core_engine.cpp (core_engine built)', type: 'success' },
+              { text: '✔ esbuild bundle → dist/api.mjs (Express API packaged)', type: 'success' },
               { text: '[STAGE 3/4] Running Integration & Stress Tests...', type: 'info' }
             ]);
-            
+
             setTimeout(() => {
               setHistory(prev => [
                 ...prev,
-                { text: '✔ 12/12 C++ thread-pool unit tests PASSED', type: 'success' },
-                { text: '✔ 8/8 Java Raft consensus replication tests PASSED', type: 'success' },
-                { text: '[STAGE 4/4] Automated Docker Swarm Deployment...', type: 'info' }
+                { text: '✔ 12/12 C++ epoll proxy tests PASSED', type: 'success' },
+                { text: '✔ 8/8 Express API integration tests PASSED', type: 'success' },
+                { text: '[STAGE 4/4] Rolling Deployment...', type: 'info' }
               ]);
-              
+
               setTimeout(() => {
                 setHistory(prev => [
                   ...prev,
-                  { text: '🐳 Building Docker images: tag=latest', type: 'info' },
-                  { text: '🚀 Pushing images to registry.internal.net...', type: 'info' },
-                  { text: '🔥 Re-routing load balancer connections (Rolling update)...', type: 'info' },
-                  { text: '🚀 DEPLOYMENT COMPLETED SUCCESSFULY in 4.82s (Version v2.4.0 active)', type: 'success' }
+                  { text: '🐳 Building Docker images (tag=latest)', type: 'info' },
+                  { text: '🔥 Re-routing load balancer (zero-downtime)', type: 'info' },
+                  { text: '🚀 DEPLOYMENT COMPLETED SUCCESSFULLY in 4.21s (v2.0.0 active)', type: 'success' }
                 ]);
               }, 600);
             }, 600);
@@ -180,15 +179,15 @@ Shell Script   Sync Scripting   N/A             Automation, CI/CD, Pipelines`,
 
       case 'system-status':
         newHistory.push({
-          text: `SYSTEM MONITOR: Production Environment
+          text: `SYSTEM MONITOR: Production
 ------------------------------------------------------------------
-[CPU Usage]     [████░░░░░░] 42% (C++ Core Eng: 15%, Java Worker: 22%)
-[RAM Usage]     [██████░░░░] 6.1GB / 16GB (38%)
-[Network In]    48.2 MB/s
-[Network Out]   142.9 MB/s
-[Active Conns]  18,492 persistent TCP connections
-[DB Replica]    Synced (Lag: 0.00ms)
-[Cache Hit]     94.2% (128,490 req/min cached in Redis)`,
+[CPU]          [████░░░░░░] 41%  (C++ engine 18%, Node 15%)
+[MEMORY]       [██████░░░░] 6.1GB / 16GB (38%)
+[NETWORK IN]   48.2 MB/s
+[NETWORK OUT]  142.9 MB/s
+[ACTIVE CONNS] 18,492 TCP connections (epoll proxy)
+[CACHE HIT]    94.2% (Redis · 128k req/min)
+[DB LAG]       Postgres replica synced · 0.00ms`,
           type: 'output'
         });
         break;
@@ -217,7 +216,7 @@ Shell Script   Sync Scripting   N/A             Automation, CI/CD, Pipelines`,
       <div className="terminal-header">
         <div className="terminal-title">
           <Terminal size={14} style={{ color: 'var(--accent-cyan)' }} />
-          <span>Interactive Systems Shell</span>
+          <span>Backend Ops Shell</span>
         </div>
         <div className="terminal-window-buttons">
           <span className="terminal-window-button red"></span>
