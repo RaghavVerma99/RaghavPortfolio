@@ -106,6 +106,18 @@ export function RevealWords({ text, className = "", stagger = 0.015 }) {
   )
 }
 
+export function GlowCard({ children, className = "", hover = true }) {
+  return (
+    <div
+      data-cursor
+      className={`glass-lux relative overflow-hidden rounded-3xl ${hover ? "group transition-transform duration-500 hover:-translate-y-1" : ""} ${className}`}
+    >
+      <div aria-hidden className="glass-shine pointer-events-none absolute inset-0" />
+      <div className="relative z-10">{children}</div>
+    </div>
+  )
+}
+
 export function CountUp({ to, suffix = "", decimals = 0, duration = 2 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })

@@ -43,7 +43,7 @@ function SpotlightCard({ children, active = false, className = "" }) {
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1400 }}
-      className={`spotlight-card glass group relative h-full rounded-3xl p-7 transition-colors duration-300 hover:border-accent/40 md:p-9 ${
+      className={`spotlight-card glass-lux group relative h-full overflow-hidden rounded-3xl p-7 transition-colors duration-300 hover:border-accent/40 md:p-9 ${
         active ? "border-accent/50" : ""
       } ${className}`}
     >
@@ -63,8 +63,11 @@ export default function Projects() {
   return (
     <Section id="work" className="relative overflow-hidden">
       <Watermark>Work</Watermark>
-      <SectionLabel index="04" label="Selected Work" />
-      <p className="mt-6 max-w-xl text-muted">
+      <SectionLabel index="05" label="Selected Work" />
+      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
+        Systems that <span className="italic-display text-gradient text-[1.05em]">ship.</span>
+      </h2>
+      <p className="mt-4 max-w-xl text-muted">
         Click a project to open its full case study — problem, approach, architecture, and the
         trade-offs I made.
       </p>
@@ -122,7 +125,7 @@ export default function Projects() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.45, ease: EASE }}
-          className="glass mt-6 rounded-3xl p-7 md:p-10"
+          className="glass-lux mt-6 rounded-3xl p-7 md:p-10"
         >
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>

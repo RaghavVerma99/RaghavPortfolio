@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react"
-import { AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion"
 import Lenis from "lenis"
 import Loader from "./components/Loader"
 import Navbar from "./components/Navbar"
@@ -11,6 +11,11 @@ import Projects from "./components/Projects"
 import Contact from "./components/Contact"
 import Games from "./components/Games"
 import Footer from "./components/Footer"
+import Marquee from "./components/Marquee"
+import Cursor from "./components/Cursor"
+import Overview from "./components/Overview"
+import Proof from "./components/Proof"
+import RecruiterDock from "./components/RecruiterDock"
 
 const Architecture = lazy(() => import("./components/Architecture"))
 
@@ -51,6 +56,8 @@ function LazyArchitecture() {
 
 export default function App() {
   const [loading, setLoading] = useState(true)
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 })
 
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.2 })
@@ -86,17 +93,29 @@ export default function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-ink text-paper">
+    <div className="relative min-h-screen bg-ink text-paper">
+      <div className="aurora" aria-hidden />
+      <div className="grain" aria-hidden />
+      <Cursor />
+      <RecruiterDock />
+      <motion.div
+        aria-hidden
+        className="nav-progress pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px] bg-accent"
+        style={{ scaleX: progress }}
+      />
       <AnimatePresence>
         {loading && <Loader key="loader" onDone={() => setLoading(false)} />}
       </AnimatePresence>
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <Hero />
+        <Marquee />
+        <Overview />
         <About />
         <Skills />
         <Experience />
         <Projects />
+        <Proof />
         <LazyArchitecture />
         <Contact />
         <Games />

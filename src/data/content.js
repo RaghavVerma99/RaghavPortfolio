@@ -4,9 +4,11 @@ export const site = {
   role: "Software Engineer",
   firstName: "Raghav",
   location: "Greater Noida, India",
+  timezone: "IST (UTC+5:30)",
   email: "risshu.verma7@gmail.com",
   phone: "+91 9289202320",
   availability: "Open to SDE / SWE intern & full-time roles",
+  notice: "Available for internships now · full-time from 2027",
   portrait: "src/assets/portrait.jpg",
   intro:
     "I build high-performance backend systems and full-stack applications — from C++ network proxies handling 10K+ connections to sandboxed code compilers. Currently a B.Tech CSE undergrad obsessed with distributed systems.",
@@ -17,13 +19,89 @@ export const site = {
 }
 
 export const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
+  { label: "Overview", href: "#overview" },
   { label: "Work", href: "#work" },
-  { label: "Systems", href: "#systems" },
+  { label: "Experience", href: "#experience" },
+  { label: "Proof", href: "#proof" },
   { label: "Contact", href: "#contact" },
-  { label: "Playground", href: "#games" },
+]
+
+export const lookingFor = [
+  "SDE / SWE internships",
+  "New-grad / full-time SWE",
+  "Backend & distributed systems",
+  "Full-stack product teams",
+]
+
+export const snapshotFacts = [
+  { k: "Role", v: "SWE Intern · AmbiguityLabs" },
+  { k: "Degree", v: "B.Tech CSE · 2027" },
+  { k: "Focus", v: "Backend · systems · APIs" },
+  { k: "Base", v: "Greater Noida · IST" },
+]
+
+export const focusAreas = [
+  {
+    title: "Backend APIs",
+    copy: "REST services in Node/Express with validation, caching, and clean error paths.",
+    tags: ["Node.js", "Express", "PostgreSQL", "Redis"],
+  },
+  {
+    title: "Distributed systems",
+    copy: "Load balancing, rate limits, circuit breakers, and cache locality under load.",
+    tags: ["Consistent hashing", "Token bucket", "Failover"],
+  },
+  {
+    title: "Systems in C++",
+    copy: "Event-driven IO with epoll, thread pools, and low per-connection overhead.",
+    tags: ["C++20", "epoll", "Concurrency"],
+  },
+  {
+    title: "Product surfaces",
+    copy: "React and Flutter UIs that talk to real APIs — not mock-only demos.",
+    tags: ["React", "Flutter", "WebSockets"],
+  },
+]
+
+export const csTopics = [
+  "Data Structures & Algorithms",
+  "Operating Systems",
+  "Computer Networks",
+  "DBMS / SQL",
+  "OOP",
+  "Concurrency",
+  "System design (fundamentals)",
+]
+
+export const proofLinks = [
+  {
+    label: "GitHub",
+    handle: "RaghavVerma99",
+    detail: "Projects & open source",
+    href: "https://github.com/RaghavVerma99",
+    cta: "View repos",
+  },
+  {
+    label: "LeetCode",
+    handle: "risshu_raghav",
+    detail: "500+ problems · DSA reps",
+    href: "https://leetcode.com/u/risshu_raghav",
+    cta: "View profile",
+  },
+  {
+    label: "LinkedIn",
+    handle: "raghav-verma7",
+    detail: "Experience & recommendations",
+    href: "https://linkedin.com/in/raghav-verma7",
+    cta: "Connect",
+  },
+  {
+    label: "Email",
+    handle: "risshu.verma7@gmail.com",
+    detail: "Screens or a quick intro",
+    href: "mailto:risshu.verma7@gmail.com?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma",
+    cta: "Write",
+  },
 ]
 
 export const marquee = [
@@ -55,8 +133,8 @@ export const skills = [
     items: ["React", "Flutter", "Tailwind CSS", "Vite", "Redux Toolkit", "Responsive Design"],
   },
   {
-    title: "Design & Craft",
-    items: ["Design Systems", "Typography", "Color Theory", "Motion Design", "Accessibility", "UI Engineering"],
+    title: "Systems",
+    items: ["epoll / async I/O", "Concurrency", "TCP/IP", "Load balancing", "Caching", "Circuit breakers"],
   },
   {
     title: "Backend",

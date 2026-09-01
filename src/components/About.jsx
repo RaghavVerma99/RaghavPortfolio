@@ -2,13 +2,13 @@ import { site, stats } from "../data/content"
 import portrait from "../assets/portrait.jpg"
 import ProfileStrip from "./ProfileStrip"
 import Watermark from "./Watermark"
-import { CountUp, Reveal, RevealWords, Section, SectionLabel } from "./ui"
+import { CountUp, GlowCard, Reveal, RevealWords, Section, SectionLabel } from "./ui"
 
 export default function About() {
   return (
     <Section id="about">
       <Watermark>About</Watermark>
-      <SectionLabel index="01" label="About" />
+      <SectionLabel index="02" label="About" />
       <RevealWords
         text={site.aboutBig}
         className="mt-12 font-display text-3xl font-semibold leading-snug text-paper md:text-5xl"
@@ -18,27 +18,21 @@ export default function About() {
           <p className="max-w-2xl text-lg leading-relaxed text-paper/70">{site.about}</p>
           <div className="mt-8 flex flex-wrap gap-2">
             {["System Design", "Distributed Systems", "Open Source", "Hackathon"].map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-white/10 px-4 py-1.5 font-mono text-[11px] text-muted"
-              >
+              <span key={t} className="chip">
                 {t}
               </span>
             ))}
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          <div className="mt-10 grid grid-cols-2 gap-3">
             {stats.map((s) => (
-              <div
-                key={s.label}
-                className="bg-white/[0.025] px-5 py-6 transition-colors duration-300 hover:bg-white/[0.05]"
-              >
+              <GlowCard key={s.label} className="px-5 py-6">
                 <p className="font-display text-4xl font-bold text-paper">
                   <CountUp to={s.value} suffix={s.suffix} />
                 </p>
                 <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                   {s.label}
                 </p>
-              </div>
+              </GlowCard>
             ))}
           </div>
           <ProfileStrip />

@@ -18,14 +18,17 @@ export default function Loader({ onDone }) {
           {site.name}
           <span className="text-accent">.</span>
         </span>
-        <div className="mx-auto mt-5 h-px w-28 overflow-hidden bg-white/10">
+        <div className="mx-auto mt-6 h-px w-36 overflow-hidden bg-white/10">
           <motion.div
-            className="h-full bg-accent"
-            initial={{ x: "-100%" }}
-            animate={{ x: "100%" }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
+            className="h-full w-1/2 bg-accent"
+            initial={{ x: "-120%" }}
+            animate={{ x: "220%" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           />
         </div>
+        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.35em] text-muted">
+          Loading systems
+        </p>
       </div>
     </motion.div>
   )

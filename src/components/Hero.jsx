@@ -15,12 +15,12 @@ const lines = [
   {
     text: "Building Systems",
     cls: "text-stroke",
-    size: "text-[13vw] md:text-[9.5vw]",
+    size: "text-[12vw] md:text-[8.4vw] xl:text-[6.6vw]",
   },
   {
     text: "That Ship & Scale",
-    cls: "text-gradient italic",
-    size: "text-[13vw] md:text-[9.5vw]",
+            cls: "italic-display text-gradient",
+    size: "text-[12vw] md:text-[8.4vw] xl:text-[6.6vw]",
   },
 ]
 
@@ -44,43 +44,45 @@ export default function Hero() {
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.25, duration: 0.6, ease: EASE }}
-          className="mb-10 inline-flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 font-mono text-xs text-muted"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-          </span>
-          {site.availability}
-        </motion.div>
-
-        <h1 className="font-display font-bold leading-[1.04] tracking-tight">
-          {lines.map((line, i) => (
-            <span key={line.text} className="block">
-              <StaggerWords
-                text={line.text}
-                delay={1.35 + i * 0.14}
-                className={`block ${line.size} ${line.cls}`}
-              />
+      <div className="relative flex items-start justify-between gap-10">
+        <div className="min-w-0 flex-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.25, duration: 0.6, ease: EASE }}
+            className="mb-10 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 font-mono text-xs text-muted backdrop-blur-xl"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
-          ))}
-        </h1>
-      </div>
+            {site.availability}
+          </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.8, ease: EASE }}
-        className="pointer-events-none absolute bottom-44 right-8 hidden lg:block"
-      >
-        <div className="pointer-events-auto [transform:perspective(900px)_rotateY(-8deg)]">
-          <Terminal />
+          <h1 className="font-display font-bold leading-[1.04] tracking-tight">
+            {lines.map((line, i) => (
+              <span key={line.text} className="block">
+                <StaggerWords
+                  text={line.text}
+                  delay={1.35 + i * 0.14}
+                  className={`block ${line.size} ${line.cls}`}
+                />
+              </span>
+            ))}
+          </h1>
         </div>
-      </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24, rotate: 4 }}
+          animate={{ opacity: 1, y: 0, rotate: 0 }}
+          transition={{ delay: 1.9, duration: 0.8, ease: EASE }}
+          className="mt-16 hidden shrink-0 xl:block"
+        >
+          <div className="[transform:perspective(900px)_rotateY(-10deg)_rotateX(4deg)]">
+            <Terminal />
+          </div>
+        </motion.div>
+      </div>
 
       <div className="relative mt-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
         <motion.p
@@ -109,10 +111,20 @@ export default function Hero() {
           </Magnetic>
           <Magnetic>
             <a
-              href="#contact"
+              href="#overview"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-paper backdrop-blur-xl transition-colors hover:border-accent hover:text-accent"
+            >
+              Recruiter overview
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href="https://linkedin.com/in/raghav-verma7"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-paper transition-colors hover:border-accent hover:text-accent"
             >
-              Get in touch
+              LinkedIn
             </a>
           </Magnetic>
         </motion.div>
@@ -125,7 +137,7 @@ export default function Hero() {
         className="relative mt-14 flex items-center justify-between border-t border-line pt-6 font-mono text-[11px] uppercase tracking-widest text-muted"
       >
         <span>{site.location}</span>
-        <span className="hidden md:block">B.Tech CSE '27 · SDE / SWE</span>
+        <span className="hidden md:block">{site.timezone} · B.Tech CSE '27</span>
         <span className="flex items-center gap-2">
           Scroll{" "}
           <motion.span

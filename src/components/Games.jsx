@@ -15,9 +15,9 @@ export default function Games() {
         aria-hidden
         className="pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-[#4d9bff]/10 blur-3xl"
       />
-      <SectionLabel index="07" label="Playground" />
+      <SectionLabel index="09" label="Playground" />
       <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
-        Take a break. <span className="text-gradient italic">Have some fun.</span>
+        Take a break. <span className="italic-display text-gradient text-[1.05em]">Have some fun.</span>
       </h2>
       <p className="mt-4 max-w-xl text-base text-muted">
         Two small games built straight into the site — a minimax-powered Tic-Tac-Toe and a memory

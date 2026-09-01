@@ -9,7 +9,7 @@ export default function Navbar() {
   const [active, setActive] = useState("")
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32)
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
@@ -45,22 +45,25 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled ? "glass" : "border-b border-transparent"
-        }`}
+        className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6"
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-12">
-          <a href="#top" className="font-display text-lg font-bold tracking-tight">
-            {site.name}
+        <nav
+          className={`mx-auto flex max-w-6xl items-center justify-between rounded-full px-4 py-2.5 transition-all duration-300 md:px-5 ${
+            scrolled ? "glass-lux" : "border border-transparent"
+          }`}
+        >
+          <a href="#top" className="font-display text-base font-bold tracking-tight md:text-lg">
+            {site.initials}
             <span className="text-accent">.</span>
+            <span className="ml-2 hidden font-normal text-paper/70 sm:inline">{site.name}</span>
           </a>
 
-          <ul className="hidden items-center gap-8 md:flex">
+          <ul className="hidden items-center gap-5 md:flex lg:gap-7">
             {navLinks.map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
-                  className={`group relative font-mono text-xs uppercase tracking-widest transition-colors ${
+                  className={`group relative font-mono text-[11px] uppercase tracking-widest transition-colors ${
                     active === l.href.slice(1) ? "text-accent" : "text-muted hover:text-paper"
                   }`}
                 >
@@ -75,13 +78,13 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="hidden md:block">
+          <div className="hidden items-center gap-2 md:flex">
             <Magnetic>
               <a
-                href={`mailto:${site.email}`}
-                className="rounded-full border border-white/15 px-5 py-2 font-mono text-xs uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
+                href={`mailto:${site.email}?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma`}
+                className="rounded-full bg-paper px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-ink transition-colors hover:bg-accent"
               >
-                Let's talk
+                Hire me
               </a>
             </Magnetic>
           </div>
@@ -104,7 +107,7 @@ export default function Navbar() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[90] flex flex-col bg-ink"
+            className="fixed inset-0 z-[90] flex flex-col bg-ink/95 backdrop-blur-2xl"
           >
             <div className="flex items-center justify-between px-6 py-5">
               <span className="font-display text-lg font-bold">
@@ -140,7 +143,11 @@ export default function Navbar() {
               ))}
             </ul>
 
-            <div className="px-6 pb-8 font-mono text-xs text-muted">{site.email}</div>
+            <div className="flex flex-wrap gap-4 px-6 pb-10 font-mono text-xs">
+              <a href={`mailto:${site.email}`} className="text-muted">
+                {site.email}
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
