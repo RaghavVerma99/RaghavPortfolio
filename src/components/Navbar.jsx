@@ -74,10 +74,10 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: hidden ? -96 : 0, opacity: 1 }}
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: hidden ? 0 : 1.0 }}
-        className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6"
+        className="fixed inset-x-0 top-0 z-50 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] md:px-6"
       >
         <nav
-          className={`relative mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 md:rounded-full md:px-5 ${
+          className={`relative mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-2xl px-4 py-2.5 transition-all duration-500 md:rounded-full md:px-5 ${
             scrolled ? "glass-lux depth-3" : "border border-transparent bg-transparent"
           }`}
           aria-label="Primary"
@@ -98,7 +98,7 @@ export default function Navbar() {
             </span>
           </a>
 
-          <ul className="hidden items-center gap-6 md:flex lg:gap-8">
+          <ul className="hidden items-center gap-5 md:flex lg:gap-8">
             {navLinks.map((l) => {
               const isActive = active === l.href.slice(1)
               return (
@@ -106,7 +106,7 @@ export default function Navbar() {
                   <a
                     href={l.href}
                     aria-current={isActive ? "true" : undefined}
-                    className={`group relative flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest transition-colors ${
+                    className={`group relative flex items-center gap-1.5 py-2 font-mono text-[11px] uppercase tracking-widest transition-colors ${
                       isActive ? "text-accent" : "text-muted hover:text-paper"
                     }`}
                   >
@@ -198,7 +198,7 @@ export default function Navbar() {
               </button>
             </div>
 
-            <ul className="flex flex-1 flex-col justify-center gap-1 px-6">
+            <ul className="flex flex-1 flex-col justify-center gap-1 overflow-y-auto px-6 py-4">
               {navLinks.map((l, i) => (
                 <motion.li
                   key={l.label}

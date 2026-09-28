@@ -40,7 +40,7 @@ function NodeBox({ id, selected, onSelect }) {
         background: selected ? `${n.color}14` : "rgba(255,255,255,0.03)",
         boxShadow: selected ? `0 0 0 1px ${n.color}, 0 0 30px ${n.color}33` : undefined,
       }}
-      className="relative flex w-full flex-col items-center justify-center gap-1.5 rounded-xl border px-4 py-3 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-white/25 md:w-auto"
+      className="relative flex w-full min-h-[44px] flex-col items-center justify-center gap-1.5 rounded-xl border px-4 py-3 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-white/25 md:w-auto"
     >
       {selected && (
         <span
@@ -212,7 +212,11 @@ export default function SystemDiagram({ selectedId, onSelectNode }) {
         </span>
       </div>
 
-      <div className="mx-auto mt-6 flex max-w-2xl flex-col items-center">
+      {/* Horizontal scrolling beat: the diagram keeps its 300px node row so
+          the connector geometry stays intact, and scrolls rather than
+          reflowing into an unreadable stack. */}
+      <div className="mt-6 overflow-x-auto pb-2 [-webkit-overflow-scrolling:touch]">
+      <div className="mx-auto flex min-w-[300px] max-w-2xl flex-col items-center">
         {/* Tier 1 — Client */}
         <TierLabel>01 · Client Tier</TierLabel>
         <div className="mt-2 flex w-full max-w-[220px] items-center justify-center">
@@ -265,6 +269,7 @@ export default function SystemDiagram({ selectedId, onSelectNode }) {
         <div className="mt-2 flex w-full max-w-[280px] items-center justify-center">
           <NodeBox id="db" selected={selectedId === "db"} onSelect={onSelectNode} />
         </div>
+      </div>
       </div>
 
       <LiveLog />

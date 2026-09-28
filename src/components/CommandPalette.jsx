@@ -164,7 +164,7 @@ export default function CommandPalette() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[110] flex items-start justify-center bg-ink/70 px-4 pt-[12vh] backdrop-blur-sm"
+          className="fixed inset-0 z-[110] flex items-start justify-center bg-ink/70 px-4 pt-[8vh] backdrop-blur-sm sm:pt-[12vh]"
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) setOpen(false)
           }}
@@ -187,7 +187,7 @@ export default function CommandPalette() {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={onKeyDown}
                 placeholder="Search… (nav, actions, profiles)"
-                className="w-full bg-transparent py-4 font-mono text-sm text-paper outline-none placeholder:text-muted/70"
+                className="w-full min-w-0 bg-transparent py-4 font-mono text-sm text-paper outline-none placeholder:text-muted/70"
                 aria-label="Search commands"
                 role="combobox"
                 aria-expanded="true"

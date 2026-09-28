@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { projects } from "../data/content"
-import { Section, SectionHeader, Stagger, StaggerItem, TiltCard } from "./ui"
+import { Section, SectionBody, SectionHeader, Stagger, StaggerItem, TiltCard } from "./ui"
 import Watermark from "./Watermark"
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -25,6 +25,7 @@ export default function Projects() {
         lede="Click a project to open its full case study — problem, approach, architecture, and the trade-offs I made."
       />
 
+      <SectionBody>
       <Stagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" gap={0.1}>
         {projects.map((p, i) => (
           <StaggerItem key={p.title} className="h-full" y={34}>
@@ -108,6 +109,7 @@ export default function Projects() {
           </StaggerItem>
         ))}
       </Stagger>
+    </SectionBody>
 
       <AnimatePresence mode="wait">
         <motion.div

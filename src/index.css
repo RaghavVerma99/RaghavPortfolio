@@ -111,6 +111,13 @@ body {
   overflow-x: hidden;
   cursor: none;
   font-feature-settings: "cv11", "ss01";
+  /* Kills the 300ms tap delay and the grey flash Android adds on tap.
+     `manipulation` is the one value that preserves pinch-zoom. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* The fixed recruiter dock sits over the footer; this keeps the last
+     line of content clear of it on small screens. */
+  padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem);
 }
 
 input,

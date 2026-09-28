@@ -32,9 +32,9 @@ export default function Games() {
           <TicTacToe />
         </Reveal>
         <Reveal delay={0.1} className="h-full">
-          <MemoryMatch />
-        </Reveal>
-      </div>
-    </Section>
+            <MemoryMatch />
+          </Reveal>
+        </SectionBody>
+      </Section>
   )
 }

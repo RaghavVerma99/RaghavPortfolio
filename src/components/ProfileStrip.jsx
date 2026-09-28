@@ -9,7 +9,7 @@ const ICONS = {
 
 export default function ProfileStrip() {
   return (
-    <div className="mt-10 grid gap-3 sm:grid-cols-3">
+    <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
       {profiles.map((p, i) => {
         const Icon = ICONS[p.icon]
         return (
@@ -18,17 +18,25 @@ export default function ProfileStrip() {
             href={p.href}
             target="_blank"
             rel="noreferrer"
-            className="group glass rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
+            className="glass lift flex flex-col rounded-2xl p-5"
             style={{ transitionDelay: `${i * 30}ms` }}
           >
-            <div className="flex items-center justify-between">
-              <span className="text-accent">{Icon && <Icon size={18} strokeWidth={1.75} />}</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted transition-colors group-hover:text-paper">
+            <div className="flex items-center justify-between gap-2">
+              <span className="shrink-0 text-accent">
+                {Icon && <Icon size={18} strokeWidth={1.75} />}
+              </span>
+              <span className="truncate font-mono text-[10px] uppercase tracking-[0.2em] text-muted transition-colors group-hover:text-paper">
                 {p.label}
               </span>
             </div>
-            <p className="mt-4 font-mono text-sm font-semibold text-paper">{p.handle}</p>
-            <p className="mt-1 font-mono text-[11px] text-muted">{p.stat}</p>
+            {/* min-w-0 lets the handle truncate instead of forcing the card
+                wider than its grid track on narrow screens. */}
+            <p className="mt-4 truncate font-mono text-sm font-semibold text-paper">
+              {p.handle}
+            </p>
+            <p className="mt-1.5 font-mono text-[11px] leading-relaxed text-muted">
+              {p.stat}
+            </p>
           </a>
         )
       })}

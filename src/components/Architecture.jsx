@@ -3,7 +3,7 @@ import SystemDiagram from "./SystemDiagram"
 import NodeBrief from "./NodeBrief"
 import InteractiveTerminal from "./InteractiveTerminal"
 import Watermark from "./Watermark"
-import { Reveal, Section, SectionHeader } from "./ui"
+import { Reveal, Section, SectionBody, SectionHeader } from "./ui"
 
 export default function Architecture() {
   const [selected, setSelected] = useState("lb")
@@ -31,17 +31,19 @@ export default function Architecture() {
         }
         lede="The reference shape of the systems I build — a C++ edge proxy in front of Express services, with Redis and PostgreSQL underneath. Click a node for the brief."
       />
-      <Reveal className="mt-14">
-        <SystemDiagram selectedId={selected} onSelectNode={setSelected} />
-      </Reveal>
-      <div className="mt-6 grid min-w-0 gap-6 lg:grid-cols-2">
-        <Reveal className="h-full min-w-0">
-          <NodeBrief selectedId={selected} />
+      <SectionBody>
+        <Reveal>
+          <SystemDiagram selectedId={selected} onSelectNode={setSelected} />
         </Reveal>
-        <Reveal delay={0.1} className="h-full min-w-0">
-          <InteractiveTerminal />
-        </Reveal>
-      </div>
+        <div className="mt-6 grid min-w-0 gap-6 lg:grid-cols-2">
+          <Reveal className="h-full min-w-0">
+            <NodeBrief selectedId={selected} />
+          </Reveal>
+          <Reveal delay={0.1} className="h-full min-w-0">
+            <InteractiveTerminal />
+          </Reveal>
+        </div>
+      </SectionBody>
     </Section>
   )
 }

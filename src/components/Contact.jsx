@@ -1,7 +1,14 @@
 import { proofLinks, site, socials } from "../data/content"
 import Magnetic from "./Magnetic"
 import Watermark from "./Watermark"
-import { GlowCard, Reveal, Section, SectionHeader, StaggerWords } from "./ui"
+import {
+  GlowCard,
+  Reveal,
+  Section,
+  SectionBody,
+  SectionHeader,
+  StaggerWords,
+} from "./ui"
 
 export default function Contact() {
   return (
@@ -12,13 +19,16 @@ export default function Contact() {
         kicker="Contact"
         meta={<>reach/routes</>}
       />
-      <div className="mt-14 flex flex-col gap-12 md:flex-row md:items-end md:justify-between">
+      <SectionBody className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between md:gap-14">
         <h2 className="font-display font-bold leading-[1.02] tracking-tight">
-          <StaggerWords text="Let's build" className="refract block text-[12vw] md:text-[7vw]" />
+          <StaggerWords
+            text="Let's build"
+            className="refract block text-[11.5vw] sm:text-[9.5vw] md:text-[7vw]"
+          />
           <StaggerWords
             text="something great"
             delay={0.08}
-            className="italic-display text-gradient refract block text-[12vw] md:text-[7vw]"
+            className="italic-display text-gradient refract block text-[11.5vw] sm:text-[9.5vw] md:text-[7vw]"
           />
         </h2>
         <Reveal delay={0.15} className="flex flex-col items-start gap-4 md:items-end md:pb-3">
@@ -28,7 +38,7 @@ export default function Contact() {
           <Magnetic>
             <a
               href={`mailto:${site.email}?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma`}
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-paper px-8 py-4 font-semibold text-ink transition-colors hover:bg-accent"
+              className="group relative inline-flex max-w-full items-center gap-3 overflow-hidden rounded-full bg-paper px-6 py-4 font-semibold text-ink transition-colors hover:bg-accent sm:px-8"
             >
               <span
                 aria-hidden
@@ -37,12 +47,12 @@ export default function Contact() {
               <span className="relative font-mono text-xs transition-transform duration-300 group-hover:-rotate-45">
                 →
               </span>
-              <span className="relative">{site.email}</span>
+              <span className="relative truncate">{site.email}</span>
             </a>
           </Magnetic>
           <a
             href={`tel:${site.phone.replace(/[^+\d]/g, "")}`}
-            className="inline-flex items-center gap-3 font-mono text-sm text-muted transition-colors hover:text-accent"
+            className="inline-flex min-h-[44px] items-center gap-3 py-1 font-mono text-sm text-muted transition-colors hover:text-accent"
           >
             {site.phone}
           </a>
@@ -55,35 +65,44 @@ export default function Contact() {
             Download resume <span aria-hidden>⇱</span>
           </a>
         </Reveal>
-      </div>
+      </SectionBody>
 
-      <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionBody className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
         {proofLinks.map((p) => (
-          <Reveal key={p.label}>
-            <a href={p.href} target={p.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="block">
-              <GlowCard className="group p-5">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-accent">{p.label}</p>
+          <Reveal key={p.label} className="h-full">
+            <a
+              href={p.href}
+              target={p.href.startsWith("http") ? "_blank" : undefined}
+              rel="noreferrer"
+              className="block h-full"
+            >
+              <GlowCard className="group h-full p-5">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-accent">
+                  {p.label}
+                </p>
                 <p className="mt-3 font-display text-lg font-bold tracking-tight">
                   {p.cta}{" "}
                   <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
                     ↗
                   </span>
                 </p>
-                <p className="mt-1 font-mono text-[11px] text-muted">{p.detail}</p>
+                <p className="mt-1.5 font-mono text-[11px] leading-relaxed text-muted">
+                  {p.detail}
+                </p>
               </GlowCard>
             </a>
           </Reveal>
         ))}
-      </div>
+      </SectionBody>
 
-        <Reveal delay={0.2} className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+      <Reveal delay={0.2} className="mt-10 flex flex-wrap gap-x-8 gap-y-1">
         {socials.map((s) => (
           <a
             key={s.label}
             href={s.href}
             target="_blank"
             rel="noreferrer"
-            className="group font-mono text-sm text-muted transition-colors hover:text-accent"
+            className="group inline-flex min-h-[44px] items-center font-mono text-sm text-muted transition-colors hover:text-accent"
           >
             {s.label}{" "}
             <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">

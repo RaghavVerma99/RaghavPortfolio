@@ -21,7 +21,7 @@ export default function Terminal() {
   }, [])
 
   return (
-    <div className="terminal-card glass w-[360px] rounded-2xl shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]">
+    <div className="terminal-card glass w-full max-w-[360px] rounded-2xl depth-4">
       <div className="terminal-header">
         <div className="terminal-window-buttons">
           <span className="terminal-window-button red" />
@@ -30,7 +30,7 @@ export default function Terminal() {
         </div>
         <span className="font-mono text-[10px] tracking-widest text-muted">rv@systems — zsh</span>
       </div>
-      <div className="space-y-1.5 break-words px-4 py-4 font-mono text-[11px] leading-relaxed text-paper/80">
+      <div className="space-y-1.5 break-words px-4 py-4 font-mono text-[11px] leading-relaxed text-paper/80 sm:text-xs">
         {LINES.slice(0, visible).map((line, i) => (
           <p key={i}>
             {line.kind === "cmd" && (

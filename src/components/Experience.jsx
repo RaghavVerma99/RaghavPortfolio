@@ -2,7 +2,7 @@ import { useRef } from "react"
 import { motion, useScroll, useSpring } from "framer-motion"
 import { education, experience } from "../data/content"
 import Watermark from "./Watermark"
-import { Reveal, Section, SectionHeader } from "./ui"
+import { Reveal, Section, SectionBody, SectionHeader } from "./ui"
 
 export default function Experience() {
   const ref = useRef(null)
@@ -27,7 +27,8 @@ export default function Experience() {
         }
       />
 
-      <div ref={ref} className="relative mt-14 space-y-8 border-l border-line pl-8 md:pl-12">
+      <SectionBody>
+      <div ref={ref} className="relative space-y-8 border-l border-line pl-7 sm:pl-9 md:pl-12">
         <motion.div
           aria-hidden
           style={{ scaleY: scrollYProgress }}
@@ -40,7 +41,7 @@ export default function Experience() {
         />
         {experience.map((job, i) => (
           <Reveal key={job.company} delay={i * 0.05} className="relative">
-            <span className="absolute -left-[41px] top-7 h-3 w-3 rounded-full border-2 border-accent bg-ink transition-transform duration-500 hover:scale-125 md:-left-[57px]" />
+            <span className="absolute -left-[35px] top-7 h-3 w-3 rounded-full border-2 border-accent bg-ink transition-transform duration-500 hover:scale-125 sm:-left-[43px] md:-left-[55px]" />
             <article className="glass-lux lift overflow-hidden rounded-3xl">
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-white/[0.07] bg-white/[0.03] px-6 py-4 md:px-8">
                 <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
@@ -82,7 +83,7 @@ export default function Experience() {
         ))}
 
         <Reveal className="relative">
-          <span className="absolute -left-[41px] top-7 h-3 w-3 rounded-full border-2 border-paper/30 bg-ink md:-left-[57px]" />
+          <span className="absolute -left-[35px] top-7 h-3 w-3 rounded-full border-2 border-paper/30 bg-ink sm:-left-[43px] md:-left-[55px]" />
           <article className="glass overflow-hidden rounded-3xl">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-white/[0.07] bg-white/[0.03] px-6 py-4 md:px-8">
               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
@@ -105,10 +106,11 @@ export default function Experience() {
                   </span>
                 ))}
               </div>
-            </div>
-          </article>
-        </Reveal>
-      </div>
+              </div>
+            </article>
+          </Reveal>
+        </div>
+      </SectionBody>
     </Section>
   )
 }

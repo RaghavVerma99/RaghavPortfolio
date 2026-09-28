@@ -2,7 +2,15 @@ import { site, stats } from "../data/content"
 import portrait from "../assets/portrait.jpg"
 import ProfileStrip from "./ProfileStrip"
 import Watermark from "./Watermark"
-import { CountUp, GlowCard, Reveal, RevealWords, Section, SectionHeader } from "./ui"
+import {
+  CountUp,
+  GlowCard,
+  Reveal,
+  RevealWords,
+  Section,
+  SectionBody,
+  SectionHeader,
+} from "./ui"
 
 export default function About() {
   return (
@@ -19,19 +27,23 @@ export default function About() {
           />
         }
       />
-      <div className="mt-16 grid gap-12 md:grid-cols-[1fr_320px]">
+      <SectionBody className="grid gap-12 md:grid-cols-[1fr_320px] md:gap-14">
         <Reveal>
-          <p className="max-w-2xl text-lg leading-relaxed text-paper/70">{site.about}</p>
-          <div className="mt-8 flex flex-wrap gap-2">
+          {/* Body copy gets generous leading and measure control — long
+              paragraphs were previously sitting too close to the card edge. */}
+          <p className="max-w-2xl text-[17px] leading-[1.75] text-paper/70 sm:text-lg">
+            {site.about}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-2.5">
             {["System Design", "Distributed Systems", "Open Source", "Hackathons"].map((t) => (
               <span key={t} className="chip chip-solid">
                 {t}
               </span>
             ))}
           </div>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line grid-cols-2 sm:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
             {stats.map((s) => (
-              <div key={s.label} className="bg-ink-2/80 px-4 py-5">
+              <div key={s.label} className="bg-ink-2/80 px-4 py-5 sm:px-5">
                 <p className="font-display text-2xl font-bold tracking-tight">
                   <CountUp to={s.value} />
                   <span className="text-accent">{s.suffix}</span>
@@ -42,7 +54,9 @@ export default function About() {
               </div>
             ))}
           </div>
-          <ProfileStrip />
+          <div className="mt-10">
+            <ProfileStrip />
+          </div>
         </Reveal>
         <Reveal delay={0.1} className="mx-auto w-full max-w-[380px]">
           <div className="group relative">
@@ -98,7 +112,7 @@ export default function About() {
             </div>
           </div>
         </Reveal>
-      </div>
+      </SectionBody>
     </Section>
   )
 }

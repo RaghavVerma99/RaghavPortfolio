@@ -31,7 +31,7 @@ export function Section({ id, children, className = "" }) {
   return (
     <section
       id={id}
-      className={`relative overflow-hidden px-5 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden px-5 py-[var(--sp-section)] sm:px-8 sm:py-[calc(var(--sp-section)+1.5rem)] lg:px-12 lg:py-[var(--sp-section-lg)] ${className}`}
     >
       <div className="relative z-10 mx-auto max-w-6xl">{children}</div>
     </section>
@@ -44,7 +44,7 @@ export function Section({ id, children, className = "" }) {
  * single largest source of layout inconsistency.
  */
 export function SectionBody({ children, className = "" }) {
-  return <div className={`mt-12 sm:mt-14 lg:mt-16 ${className}`}>{children}</div>
+  return <div className={`mt-[var(--sp-header)] sm:mt-[var(--sp-header-lg)] ${className}`}>{children}</div>
 }
 
 export function SectionLabel({ index, label, className = "" }) {

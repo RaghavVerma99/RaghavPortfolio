@@ -1,6 +1,6 @@
 import { skills } from "../data/content"
 import Watermark from "./Watermark"
-import { GlowCard, Section, SectionHeader, Stagger, StaggerItem } from "./ui"
+import { GlowCard, Section, SectionBody, SectionHeader, Stagger, StaggerItem } from "./ui"
 
 export default function Skills() {
   const total = skills.reduce((n, s) => n + s.items.length, 0)
@@ -19,6 +19,7 @@ export default function Skills() {
         lede="Backend-first: languages, APIs, data, and the systems layer that keeps latency honest."
       />
 
+      <SectionBody>
       <Stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" gap={0.08}>
         {skills.map((category) => (
           <StaggerItem key={category.title} className="h-full">
@@ -45,6 +46,7 @@ export default function Skills() {
           </StaggerItem>
         ))}
       </Stagger>
+    </SectionBody>
     </Section>
   )
 }

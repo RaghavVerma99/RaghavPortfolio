@@ -1,13 +1,5 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react"
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from "framer-motion"
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion"
 import Lenis from "lenis"
 import Loader from "./components/Loader"
 import Navbar from "./components/Navbar"
@@ -66,24 +58,12 @@ function LazyArchitecture() {
 
 export default function App() {
   const [loading, setLoading] = useState(true)
-  const reduceMotion = useReducedMotion()
 
-  const { scrollY, scrollYProgress } = useScroll()
+  const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 28,
     restDelta: 0.001,
-  })
-
-  // Scroll velocity → subtle skew/stretch. Reads as physical inertia in the
-  // page plane. Damped hard so it always settles back to a clean 0deg.
-  const velocity = useVelocity(scrollY)
-  const smoothVelocity = useSpring(velocity, { damping: 50, stiffness: 400 })
-  const skew = useTransform(smoothVelocity, [-4000, 0, 4000], [-2.6, 0, 2.6], {
-    clamp: true,
-  })
-  const stretch = useTransform(smoothVelocity, [-4000, 0, 4000], [1.015, 1, 0.985], {
-    clamp: true,
   })
 
   useEffect(() => {
@@ -139,10 +119,6 @@ export default function App() {
     }
   }, [])
 
-  const distort = reduceMotion
-    ? undefined
-    : { skewY: skew, scaleX: stretch, transformOrigin: "50% 50%" }
-
   return (
     <div className="relative min-h-screen bg-ink text-paper">
       <a
@@ -166,11 +142,10 @@ export default function App() {
         {loading && <Loader key="loader" onDone={() => setLoading(false)} />}
       </AnimatePresence>
       <Navbar />
-      <motion.main
-        id="main"
-        className="relative z-10 will-change-transform"
-        style={distort}
-      >
+      {/* Plain <main>: a transform here would promote the entire document to
+          its own composited layer, forcing the browser to keep a full-page
+          bitmap in memory and resampling text on every scroll frame. */}
+      <main id="main" className="relative z-10">
         <Hero />
         <Marquee />
         <Overview />
@@ -182,7 +157,7 @@ export default function App() {
         <LazyArchitecture />
         <Contact />
         <Games />
-      </motion.main>
+      </main>
       <Footer />
     </div>
   )

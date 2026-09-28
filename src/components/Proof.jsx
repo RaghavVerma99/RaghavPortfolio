@@ -1,6 +1,14 @@
 import { csTopics, proofLinks, stats } from "../data/content"
 import Watermark from "./Watermark"
-import { GlowCard, Reveal, Section, SectionHeader, Stagger, StaggerItem } from "./ui"
+import {
+  GlowCard,
+  Reveal,
+  Section,
+  SectionBody,
+  SectionHeader,
+  Stagger,
+  StaggerItem,
+} from "./ui"
 
 export default function Proof() {
   return (
@@ -19,6 +27,7 @@ export default function Proof() {
         lede="Profiles, coursework, and reps a hiring loop actually checks — DSA, systems, and shipped code."
       />
 
+      <SectionBody>
       <Stagger className="grid gap-4 md:grid-cols-2" gap={0.09}>
         {proofLinks.map((p) => (
           <StaggerItem key={p.label} className="h-full">
@@ -39,6 +48,7 @@ export default function Proof() {
           </StaggerItem>
         ))}
       </Stagger>
+    </SectionBody>
 
       <Reveal className="mt-6">
         <GlowCard className="polymorph p-7 md:p-9">

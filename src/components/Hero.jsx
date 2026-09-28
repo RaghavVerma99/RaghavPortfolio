@@ -11,7 +11,7 @@ import { MapPin, Command } from "lucide-react"
 import { site } from "../data/content"
 import Magnetic from "./Magnetic"
 import Terminal from "./Terminal"
-import { Parallax, StaggerWords, RevealClip } from "./ui"
+import { StaggerWords, RevealClip } from "./ui"
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -91,7 +91,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-6 pt-24 sm:px-8 md:px-10 md:pb-8 md:pt-28"
+      className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-6 pt-24 sm:px-8 sm:pt-28 lg:px-12 md:pb-8"
     >
       <div aria-hidden className="bg-grid absolute inset-0" />
 
@@ -109,7 +109,9 @@ export default function Hero() {
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative">
+      {/* Shares the max-w-6xl measure with <Section> so the Hero's left edge
+          lines up with every section below it. */}
+      <div className="relative mx-auto w-full max-w-6xl">
         {/* Status rail. Deliberately sparse: the shell prompt carries the
             terminal character, the clock carries the "systems" idea. The
             fake telemetry (conns / p95) was noise competing with the
@@ -236,7 +238,7 @@ export default function Hero() {
             <Magnetic>
               <a
                 href="#work"
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-paper px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-accent"
+                className="group relative inline-flex min-h-[44px] items-center gap-2.5 overflow-hidden rounded-full bg-paper px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-accent"
               >
                 <span
                   aria-hidden
@@ -249,7 +251,7 @@ export default function Hero() {
             <Magnetic>
               <a
                 href="#overview"
-                className="lift inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-paper backdrop-blur-xl"
+                className="lift inline-flex min-h-[44px] items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-paper backdrop-blur-xl"
               >
                 Recruiter overview
               </a>
@@ -258,7 +260,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={togglePalette}
-                className="lift inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 font-mono text-xs text-paper/80"
+                className="lift inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-6 py-3 font-mono text-xs text-paper/80"
               >
                 <Command size={14} strokeWidth={1.75} aria-hidden />
                 <span className="hidden sm:inline">cmd</span> K
@@ -282,7 +284,7 @@ export default function Hero() {
             <span className="text-paper/30" aria-hidden>
               ·
             </span>
-            28.47° N / 77.50° E
+            <span className="whitespace-nowrap">28.47° N / 77.50° E</span>
           </span>
           <span className="flex shrink-0 items-center gap-2">
             Scroll

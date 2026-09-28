@@ -29,11 +29,11 @@ export default function RecruiterDock() {
 
   return (
     <div
-      className={`recruiter-dock pointer-events-none fixed bottom-5 left-1/2 z-[55] -translate-x-1/2 transition-all duration-500 ${
+      className={`recruiter-dock pointer-events-none fixed inset-x-0 bottom-0 z-[55] flex justify-center pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-[transform,opacity] duration-500 ${
         hidden ? "translate-y-20 opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      <div className="pointer-events-auto glass-lux depth-4 flex items-center gap-1 rounded-full p-1.5">
+      <div className="pointer-events-auto glass-lux depth-4 mx-3 flex max-w-[calc(100vw-1.5rem)] items-center gap-0.5 overflow-x-auto rounded-full p-1.5 [-webkit-overflow-scrolling:touch] sm:mx-4 sm:max-w-[640px] sm:gap-1">
         <span className="hidden items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent sm:flex">
           <span className="relative flex h-1 w-1">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
@@ -51,7 +51,7 @@ export default function RecruiterDock() {
               rel="noreferrer"
               title={`${item.label}${item.label === "Resume" ? " — print or save as PDF" : ""}`}
               aria-label={item.label}
-              className="group relative grid h-11 w-11 place-items-center rounded-full text-paper/80 transition-[color,background-color,transform] duration-300 hover:scale-105 hover:bg-white/10 hover:text-accent active:scale-95"
+              className="group relative grid h-11 w-11 shrink-0 place-items-center rounded-full text-paper/80 transition-[color,background-color,transform] duration-300 hover:bg-white/10 hover:text-accent active:scale-95 sm:h-12 sm:w-12"
             >
               <Icon size={16} strokeWidth={1.75} />
               <span

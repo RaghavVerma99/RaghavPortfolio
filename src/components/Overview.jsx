@@ -7,7 +7,16 @@ import {
 } from "../data/content"
 import Magnetic from "./Magnetic"
 import Watermark from "./Watermark"
-import { CountUp, GlowCard, Section, SectionHeader, Stagger, StaggerItem, TiltCard } from "./ui"
+import {
+  CountUp,
+  GlowCard,
+  Section,
+  SectionBody,
+  SectionHeader,
+  Stagger,
+  StaggerItem,
+  TiltCard,
+} from "./ui"
 
 export default function Overview() {
   return (
@@ -26,6 +35,7 @@ export default function Overview() {
         lede={`${site.notice} Backend-leaning SWE who ships APIs, concurrent systems, and the UI on top.`}
       />
 
+      <SectionBody>
       <Stagger className="grid gap-4 lg:grid-cols-12" gap={0.09}>
         <StaggerItem className="lg:col-span-7" y={36}>
           <GlowCard tilt className="h-full p-7 md:p-9">
@@ -139,6 +149,7 @@ export default function Overview() {
           </StaggerItem>
         ))}
       </Stagger>
+    </SectionBody>
     </Section>
   )
 }
