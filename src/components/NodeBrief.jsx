@@ -114,7 +114,7 @@ export default function NodeBrief({ selectedId = "lb" }) {
               </p>
             </div>
           </div>
-          <span className="flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-muted">
+          <span className="flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-muted" title="Simulated telemetry for demonstration">
             <span className="relative flex h-1.5 w-1.5">
               <span
                 className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
@@ -122,7 +122,7 @@ export default function NodeBrief({ selectedId = "lb" }) {
               />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ background: node.color }} />
             </span>
-            live
+            live · demo
           </span>
         </div>
 

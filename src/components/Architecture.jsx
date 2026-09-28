@@ -20,7 +20,7 @@ export default function Architecture() {
         className="pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-[#4d9bff]/10 blur-3xl"
       />
       <SectionLabel index="07" label="System Architecture" />
-      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
+      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight text-balance md:text-6xl">
         Backend architecture. <span className="italic-display text-gradient text-[1.05em]">C++ & Express.</span>
       </h2>
       <p className="mt-4 max-w-xl text-base text-muted">

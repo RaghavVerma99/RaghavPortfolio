@@ -7,7 +7,7 @@ export default function Skills() {
     <Section id="skills" className="relative overflow-hidden">
       <Watermark>Skills</Watermark>
       <SectionLabel index="03" label="Stack & Toolbox" />
-      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
+      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight text-balance md:text-6xl">
         The stack I <span className="italic-display text-gradient text-[1.05em]">ship.</span>
       </h2>
       <p className="mt-4 max-w-xl text-base text-muted">

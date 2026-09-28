@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="description"
+      content="Raghav Verma — Software Engineer. Backend systems, distributed systems, C++ and Node.js. Printable resume."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Raghav Verma — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0b0b0b;
+        --paper: #f2efe6;
+        --muted: #6b6b63;
+        --line: #e4e1d9;
+        --accent: #3f7d10;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #070707;
+        color: var(--paper);
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        font-size: 12.5px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .sheet {
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 56px 40px 40px;
+      }
+
+      .toolbar {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-bottom: 28px;
+      }
+
+      .toolbar a,
+      .toolbar button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: #121212;
+        color: #f2efe6;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+      }
+
+      .toolbar a:hover,
+      .toolbar button:hover {
+        border-color: var(--accent);
+        color: #c9ff4d;
+      }
+
+      .toolbar .primary {
+        background: #f2efe6;
+        color: #0b0b0b;
+        border-color: transparent;
+      }
+
+      .toolbar .primary:hover {
+        background: #c9ff4d;
+        color: #0b0b0b;
+      }
+
+      header {
+        border-bottom: 2px solid var(--ink);
+        border-image: linear-gradient(90deg, #c9ff4d, #c9ff4d 42%, transparent 42%) 1;
+        padding-bottom: 22px;
+      }
+
+      h1 {
+        font-family: Syne, sans-serif;
+        font-size: 44px;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .role {
+        margin-top: 8px;
+        font-size: 15px;
+        color: #c9ff4d;
+        font-weight: 600;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        margin-top: 14px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .meta a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      section {
+        padding: 24px 0 0;
+      }
+
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: #9b9b93;
+      }
+
+      h2::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .summary {
+        font-size: 13px;
+        color: rgba(242, 239, 230, 0.85);
+        max-width: 70ch;
+      }
+
+      .item {
+        margin-bottom: 18px;
+      }
+
+      .item-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 4px 16px;
+      }
+
+      .item-title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .item-sub {
+        margin-top: 1px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--accent);
+      }
+
+      .item-period {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .item p {
+        margin-top: 6px;
+        color: rgba(242, 239, 230, 0.75);
+      }
+
+      ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+        color: rgba(242, 239, 230, 0.78);
+      }
+
+      li {
+        margin-top: 3px;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+      }
+
+      .chip {
+        padding: 3px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: rgba(242, 239, 230, 0.85);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 28px;
+      }
+
+      .grid .group {
+        margin-bottom: 4px;
+      }
+
+      .grid h3 {
+        margin-bottom: 6px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: #9b9b93;
+      }
+
+      .grid p {
+        color: rgba(242, 239, 230, 0.85);
+        line-height: 1.7;
+      }
+
+      footer {
+        margin-top: 26px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        color: var(--muted);
+      }
+
+      /* ---- Print ---- */
+      @media print {
+        body {
+          background: #fff;
+          color: #111;
+          font-size: 11px;
+        }
+
+        .toolbar {
+          display: none;
+        }
+
+        .sheet {
+          max-width: none;
+          padding: 0;
+        }
+
+        h1 {
+          color: #0b0b0b;
+          font-size: 34px;
+        }
+
+        .role {
+          color: #3f7d10;
+        }
+
+        .meta {
+          color: #6b6b63;
+        }
+
+        header {
+          border-bottom: 1.5px solid #0b0b0b;
+        }
+
+        h2 {
+          color: #555;
+          break-after: avoid;
+        }
+
+        h2::after {
+          background: #ddd;
+        }
+
+        .summary,
+        .item p {
+          color: #333;
+        }
+
+        ul {
+          color: #333;
+        }
+
+        .item-sub {
+          color: #3f7d10;
+        }
+
+        .chip {
+          border-color: #ccc;
+          color: #333;
+        }
+
+        .grid p {
+          color: #333;
+        }
+
+        .grid h3 {
+          color: #666;
+        }
+
+        .item {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sheet">
+      <div class="toolbar">
+        <a href="/" rel="noreferrer">← Back to site</a>
+        <button onclick="window.print()">Print / Save PDF</button>
+        <a href="mailto:risshu.verma7@gmail.com?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma" class="primary">
+          Email me
+        </a>
+      </div>
+
+      <header>
+        <h1>Raghav Verma</h1>
+        <p class="role">Software Engineer — Backend &amp; Distributed Systems</p>
+        <div class="meta">
+          <span>Greater Noida, India · IST (UTC+5:30)</span>
+          <a href="mailto:risshu.verma7@gmail.com">risshu.verma7@gmail.com</a>
+          <span>+91 92892 02320</span>
+          <a href="https://github.com/RaghavVerma99" target="_blank" rel="noreferrer">github.com/RaghavVerma99</a>
+          <a href="https://linkedin.com/in/raghav-verma7" target="_blank" rel="noreferrer">linkedin.com/in/raghav-verma7</a>
+          <a href="https://leetcode.com/u/risshu_raghav" target="_blank" rel="noreferrer">leetcode.com/u/risshu_raghav</a>
+        </div>
+      </header>
+
+      <section>
+        <h2>Summary</h2>
+        <p class="summary">
+          B.Tech CSE '27 undergrad specialized in high-performance backend systems. Built an async
+          Layer-7 reverse proxy in C++20 with epoll, a sandboxed online C++ compiler, and a
+          cross-platform Flutter app. 500+ DSA problems solved, open-source C++ networking
+          contributions, and production-style intern work on React + Node + Postgres/Redis.
+          Available for SDE / SWE internships now · full-time from 2027.
+        </p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        <div class="item">
+          <div class="item-head">
+            <div>
+              <p class="item-title">SWE Intern</p>
+              <p class="item-sub">AmbiguityLabs</p>
+            </div>
+            <span class="item-period">Aug 2026 — Present</span>
+          </div>
+          <p>Full-stack engineering intern shipping end-to-end features in a production codebase.</p>
+          <ul>
+            <li>Built and shipped end-to-end features across React, Node.js/Express, and PostgreSQL/Redis.</li>
+            <li>Collaborated with frontend and backend teams through sprint planning, code reviews, and pair programming.</li>
+            <li>Wrote and optimized REST APIs with validation, error handling, and caching.</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <div>
+              <p class="item-title">Open Source Contributor</p>
+              <p class="item-sub">C++ networking &amp; distributed-systems utilities</p>
+            </div>
+            <span class="item-period">2025 — 2026</span>
+          </div>
+          <p>Bug fixes and performance patches to open-source networking and distributed-systems utilities.</p>
+          <ul>
+            <li>Fixed concurrency and edge-case bugs in networking utilities.</li>
+            <li>Submitted performance patches improving throughput under load.</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">C++</span><span class="chip">Networking</span><span class="chip">Concurrency</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Selected Projects</h2>
+        <div class="item">
+          <div class="item-head">
+            <div><p class="item-title">ApolloGateway — Asynchronous Reverse Proxy</p></div>
+            <span class="item-period">C++20 · 10K+ conns/thread</span>
+          </div>
+          <p>
+            Layer-7 reverse proxy on edge-triggered epoll with consistent-hashing load balancing,
+            circuit breakers, and Redis-backed rate limiting. 10K+ connections per thread, p95
+            &lt;1ms, zero drops during failover.
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <div><p class="item-title">Online C++ Compiler</p></div>
+            <span class="item-period">React · Express · sandboxed</span>
+          </div>
+          <p>
+            Full-stack compiler with a sandboxed execution pipeline — isolated processes with hard
+            CPU/memory/output limits, a timeout watchdog, and a queued runner (&lt;1s median compile).
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <div><p class="item-title">TaskFlow — Cross-Platform Task App</p></div>
+            <span class="item-period">Flutter · Riverpod · Hive</span>
+          </div>
+          <p>
+            Offline-first task &amp; schedule app with OLED-optimized UI, unidirectional state via
+            Riverpod, and local-first persistence with Hive. 60 fps on iOS &amp; Android.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <div class="grid">
+          <div class="group">
+            <h3>Languages</h3>
+            <p>C++20 · C · Go · Java · JavaScript (ES6+) · Python · TypeScript · Dart</p>
+          </div>
+          <div class="group">
+            <h3>Backend</h3>
+            <p>Node.js · Express.js · Fastify · REST · WebSockets · Flask</p>
+          </div>
+          <div class="group">
+            <h3>Frontend</h3>
+            <p>React · Flutter · Tailwind CSS · Vite · Redux Toolkit</p>
+          </div>
+          <div class="group">
+            <h3>Systems</h3>
+            <p>epoll / async I/O · Concurrency · TCP/IP · Load balancing · Caching · Circuit breakers</p>
+          </div>
+          <div class="group">
+            <h3>Databases</h3>
+            <p>PostgreSQL · MySQL · Redis · SQL · Hive</p>
+          </div>
+          <div class="group">
+            <h3>Tools &amp; DevOps</h3>
+            <p>Git · GitHub · Docker · Linux (Bash) · CI/CD · Vercel / Render</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <div class="item">
+          <div class="item-head">
+            <div>
+              <p class="item-title">B.Tech — Computer Science Engineering</p>
+              <p class="item-sub">Dronacharya Group of Institutions, Greater Noida</p>
+            </div>
+            <span class="item-period">2023 — 2027</span>
+          </div>
+          <div class="chips">
+            <span class="chip">DSA</span><span class="chip">Operating Systems</span><span class="chip">DBMS</span><span class="chip">Computer Networks</span><span class="chip">OOP</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 Raghav Verma</span>
+        <span>Open to SDE / SWE intern &amp; full-time roles</span>
+      </footer>
+    </div>
+  </body>
+</html>

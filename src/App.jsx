@@ -16,6 +16,7 @@ import Cursor from "./components/Cursor"
 import Overview from "./components/Overview"
 import Proof from "./components/Proof"
 import RecruiterDock from "./components/RecruiterDock"
+import CommandPalette from "./components/CommandPalette"
 
 const Architecture = lazy(() => import("./components/Architecture"))
 
@@ -94,10 +95,17 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-ink text-paper">
+      <a
+        href="#overview"
+        className="sr-only rounded-full bg-paper px-4 py-2 font-mono text-xs font-semibold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[130]"
+      >
+        Skip to content
+      </a>
       <div className="aurora" aria-hidden />
       <div className="grain" aria-hidden />
       <Cursor />
       <RecruiterDock />
+      <CommandPalette />
       <motion.div
         aria-hidden
         className="nav-progress pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px] bg-accent"
@@ -107,7 +115,7 @@ export default function App() {
         {loading && <Loader key="loader" onDone={() => setLoading(false)} />}
       </AnimatePresence>
       <Navbar />
-      <main className="relative z-10">
+      <main id="main" className="relative z-10">
         <Hero />
         <Marquee />
         <Overview />

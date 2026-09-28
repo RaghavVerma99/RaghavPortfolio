@@ -9,6 +9,7 @@ export const site = {
   phone: "+91 9289202320",
   availability: "Open to SDE / SWE intern & full-time roles",
   notice: "Available for internships now · full-time from 2027",
+  resume: "/resume.html",
   portrait: "src/assets/portrait.jpg",
   intro:
     "I build high-performance backend systems and full-stack applications — from C++ network proxies handling 10K+ connections to sandboxed code compilers. Currently a B.Tech CSE undergrad obsessed with distributed systems.",
@@ -20,8 +21,8 @@ export const site = {
 
 export const navLinks = [
   { label: "Overview", href: "#overview" },
-  { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
+  { label: "Work", href: "#work" },
   { label: "Proof", href: "#proof" },
   { label: "Contact", href: "#contact" },
 ]

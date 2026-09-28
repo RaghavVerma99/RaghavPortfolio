@@ -60,7 +60,9 @@ Smooth scrolling is handled by Lenis, which lerps the native scroll into a veloc
 
 - **Google Fonts** — Syne (display, weights 400–800), Inter (body), JetBrains Mono (mono, weights 300–700), loaded via `preconnect` + single stylesheet in `index.html`.
 - **CSS-only motion** — the dual-direction marquees, pulsing availability dot, blinking terminal cursor, and gradient shimmer run on keyframes (paused on hover, disabled under `prefers-reduced-motion`).
-- **Micro-interactions** — custom cursor with `mix-blend-difference`, magnetic CTA buttons, cursor-following spotlight + 3D tilt on project cards, scroll-spy navigation.
+- **Micro-interactions** — custom cursor with `mix-blend-difference` (hidden over editable fields), magnetic CTA buttons, cursor-following spotlight + 3D tilt on project cards, scroll-spy navigation, and a full **⌘K command palette** (navigate, actions, profiles).
+- **Recruiter-first kit** — a print-ready **`/resume.html`** with branded print CSS, one-click `Print / Save PDF`, and resume CTAs in the navbar, floating dock, contact section, and footer.
+- **Honest telemetry** — live-looking system metrics in the Architecture explorer are explicitly labelled *simulated/demo* so claims stay verifiable.
 - **Decor** — fixed grain overlay and masked grid background for texture.
 
 ---
@@ -69,5 +71,5 @@ Smooth scrolling is handled by Lenis, which lerps the native scroll into a veloc
 
 - **Single-page Vite build** — one HTML entry, one CSS chunk (~33 kB), one JS chunk (~390 kB, ~123 kB gzip).
 - **GPU-friendly transforms** — animations compose on `transform` / `opacity` only; scroll-linked effects use `scaleY` / `scaleX`.
-- **Respects reduced motion** — keyframe animations and gradient shifts are disabled under `prefers-reduced-motion`.
+- **Respects reduced motion** — CSS keyframes and gradient shifts are disabled **and** all Framer Motion reveals (`Reveal`, `StaggerWords`, `RevealWords`, `CountUp`) render statically via `useReducedMotion`, plus fallback `scroll-margin-top` on anchors.
 - **Responsive** — fluid `vw`-based display type and a `pointer: fine`-gated custom cursor keep it usable on touch devices.

@@ -15,7 +15,7 @@ export default function Experience() {
     <Section id="experience" className="border-t border-line">
       <Watermark>Experience</Watermark>
       <SectionLabel index="04" label="Experience & Education" />
-      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
+      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight text-balance md:text-6xl">
         Where I&apos;ve been. <span className="italic-display text-gradient text-[1.05em]">What I&apos;m building.</span>
       </h2>
       <div ref={ref} className="relative mt-14 space-y-16 border-l border-line pl-8 md:pl-12">
@@ -41,7 +41,7 @@ export default function Experience() {
               <p className="mt-4 max-w-2xl leading-relaxed text-paper/70">{job.summary}</p>
               <ul className="mt-5 space-y-2">
                 {job.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-3 text-sm text-paper/60">
+                  <li key={h} className="flex items-start gap-3 text-sm text-paper/75">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
                     {h}
                   </li>
@@ -70,7 +70,7 @@ export default function Experience() {
                 {education.period}
               </span>
             </div>
-            <p className="mt-4 max-w-2xl text-sm text-paper/50">
+            <p className="mt-4 max-w-2xl text-sm text-paper/65">
               Relevant coursework — foundations that keep the systems side honest.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">

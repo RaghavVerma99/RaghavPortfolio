@@ -15,6 +15,11 @@
 
 html {
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+[id] {
+  scroll-margin-top: 96px;
 }
 
 .font-mono {
@@ -35,6 +40,20 @@ body {
   font-family: var(--font-body);
   overflow-x: hidden;
   cursor: none;
+}
+
+/* Native cursors for editable surfaces — the custom cursor is hidden over them */
+input,
+textarea,
+select,
+[contenteditable="true"] {
+  cursor: auto;
+  caret-color: var(--accent-cyan);
+}
+
+.cursor-dot.is-hidden,
+.cursor-ring.is-hidden {
+  display: none;
 }
 
 @media (pointer: coarse) {
@@ -571,6 +590,25 @@ body {
 
 .script-block {
   color: #9b9b93;
+}
+
+/* ---- Print hygiene ---- */
+@media print {
+  .aurora,
+  .grain,
+  .cursor-dot,
+  .cursor-ring,
+  .nav-progress,
+  .recruiter-dock,
+  .watermark {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #0b0b0b;
+    cursor: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

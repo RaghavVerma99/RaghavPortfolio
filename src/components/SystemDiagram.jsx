@@ -197,8 +197,14 @@ export default function SystemDiagram({ selectedId, onSelectNode }) {
   return (
     <div className="glass overflow-hidden rounded-3xl p-5 md:p-8">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
-        <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
+        <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
           Request flow · C++ + Express
+          <span
+            className="rounded-full border border-white/10 px-1.5 py-0.5 text-[9px] tracking-widest"
+            title="Simulated telemetry for demonstration"
+          >
+            demo
+          </span>
         </span>
         <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00f2fe]" />

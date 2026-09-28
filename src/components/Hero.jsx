@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { MapPin } from "lucide-react"
 import { site } from "../data/content"
 import Magnetic from "./Magnetic"
 import Terminal from "./Terminal"
@@ -136,7 +137,10 @@ export default function Hero() {
         transition={{ delay: 2.15, duration: 0.7 }}
         className="relative mt-14 flex items-center justify-between border-t border-line pt-6 font-mono text-[11px] uppercase tracking-widest text-muted"
       >
-        <span>{site.location}</span>
+        <span className="flex items-center gap-2">
+          <MapPin size={12} className="text-accent/70" aria-hidden />
+          {site.location}
+        </span>
         <span className="hidden md:block">{site.timezone} · B.Tech CSE '27</span>
         <span className="flex items-center gap-2">
           Scroll{" "}

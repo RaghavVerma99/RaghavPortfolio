@@ -64,7 +64,7 @@ export default function Projects() {
     <Section id="work" className="relative overflow-hidden">
       <Watermark>Work</Watermark>
       <SectionLabel index="05" label="Selected Work" />
-      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
+      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight text-balance md:text-6xl">
         Systems that <span className="italic-display text-gradient text-[1.05em]">ship.</span>
       </h2>
       <p className="mt-4 max-w-xl text-muted">
@@ -86,9 +86,7 @@ export default function Projects() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span
-                    className={`text-paper/40 transition-colors group-hover:text-accent ${
-                      active === i ? "text-accent" : ""
-                    }`}
+                    className={`text-muted transition-colors ${active === i ? "text-accent group-hover:text-accent" : "group-hover:text-accent"}`}
                   >
                     ↗
                   </span>
@@ -190,7 +188,7 @@ export default function Projects() {
                 </span>
               ))}
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-paper/60">{project.tradeoffs}</p>
+            <p className="mt-4 text-sm leading-relaxed text-paper/70">{project.tradeoffs}</p>
           </div>
         </motion.div>
       </AnimatePresence>

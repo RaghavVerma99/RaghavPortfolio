@@ -14,7 +14,7 @@ export default function Overview() {
     <Section id="overview">
       <Watermark>Hire</Watermark>
       <SectionLabel index="01" label="For recruiters" />
-      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
+      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight text-balance md:text-6xl">
         Scan in 30 seconds.{" "}
         <span className="italic-display text-gradient text-[1.05em]">Then go deep.</span>
       </h2>
@@ -52,22 +52,26 @@ export default function Overview() {
                   Email me
                 </a>
               </Magnetic>
-              <a
-                href="https://linkedin.com/in/raghav-verma7"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/RaghavVerma99"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
-              >
-                GitHub
-              </a>
+              <Magnetic>
+                <a
+                  href="https://linkedin.com/in/raghav-verma7"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
+                >
+                  LinkedIn
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a
+                  href="https://github.com/RaghavVerma99"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
+                >
+                  GitHub
+                </a>
+              </Magnetic>
             </div>
           </GlowCard>
         </Reveal>
@@ -92,7 +96,7 @@ export default function Overview() {
             <GlowCard className="h-full p-6">
               <p className="font-mono text-[10px] text-accent">0{i + 1}</p>
               <h3 className="mt-3 font-display text-xl font-bold">{area.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-paper/65">{area.copy}</p>
+              <p className="mt-2 text-sm leading-relaxed text-paper/75">{area.copy}</p>
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {area.tags.map((t) => (
                   <span key={t} className="chip">

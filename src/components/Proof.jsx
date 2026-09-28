@@ -7,7 +7,7 @@ export default function Proof() {
     <Section id="proof" className="border-t border-line">
       <Watermark>Proof</Watermark>
       <SectionLabel index="06" label="Signals & links" />
-      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl">
+      <h2 className="mt-10 max-w-3xl font-display text-4xl font-bold leading-tight text-balance md:text-6xl">
         Receipts you can <span className="italic-display text-gradient text-[1.05em]">click.</span>
       </h2>
       <p className="mt-4 max-w-xl text-base text-muted">
@@ -27,7 +27,7 @@ export default function Proof() {
                   <span className="font-mono text-xs text-muted">{p.cta} ↗</span>
                 </div>
                 <p className="mt-6 font-display text-2xl font-bold">{p.handle}</p>
-                <p className="mt-2 text-sm text-paper/60">{p.detail}</p>
+                <p className="mt-2 text-sm text-paper/70">{p.detail}</p>
               </GlowCard>
             </a>
           </Reveal>
@@ -46,7 +46,7 @@ export default function Proof() {
               </span>
             ))}
           </div>
-          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-paper/55">
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-paper/70">
             {stats[0].value}+ DSA problems on LeetCode, C++ networking patches in public repos, and
             production-style intern work on React + Node + Postgres/Redis.
           </p>

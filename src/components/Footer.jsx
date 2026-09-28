@@ -9,7 +9,7 @@ export default function Footer() {
       >
         {site.name}
       </div>
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 border-t border-line py-8 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 border-t border-line pt-8 pb-16 md:flex-row md:items-center md:justify-between md:pb-24">
         <p className="font-mono text-xs text-muted">
           © 2026 {site.name}. Built with React · Tailwind · Motion.
         </p>
@@ -19,6 +19,9 @@ export default function Footer() {
               {l.label}
             </a>
           ))}
+          <a href={site.resume} target="_blank" rel="noreferrer" className="font-mono text-[11px] uppercase tracking-widest text-muted hover:text-accent">
+            Resume
+          </a>
           {socials.slice(0, 3).map((s) => (
             <a
               key={s.label}

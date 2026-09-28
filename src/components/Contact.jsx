@@ -38,6 +38,14 @@ export default function Contact() {
           >
             {site.phone}
           </a>
+          <a
+            href={site.resume}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            Download resume <span aria-hidden>⇱</span>
+          </a>
         </Reveal>
       </div>
 

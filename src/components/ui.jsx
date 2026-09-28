@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react"
-import { animate, motion, useInView } from "framer-motion"
+import { animate, motion, useInView, useReducedMotion } from "framer-motion"
 
 const EASE = [0.16, 1, 0.3, 1]
 
 export function Section({ id, children, className = "" }) {
   return (
-    <section id={id} className={`relative overflow-hidden px-6 py-24 md:px-12 md:py-32 ${className}`}>
+    <section
+      id={id}
+      className={`relative overflow-hidden px-6 py-24 md:px-12 md:py-32 ${className}`}
+    >
       <div className="relative mx-auto max-w-6xl">{children}</div>
     </section>
   )
@@ -24,6 +27,14 @@ export function SectionLabel({ index, label, className = "" }) {
 }
 
 export function Reveal({ children, className = "", delay = 0, y = 40, ...rest }) {
+  const reduceMotion = useReducedMotion()
+  if (reduceMotion) {
+    return (
+      <div className={className} {...rest}>
+        {children}
+      </div>
+    )
+  }
   return (
     <motion.div
       className={className}
@@ -39,7 +50,11 @@ export function Reveal({ children, className = "", delay = 0, y = 40, ...rest })
 }
 
 export function StaggerWords({ text, className = "", delay = 0, stagger = 0.035 }) {
+  const reduceMotion = useReducedMotion()
   const words = text.split(" ")
+  if (reduceMotion) {
+    return <span className={className}>{text}</span>
+  }
   const wordCls = className.replace(/\bblock\b/g, "").trim()
   return (
     <motion.span
@@ -78,7 +93,11 @@ export function StaggerWords({ text, className = "", delay = 0, stagger = 0.035 
 }
 
 export function RevealWords({ text, className = "", stagger = 0.015 }) {
+  const reduceMotion = useReducedMotion()
   const words = text.split(" ")
+  if (reduceMotion) {
+    return <p className={className}>{text}</p>
+  }
   return (
     <motion.p
       className={className}
@@ -121,17 +140,22 @@ export function GlowCard({ children, className = "", hover = true }) {
 export function CountUp({ to, suffix = "", decimals = 0, duration = 2 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const reduceMotion = useReducedMotion()
   const [val, setVal] = useState(0)
 
   useEffect(() => {
     if (!inView) return
+    if (reduceMotion) {
+      setVal(to)
+      return
+    }
     const controls = animate(0, to, {
       duration,
       ease: EASE,
       onUpdate: (v) => setVal(v),
     })
     return () => controls.stop()
-  }, [inView, to, duration])
+  }, [inView, to, duration, reduceMotion])
 
   return (
     <span ref={ref}>
