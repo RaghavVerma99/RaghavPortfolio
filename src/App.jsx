@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react"
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion"
+import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "framer-motion"
 import Lenis from "lenis"
 import Loader from "./components/Loader"
 import Navbar from "./components/Navbar"
@@ -57,11 +57,12 @@ function LazyArchitecture() {
 
 export default function App() {
   const [loading, setLoading] = useState(true)
+  const reduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 })
 
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.2 })
+    const lenis = new Lenis({ duration: reduceMotion ? 0 : 1.2 })
     window.__lenis = lenis
     let rafId
     const raf = (time) => {
@@ -91,7 +92,7 @@ export default function App() {
       lenis.destroy()
       window.__lenis = null
     }
-  }, [])
+  }, [reduceMotion])
 
   return (
     <div className="relative min-h-screen bg-ink text-paper">

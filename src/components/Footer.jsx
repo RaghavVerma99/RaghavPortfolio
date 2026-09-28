@@ -2,48 +2,74 @@ import { navLinks, site, socials } from "../data/content"
 
 export default function Footer() {
   return (
-    <footer className="overflow-hidden border-t border-line px-6 md:px-12">
-      <div
-        aria-hidden
-        className="pointer-events-none select-none pb-4 pt-10 text-center font-display text-[16vw] font-bold uppercase leading-[0.8] tracking-tight text-paper/[0.045]"
-      >
-        {site.name}
-      </div>
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 border-t border-line pt-8 pb-16 md:flex-row md:items-center md:justify-between md:pb-24">
-        <p className="font-mono text-xs text-muted">
-          © 2026 {site.name}. Built with React · Tailwind · Motion.
-        </p>
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
-          {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="font-mono text-[11px] uppercase tracking-widest text-muted hover:text-accent">
-              {l.label}
-            </a>
-          ))}
-          <a href={site.resume} target="_blank" rel="noreferrer" className="font-mono text-[11px] uppercase tracking-widest text-muted hover:text-accent">
-            Resume
-          </a>
-          {socials.slice(0, 3).map((s) => (
+    <footer className="relative overflow-hidden border-t border-line px-6 md:px-12">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col gap-8 border-b border-line py-12 md:flex-row md:items-center md:justify-between">
+          <p className="font-mono text-xs text-muted">
+            © 2026 {site.name} — built with React · Tailwind · Motion.
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="group font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-accent"
+              >
+                <span className="mr-1 text-accent opacity-0 transition-opacity group-hover:opacity-100">→</span>
+                {l.label}
+              </a>
+            ))}
             <a
-              key={s.label}
-              href={s.href}
+              href={site.resume}
               target="_blank"
               rel="noreferrer"
-              className="font-mono text-[11px] uppercase tracking-widest text-muted hover:text-accent"
+              className="group font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-accent"
             >
-              {s.label}
+              <span className="mr-1 text-accent opacity-0 transition-opacity group-hover:opacity-100">→</span>
+              Resume
             </a>
-          ))}
-          <a href="#games" className="font-mono text-[11px] uppercase tracking-widest text-muted hover:text-accent">
-            Playground
-          </a>
+            <a
+              href="#games"
+              className="group font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-accent"
+            >
+              <span className="mr-1 text-accent opacity-0 transition-opacity group-hover:opacity-100">→</span>
+              Playground
+            </a>
+            {socials.slice(0, 3).map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-accent"
+              >
+                <span className="mr-1 text-accent opacity-0 transition-opacity group-hover:opacity-100">→</span>
+                {s.label}
+              </a>
+            ))}
+          </div>
         </div>
-        <a
-          href="#top"
-          className="group flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-paper transition-colors hover:text-accent"
-        >
-          Back to top{" "}
-          <span className="transition-transform duration-300 group-hover:-translate-y-1">↑</span>
-        </a>
+
+        <div className="pointer-events-none relative select-none">
+          <div
+            aria-hidden
+            className="wm top-auto! bottom-0! left-1/2! right-auto! -translate-x-1/2 whitespace-nowrap text-[11vw]!"
+          >
+            {site.name}
+          </div>
+          <div className="relative flex items-center justify-between pb-8 pt-10 font-mono text-[10px] uppercase tracking-widest text-faint">
+            <span>
+              status: <span className="text-accent">up and shipping</span>
+            </span>
+            <a
+              href="#top"
+              className="group flex items-center gap-2 text-paper transition-colors hover:text-accent"
+            >
+              Back to top
+              <span className="transition-transform duration-300 group-hover:-translate-y-1">↑</span>
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   )

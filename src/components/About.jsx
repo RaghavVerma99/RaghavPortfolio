@@ -2,37 +2,44 @@ import { site, stats } from "../data/content"
 import portrait from "../assets/portrait.jpg"
 import ProfileStrip from "./ProfileStrip"
 import Watermark from "./Watermark"
-import { CountUp, GlowCard, Reveal, RevealWords, Section, SectionLabel } from "./ui"
+import { CountUp, GlowCard, Reveal, RevealWords, Section, SectionHeader } from "./ui"
 
 export default function About() {
   return (
     <Section id="about">
       <Watermark>About</Watermark>
-      <SectionLabel index="02" label="About" />
-      <RevealWords
-        text={site.aboutBig}
-        className="mt-12 font-display text-3xl font-semibold leading-snug text-paper md:text-5xl"
+      <SectionHeader
+        index="02"
+        kicker="About"
+        meta={<>whoami</>}
+        title={
+          <RevealWords
+            text={site.aboutBig}
+            className="mt-10 block max-w-4xl font-display text-3xl font-semibold leading-[1.15] tracking-tight text-paper md:text-5xl"
+          />
+        }
       />
       <div className="mt-16 grid gap-12 md:grid-cols-[1fr_320px]">
         <Reveal>
           <p className="max-w-2xl text-lg leading-relaxed text-paper/70">{site.about}</p>
           <div className="mt-8 flex flex-wrap gap-2">
-            {["System Design", "Distributed Systems", "Open Source", "Hackathon"].map((t) => (
-              <span key={t} className="chip">
+            {["System Design", "Distributed Systems", "Open Source", "Hackathons"].map((t) => (
+              <span key={t} className="chip chip-solid">
                 {t}
               </span>
             ))}
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-3">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line grid-cols-2 sm:grid-cols-4">
             {stats.map((s) => (
-              <GlowCard key={s.label} className="px-5 py-6">
-                <p className="font-display text-4xl font-bold text-paper">
-                  <CountUp to={s.value} suffix={s.suffix} />
+              <div key={s.label} className="bg-ink-2/80 px-4 py-5">
+                <p className="font-display text-2xl font-bold tracking-tight">
+                  <CountUp to={s.value} />
+                  <span className="text-accent">{s.suffix}</span>
                 </p>
-                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-faint">
                   {s.label}
                 </p>
-              </GlowCard>
+              </div>
             ))}
           </div>
           <ProfileStrip />
@@ -41,16 +48,16 @@ export default function About() {
           <div className="group relative">
             <div
               aria-hidden
-              className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-accent/25 via-white/5 to-[#4d9bff]/25 opacity-50 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
+              className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-accent/20 via-white/5 to-blue/20 opacity-40 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
             />
             <div
               aria-hidden
-              className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent/70 via-white/10 to-[#4d9bff]/70 opacity-50 transition-opacity duration-500 group-hover:opacity-90"
+              className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent/60 via-white/10 to-blue/60 opacity-40 transition-opacity duration-500 group-hover:opacity-90"
             />
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl glass">
               <img
                 src={portrait}
-                alt={site.name}
+                alt={`Portrait of ${site.name}`}
                 className="h-full w-full object-cover transition-all duration-700 ease-out grayscale group-hover:scale-[1.04] group-hover:grayscale-0"
               />
               <div
@@ -75,6 +82,9 @@ export default function About() {
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
                 </span>
                 Open to work
+              </div>
+              <div className="absolute left-1/2 top-3 -translate-x-1/2 font-mono text-[9px] uppercase tracking-[0.3em] text-paper/60">
+                portrait.jpeg
               </div>
             </div>
           </div>

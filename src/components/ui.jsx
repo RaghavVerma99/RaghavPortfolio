@@ -9,7 +9,7 @@ export function Section({ id, children, className = "" }) {
       id={id}
       className={`relative overflow-hidden px-6 py-24 md:px-12 md:py-32 ${className}`}
     >
-      <div className="relative mx-auto max-w-6xl">{children}</div>
+      <div className="relative z-10 mx-auto max-w-6xl">{children}</div>
     </section>
   )
 }
@@ -22,6 +22,31 @@ export function SectionLabel({ index, label, className = "" }) {
       <span className="text-accent">({index})</span>
       <span>{label}</span>
       <span className="h-px flex-1 bg-line" />
+    </div>
+  )
+}
+
+export function SectionHeader({
+  index,
+  kicker,
+  title,
+  lede = "",
+  meta = "",
+  className = "",
+}) {
+  return (
+    <div className={`relative ${className}`}>
+      <div className="eyebrow">
+        <span className="text-accent">({index})</span>
+        <span aria-hidden className="h-px w-8 bg-accent/40" />
+        <span>{kicker}</span>
+        <span aria-hidden className="h-px flex-1 bg-line" />
+        {meta && <span className="hidden sm:inline-flex">{meta}</span>}
+      </div>
+      {title}
+      {lede && (
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">{lede}</p>
+      )}
     </div>
   )
 }
@@ -41,8 +66,31 @@ export function Reveal({ children, className = "", delay = 0, y = 40, ...rest })
       {...rest}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.22 }}
       transition={{ duration: 0.8, delay, ease: EASE }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+export function RevealClip({ children, className = "", delay = 0, duration = 0.9, ...rest }) {
+  const reduceMotion = useReducedMotion()
+  if (reduceMotion) {
+    return (
+      <div className={className} {...rest}>
+        {children}
+      </div>
+    )
+  }
+  return (
+    <motion.div
+      className={className}
+      {...rest}
+      initial={{ clipPath: "inset(0 0 100% 0)" }}
+      whileInView={{ clipPath: "inset(0 0 0% 0)" }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration, delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -73,11 +121,11 @@ export function StaggerWords({ text, className = "", delay = 0, stagger = 0.035 
           <motion.span
             className="inline-block"
             variants={{
-              hidden: { y: "110%", opacity: 0 },
+              hidden: { y: "115%", opacity: 0 },
               show: {
                 y: "0%",
                 opacity: 1,
-                transition: { duration: 0.7, ease: EASE },
+                transition: { duration: 0.75, ease: EASE },
               },
             }}
           >
@@ -114,8 +162,8 @@ export function RevealWords({ text, className = "", stagger = 0.015 }) {
           key={i}
           className="inline"
           variants={{
-            hidden: { opacity: 0.1 },
-            show: { opacity: 1, transition: { duration: 0.25 } },
+            hidden: { opacity: 0.12, y: 6 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
           }}
         >
           {w}{" "}
@@ -129,7 +177,11 @@ export function GlowCard({ children, className = "", hover = true }) {
   return (
     <div
       data-cursor
-      className={`glass-lux relative overflow-hidden rounded-3xl ${hover ? "group transition-transform duration-500 hover:-translate-y-1" : ""} ${className}`}
+      className={`glass-lux relative overflow-hidden rounded-3xl ${
+        hover
+          ? "glass-hover group shadow-none transition-transform duration-500"
+          : ""
+      } ${className}`}
     >
       <div aria-hidden className="glass-shine pointer-events-none absolute inset-0" />
       <div className="relative z-10">{children}</div>
