@@ -1,57 +1,10 @@
 import { useState } from "react"
-import { AnimatePresence, motion, useMotionTemplate, useMotionValue } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { projects } from "../data/content"
-import { Section, SectionHeader, Reveal } from "./ui"
+import { Section, SectionHeader, Stagger, StaggerItem, TiltCard } from "./ui"
+import Watermark from "./Watermark"
 
 const EASE = [0.16, 1, 0.3, 1]
-
-const Watermark = ({ children }) => (
-  <span
-    aria-hidden
-    className="pointer-events-none absolute right-0 top-6 font-display text-[17vw] font-bold leading-[0.8] tracking-tight text-paper/[0.03] select-none"
-  >
-    {children}
-  </span>
-)
-
-function SpotlightCard({ children, active = false, className = "" }) {
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const rotateX = useMotionValue(0)
-  const rotateY = useMotionValue(0)
-
-  const background = useMotionTemplate`radial-gradient(320px circle at ${mouseX}px ${mouseY}px, rgba(201,255,77,0.07), transparent 60%)`
-
-  const handleMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    mouseX.set(x)
-    mouseY.set(y)
-    rotateY.set(((x / rect.width) - 0.5) * 9)
-    rotateX.set(-((y / rect.height) - 0.5) * 9)
-  }
-
-  const handleLeave = () => {
-    rotateX.set(0)
-    rotateY.set(0)
-  }
-
-  return (
-    <motion.div
-      data-cursor
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1400 }}
-      className={`glass-lux group relative h-full overflow-hidden rounded-3xl p-7 transition-colors duration-300 hover:border-accent/40 md:p-8 ${
-        active ? "border-accent/50" : ""
-      } ${className}`}
-    >
-      <motion.div style={{ background }} className="pointer-events-none absolute inset-0 z-0" />
-      <div className="relative z-10">{children}</div>
-    </motion.div>
-  )
-}
 
 export default function Projects() {
   const [active, setActive] = useState(0)
@@ -72,57 +25,89 @@ export default function Projects() {
         lede="Click a project to open its full case study — problem, approach, architecture, and the trade-offs I made."
       />
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <Stagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" gap={0.1}>
         {projects.map((p, i) => (
-          <Reveal key={p.title} delay={i * 0.06} className="h-full">
+          <StaggerItem key={p.title} className="h-full" y={34}>
             <button
               onClick={() => setActive(i)}
               aria-label={`Open case study for ${p.title}`}
               aria-pressed={active === i}
               className="block h-full w-full text-left"
             >
-              <SpotlightCard active={active === i}>
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-sm text-accent">{String(i + 1).padStart(2, "0")}</span>
-                  <span
-                    className={`text-muted transition-all duration-300 ${
-                      active === i
-                        ? "text-accent"
-                        : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
-                    }`}
-                  >
-                    ↗
-                  </span>
+              <TiltCard
+                className="h-full"
+                intensity={8}
+                lift={30}
+                data-pressed={active === i}
+              >
+                <div
+                  className={`glass-lux group relative h-full overflow-hidden rounded-3xl p-7 transition-[border-color] duration-500 hover:border-accent/40 md:p-8 ${
+                    active === i ? "border-accent/50" : ""
+                  }`}
+                >
+                  {/* Iridescent bloom that tracks the cursor */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(320px circle at var(--mx) var(--my), rgba(201,255,77,0.09), transparent 62%)",
+                    }}
+                  />
+                  {/* Specular top edge — the tell that a surface is glass */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  />
+
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-sm text-accent">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        className={`text-muted transition-all duration-300 ${
+                          active === i
+                            ? "text-accent"
+                            : "group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                        }`}
+                      >
+                        ↗
+                      </span>
+                    </div>
+
+                    <h3 className="mt-6 font-display text-2xl font-bold leading-snug tracking-tight">
+                      {p.title}
+                    </h3>
+
+                    <p className="mt-3 text-sm leading-relaxed text-muted">{p.description}</p>
+
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {p.stack.map((tech) => (
+                        <span key={tech} className="chip chip-ink">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex items-baseline gap-2.5 border-t border-white/10 pt-5">
+                      <span className="font-display text-3xl font-bold tracking-tight text-accent">
+                        {p.metric}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-faint">
+                        {p.metricLabel}
+                      </span>
+                      <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.2em] text-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        open case →
+                      </span>
+                    </div>
+                  </div>
                 </div>
-
-                <h3 className="mt-6 font-display text-2xl font-bold leading-snug tracking-tight">
-                  {p.title}
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-muted">{p.description}</p>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {p.stack.map((tech) => (
-                    <span key={tech} className="chip chip-ink">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-6 flex items-baseline gap-2.5 border-t border-white/10 pt-5">
-                  <span className="font-display text-3xl font-bold tracking-tight text-accent">{p.metric}</span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-faint">
-                    {p.metricLabel}
-                  </span>
-                  <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.2em] text-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    open case →
-                  </span>
-                </div>
-              </SpotlightCard>
+              </TiltCard>
             </button>
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -131,7 +116,7 @@ export default function Projects() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.45, ease: EASE }}
-          className="glass-lux mt-8 overflow-hidden rounded-3xl"
+          className="glass-lux mt-8 overflow-hidden rounded-3xl depth-4"
         >
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.07] bg-white/[0.03] px-6 py-5 md:px-9">
             <div className="flex items-center gap-4">

@@ -1,5 +1,13 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react"
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "framer-motion"
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from "framer-motion"
 import Lenis from "lenis"
 import Loader from "./components/Loader"
 import Navbar from "./components/Navbar"
@@ -17,6 +25,7 @@ import Overview from "./components/Overview"
 import Proof from "./components/Proof"
 import RecruiterDock from "./components/RecruiterDock"
 import CommandPalette from "./components/CommandPalette"
+import Aurora from "./components/Aurora"
 
 const Architecture = lazy(() => import("./components/Architecture"))
 
@@ -58,18 +67,49 @@ function LazyArchitecture() {
 export default function App() {
   const [loading, setLoading] = useState(true)
   const reduceMotion = useReducedMotion()
-  const { scrollYProgress } = useScroll()
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 })
+
+  const { scrollY, scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 28,
+    restDelta: 0.001,
+  })
+
+  // Scroll velocity → subtle skew/stretch. Reads as physical inertia in the
+  // page plane. Damped hard so it always settles back to a clean 0deg.
+  const velocity = useVelocity(scrollY)
+  const smoothVelocity = useSpring(velocity, { damping: 50, stiffness: 400 })
+  const skew = useTransform(smoothVelocity, [-4000, 0, 4000], [-2.6, 0, 2.6], {
+    clamp: true,
+  })
+  const stretch = useTransform(smoothVelocity, [-4000, 0, 4000], [1.015, 1, 0.985], {
+    clamp: true,
+  })
 
   useEffect(() => {
-    const lenis = new Lenis({ duration: reduceMotion ? 0 : 1.2 })
+    const lenis = new Lenis({
+      lerp: 0.085,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.6,
+      syncTouch: false,
+      autoRaf: false,
+    })
     window.__lenis = lenis
+
     let rafId
     const raf = (time) => {
       lenis.raf(time)
       rafId = requestAnimationFrame(raf)
     }
     rafId = requestAnimationFrame(raf)
+
+    // Navbar owns the mobile overlay; freeze the scroller while it's open so
+    // the page underneath can't drift out from under the menu.
+    const lock = () => lenis.stop()
+    const unlock = () => lenis.start()
+    window.addEventListener("nav:lock", lock)
+    window.addEventListener("nav:unlock", unlock)
 
     const onClick = (e) => {
       const a = e.target.closest('a[href^="#"]')
@@ -78,10 +118,13 @@ export default function App() {
       const el = id && id !== "#" && id !== "#top" ? document.querySelector(id) : null
       if (el) {
         e.preventDefault()
-        lenis.scrollTo(el, { offset: -72 })
+        // Match the live nav height rather than assuming a fixed offset.
+        const nav = document.querySelector("header nav")
+        const offset = nav ? -(nav.getBoundingClientRect().height + 20) : -72
+        lenis.scrollTo(el, { offset, duration: 1.35 })
       } else if (id === "#top" || id === "#") {
         e.preventDefault()
-        lenis.scrollTo(0)
+        lenis.scrollTo(0, { duration: 1.5 })
       }
     }
     document.addEventListener("click", onClick)
@@ -89,10 +132,16 @@ export default function App() {
     return () => {
       cancelAnimationFrame(rafId)
       document.removeEventListener("click", onClick)
+      window.removeEventListener("nav:lock", lock)
+      window.removeEventListener("nav:unlock", unlock)
       lenis.destroy()
       window.__lenis = null
     }
-  }, [reduceMotion])
+  }, [])
+
+  const distort = reduceMotion
+    ? undefined
+    : { skewY: skew, scaleX: stretch, transformOrigin: "50% 50%" }
 
   return (
     <div className="relative min-h-screen bg-ink text-paper">
@@ -102,21 +151,26 @@ export default function App() {
       >
         Skip to content
       </a>
-      <div className="aurora" aria-hidden />
+      <Aurora />
       <div className="grain" aria-hidden />
       <Cursor />
       <RecruiterDock />
       <CommandPalette />
-      <motion.div
-        aria-hidden
-        className="nav-progress pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px] bg-accent"
-        style={{ scaleX: progress }}
-      />
+      <div className="nav-progress pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px]" aria-hidden>
+        <motion.div
+          className="h-full origin-left bg-gradient-to-r from-accent via-cyan to-blue shadow-[0_0_18px_rgba(201,255,77,0.55)]"
+          style={{ scaleX: progress }}
+        />
+      </div>
       <AnimatePresence>
         {loading && <Loader key="loader" onDone={() => setLoading(false)} />}
       </AnimatePresence>
       <Navbar />
-      <main id="main" className="relative z-10">
+      <motion.main
+        id="main"
+        className="relative z-10 will-change-transform"
+        style={distort}
+      >
         <Hero />
         <Marquee />
         <Overview />
@@ -128,8 +182,9 @@ export default function App() {
         <LazyArchitecture />
         <Contact />
         <Games />
-      </main>
+      </motion.main>
       <Footer />
     </div>
   )
 }
+

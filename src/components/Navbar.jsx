@@ -47,8 +47,10 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : ""
+    window.dispatchEvent(new CustomEvent(open ? "nav:lock" : "nav:unlock"))
     return () => {
       document.body.style.overflow = ""
+      window.dispatchEvent(new CustomEvent("nav:unlock"))
     }
   }, [open])
 
@@ -75,10 +77,8 @@ export default function Navbar() {
         className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6"
       >
         <nav
-          className={`mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-300 md:rounded-full md:px-5 ${
-            scrolled
-              ? "glass-lux"
-              : "border border-transparent bg-transparent"
+          className={`relative mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 md:rounded-full md:px-5 ${
+            scrolled ? "glass-lux depth-3" : "border border-transparent bg-transparent"
           }`}
           aria-label="Primary"
         >
@@ -144,10 +144,14 @@ export default function Navbar() {
             <Magnetic>
               <a
                 href={`mailto:${site.email}?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma`}
-                className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-ink transition-colors hover:bg-accent"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-paper px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-ink transition-colors hover:bg-accent"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" aria-hidden />
-                Hire me
+                <span
+                  aria-hidden
+                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+                />
+                <span className="relative h-1.5 w-1.5 rounded-full bg-current opacity-70" aria-hidden />
+                <span className="relative">Hire me</span>
               </a>
             </Magnetic>
           </div>

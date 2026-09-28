@@ -1,6 +1,6 @@
 import { csTopics, proofLinks, stats } from "../data/content"
 import Watermark from "./Watermark"
-import { GlowCard, Reveal, Section, SectionHeader } from "./ui"
+import { GlowCard, Reveal, Section, SectionHeader, Stagger, StaggerItem } from "./ui"
 
 export default function Proof() {
   return (
@@ -19,10 +19,10 @@ export default function Proof() {
         lede="Profiles, coursework, and reps a hiring loop actually checks — DSA, systems, and shipped code."
       />
 
-      <div className="mt-14 grid gap-4 md:grid-cols-2">
-        {proofLinks.map((p, i) => (
-          <Reveal key={p.label} delay={i * 0.05}>
-            <a href={p.href} target={p.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="block">
+      <Stagger className="grid gap-4 md:grid-cols-2" gap={0.09}>
+        {proofLinks.map((p) => (
+          <StaggerItem key={p.label} className="h-full">
+            <a href={p.href} target={p.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="block h-full">
               <GlowCard className="group h-full p-7">
                 <div className="flex items-center justify-between gap-4">
                   <p className="eyebrow">
@@ -36,12 +36,12 @@ export default function Proof() {
                 <p className="mt-2 text-sm text-paper/60">{p.detail}</p>
               </GlowCard>
             </a>
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
 
       <Reveal className="mt-6">
-        <GlowCard className="p-7 md:p-9">
+        <GlowCard className="polymorph p-7 md:p-9">
           <p className="eyebrow">
             <span className="text-accent">◉</span> Topics I can interview on
           </p>

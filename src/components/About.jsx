@@ -54,11 +54,20 @@ export default function About() {
               aria-hidden
               className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent/60 via-white/10 to-blue/60 opacity-40 transition-opacity duration-500 group-hover:opacity-90"
             />
-            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl glass">
+            <div className="glass relative aspect-[3/4] overflow-hidden rounded-2xl depth-4">
               <img
                 src={portrait}
                 alt={`Portrait of ${site.name}`}
-                className="h-full w-full object-cover transition-all duration-700 ease-out grayscale group-hover:scale-[1.04] group-hover:grayscale-0"
+                className="h-full w-full scale-105 object-cover transition-all duration-[900ms] ease-out grayscale group-hover:scale-100 group-hover:grayscale-0"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                style={{
+                  background:
+                    "radial-gradient(280px circle at 50% 40%, rgba(0,229,255,0.14), transparent 65%)",
+                  mixBlendMode: "overlay",
+                }}
               />
               <div
                 aria-hidden

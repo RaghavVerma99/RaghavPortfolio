@@ -3,6 +3,10 @@ import { navLinks, site, socials } from "../data/content"
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-line px-6 md:px-12">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+      />
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-8 border-b border-line py-12 md:flex-row md:items-center md:justify-between">
           <p className="font-mono text-xs text-muted">
@@ -53,7 +57,7 @@ export default function Footer() {
         <div className="pointer-events-none relative select-none">
           <div
             aria-hidden
-            className="wm top-auto! bottom-0! left-1/2! right-auto! -translate-x-1/2 whitespace-nowrap text-[11vw]!"
+            className="wm fade-x top-auto! bottom-0! left-1/2! right-auto! -translate-x-1/2 whitespace-nowrap text-[11vw]!"
           >
             {site.name}
           </div>

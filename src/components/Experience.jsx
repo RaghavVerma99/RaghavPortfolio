@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { motion, useScroll } from "framer-motion"
+import { motion, useScroll, useSpring } from "framer-motion"
 import { education, experience } from "../data/content"
 import Watermark from "./Watermark"
 import { Reveal, Section, SectionHeader } from "./ui"
@@ -10,6 +10,7 @@ export default function Experience() {
     target: ref,
     offset: ["start 0.7", "end 0.5"],
   })
+  const headY = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.4 })
 
   return (
     <Section id="experience" className="border-t border-line">
@@ -30,12 +31,17 @@ export default function Experience() {
         <motion.div
           aria-hidden
           style={{ scaleY: scrollYProgress }}
-          className="absolute -left-px top-0 h-full w-px origin-top bg-accent shadow-[0_0_12px_rgba(201,255,77,0.6)]"
+          className="absolute -left-px top-0 h-full w-px origin-top bg-gradient-to-b from-accent via-cyan to-blue shadow-[0_0_16px_rgba(201,255,77,0.65)]"
+        />
+        <motion.div
+          aria-hidden
+          style={{ top: headY }}
+          className="absolute -left-[2.5px] h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_14px_rgba(201,255,77,0.9)] md:-left-[4.5px]"
         />
         {experience.map((job, i) => (
           <Reveal key={job.company} delay={i * 0.05} className="relative">
-            <span className="absolute -left-[41px] top-7 h-3 w-3 rounded-full border-2 border-accent bg-ink md:-left-[57px]" />
-            <article className="glass-lux overflow-hidden rounded-3xl">
+            <span className="absolute -left-[41px] top-7 h-3 w-3 rounded-full border-2 border-accent bg-ink transition-transform duration-500 hover:scale-125 md:-left-[57px]" />
+            <article className="glass-lux lift overflow-hidden rounded-3xl">
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-white/[0.07] bg-white/[0.03] px-6 py-4 md:px-8">
                 <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
                   {String(i + 1).padStart(2, "0")}
@@ -46,7 +52,11 @@ export default function Experience() {
                 </span>
               </div>
               <div className="p-6 md:p-8">
-                <h3 className="font-display text-2xl font-bold tracking-tight md:text-3xl">{job.role}</h3>
+                <h3 className="font-display text-2xl font-bold tracking-tight md:text-3xl">
+                  <span className="bg-gradient-to-r from-paper to-paper bg-clip-text text-transparent transition-[background-position] duration-700 hover:from-accent hover:to-cyan">
+                    {job.role}
+                  </span>
+                </h3>
                 <p className="mt-4 max-w-2xl leading-relaxed text-paper/70">{job.summary}</p>
                 <ul className="mt-5 grid gap-2.5 md:grid-cols-3">
                   {job.highlights.map((h) => (

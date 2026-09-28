@@ -14,11 +14,11 @@ export default function Contact() {
       />
       <div className="mt-14 flex flex-col gap-12 md:flex-row md:items-end md:justify-between">
         <h2 className="font-display font-bold leading-[1.02] tracking-tight">
-          <StaggerWords text="Let's build" className="block text-[12vw] md:text-[7vw]" />
+          <StaggerWords text="Let's build" className="refract block text-[12vw] md:text-[7vw]" />
           <StaggerWords
             text="something great"
             delay={0.08}
-            className="italic-display text-gradient block text-[12vw] md:text-[7vw]"
+            className="italic-display text-gradient refract block text-[12vw] md:text-[7vw]"
           />
         </h2>
         <Reveal delay={0.15} className="flex flex-col items-start gap-4 md:items-end md:pb-3">
@@ -28,12 +28,16 @@ export default function Contact() {
           <Magnetic>
             <a
               href={`mailto:${site.email}?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma`}
-              className="group inline-flex items-center gap-3 rounded-full bg-paper px-8 py-4 font-semibold text-ink transition-colors hover:bg-accent"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-paper px-8 py-4 font-semibold text-ink transition-colors hover:bg-accent"
             >
-              <span className="font-mono text-xs transition-transform duration-300 group-hover:-rotate-45">
+              <span
+                aria-hidden
+                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 to-transparent transition-transform duration-[900ms] group-hover:translate-x-full"
+              />
+              <span className="relative font-mono text-xs transition-transform duration-300 group-hover:-rotate-45">
                 →
               </span>
-              {site.email}
+              <span className="relative">{site.email}</span>
             </a>
           </Magnetic>
           <a
@@ -72,7 +76,7 @@ export default function Contact() {
         ))}
       </div>
 
-      <Reveal delay={0.2} className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+        <Reveal delay={0.2} className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
         {socials.map((s) => (
           <a
             key={s.label}
@@ -88,6 +92,10 @@ export default function Contact() {
           </a>
         ))}
       </Reveal>
+      <div
+        aria-hidden
+        className="contact-shadow pointer-events-none absolute inset-x-0 bottom-0 h-40 opacity-60"
+      />
     </Section>
   )
 }

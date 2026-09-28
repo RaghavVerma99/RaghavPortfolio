@@ -7,7 +7,7 @@ import {
 } from "../data/content"
 import Magnetic from "./Magnetic"
 import Watermark from "./Watermark"
-import { CountUp, GlowCard, Reveal, Section, SectionHeader } from "./ui"
+import { CountUp, GlowCard, Section, SectionHeader, Stagger, StaggerItem, TiltCard } from "./ui"
 
 export default function Overview() {
   return (
@@ -26,9 +26,9 @@ export default function Overview() {
         lede={`${site.notice} Backend-leaning SWE who ships APIs, concurrent systems, and the UI on top.`}
       />
 
-      <div className="mt-14 grid gap-4 lg:grid-cols-12">
-        <Reveal className="lg:col-span-7">
-          <GlowCard className="h-full p-7 md:p-9">
+      <Stagger className="grid gap-4 lg:grid-cols-12" gap={0.09}>
+        <StaggerItem className="lg:col-span-7" y={36}>
+          <GlowCard tilt className="h-full p-7 md:p-9">
             <p className="eyebrow">
               <span className="text-accent">●</span> Open roles
             </p>
@@ -78,46 +78,67 @@ export default function Overview() {
               </Magnetic>
             </div>
           </GlowCard>
-        </Reveal>
+        </StaggerItem>
 
-        <Reveal delay={0.08} className="lg:col-span-5">
+        <StaggerItem className="lg:col-span-5" y={36}>
           <GlowCard className="grid h-full grid-cols-2 gap-px overflow-hidden rounded-3xl p-0">
             {stats.map((s) => (
-              <div key={s.label} className="group bg-ink-2/80 px-5 py-7 transition-colors duration-300 hover:bg-ink-3">
-                <p className="font-display text-3xl font-bold tracking-tight md:text-4xl">
+              <div key={s.label} className="group relative overflow-hidden bg-ink-2/80 px-5 py-7 transition-colors duration-300 hover:bg-ink-3">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "radial-gradient(200px circle at 50% 120%, rgba(201,255,77,0.14), transparent 70%)",
+                  }}
+                />
+                <p className="relative font-display text-3xl font-bold tracking-tight md:text-4xl">
                   <CountUp to={s.value} />
                   <span className="text-accent">{s.suffix}</span>
                 </p>
-                <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-faint">
+                <p className="relative mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-faint">
                   {s.label}
                 </p>
               </div>
             ))}
           </GlowCard>
-        </Reveal>
+        </StaggerItem>
 
         {focusAreas.map((area, i) => (
-          <Reveal key={area.title} delay={0.04 * i} className="lg:col-span-3">
-            <GlowCard className="group h-full p-6">
-              <div className="flex items-center justify-between">
-                <p className="font-mono text-[10px] text-accent">0{i + 1}</p>
-                <span aria-hidden className="font-mono text-[10px] text-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  →
-                </span>
-              </div>
-              <h3 className="mt-4 font-display text-xl font-bold tracking-tight">{area.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-paper/70">{area.copy}</p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {area.tags.map((t) => (
-                  <span key={t} className="chip">
-                    {t}
+          <StaggerItem key={area.title} className="lg:col-span-3">
+            <TiltCard className="h-full" intensity={9}>
+              <div className="glass-lux group relative h-full overflow-hidden rounded-3xl p-6 transition-[border-color] duration-500 hover:border-accent/40">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                />
+                <div className="relative z-10 flex items-center justify-between">
+                  <p className="font-mono text-[10px] text-accent">0{i + 1}</p>
+                  <span
+                    aria-hidden
+                    className="font-mono text-[10px] text-faint transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    →
                   </span>
-                ))}
+                </div>
+                <h3 className="relative z-10 mt-4 font-display text-xl font-bold tracking-tight">
+                  {area.title}
+                </h3>
+                <p className="relative z-10 mt-2 text-sm leading-relaxed text-paper/70">
+                  {area.copy}
+                </p>
+                <div className="relative z-10 mt-4 flex flex-wrap gap-1.5">
+                  {area.tags.map((t) => (
+                    <span key={t} className="chip">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </GlowCard>
-          </Reveal>
+            </TiltCard>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </Section>
   )
 }

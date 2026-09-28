@@ -1,7 +1,7 @@
 import TicTacToe from "./games/TicTacToe"
 import MemoryMatch from "./games/MemoryMatch"
 import Watermark from "./Watermark"
-import { Reveal, Section, SectionHeader } from "./ui"
+import { Reveal, Section, SectionBody, SectionHeader } from "./ui"
 
 export default function Games() {
   return (
@@ -27,7 +27,7 @@ export default function Games() {
         }
         lede="Two small games built straight into the site — a minimax-powered Tic-Tac-Toe and a memory match. No servers, no scoreboards. Just the DOM and a bit of logic."
       />
-      <div className="mt-14 grid gap-6 lg:grid-cols-2">
+      <SectionBody className="grid gap-6 lg:grid-cols-2">
         <Reveal className="h-full">
           <TicTacToe />
         </Reveal>

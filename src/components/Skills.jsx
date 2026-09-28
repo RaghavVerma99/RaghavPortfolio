@@ -1,6 +1,6 @@
 import { skills } from "../data/content"
 import Watermark from "./Watermark"
-import { GlowCard, Section, SectionHeader, Reveal } from "./ui"
+import { GlowCard, Section, SectionHeader, Stagger, StaggerItem } from "./ui"
 
 export default function Skills() {
   const total = skills.reduce((n, s) => n + s.items.length, 0)
@@ -19,9 +19,9 @@ export default function Skills() {
         lede="Backend-first: languages, APIs, data, and the systems layer that keeps latency honest."
       />
 
-      <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {skills.map((category, i) => (
-          <Reveal key={category.title} delay={i * 0.04}>
+      <Stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" gap={0.08}>
+        {skills.map((category) => (
+          <StaggerItem key={category.title} className="h-full">
             <GlowCard className="group h-full p-7">
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-sm font-semibold tracking-[0.18em] uppercase text-accent">
@@ -33,15 +33,18 @@ export default function Skills() {
               </div>
               <div className="mt-5 flex flex-wrap gap-2">
                 {category.items.map((item) => (
-                  <span key={item} className="chip chip-ink">
+                  <span
+                    key={item}
+                    className="chip chip-ink transition-[transform,border-color,color] duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-paper"
+                  >
                     {item}
                   </span>
                 ))}
               </div>
             </GlowCard>
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </Section>
   )
 }

@@ -33,9 +33,12 @@ export default function RecruiterDock() {
         hidden ? "translate-y-20 opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      <div className="pointer-events-auto glass-lux flex items-center gap-1 rounded-full p-1.5">
+      <div className="pointer-events-auto glass-lux depth-4 flex items-center gap-1 rounded-full p-1.5">
         <span className="hidden items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent sm:flex">
-          <span className="h-1 w-1 rounded-full bg-accent" />
+          <span className="relative flex h-1 w-1">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
+            <span className="relative inline-flex h-1 w-1 rounded-full bg-accent" />
+          </span>
           open
         </span>
         {items.map((item) => {
@@ -48,10 +51,13 @@ export default function RecruiterDock() {
               rel="noreferrer"
               title={`${item.label}${item.label === "Resume" ? " — print or save as PDF" : ""}`}
               aria-label={item.label}
-              className="group relative grid h-11 w-11 place-items-center rounded-full text-paper/80 transition-colors hover:bg-white/10 hover:text-accent"
+              className="group relative grid h-11 w-11 place-items-center rounded-full text-paper/80 transition-[color,background-color,transform] duration-300 hover:scale-105 hover:bg-white/10 hover:text-accent active:scale-95"
             >
               <Icon size={16} strokeWidth={1.75} />
-              <span className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 rounded-md border border-white/10 bg-ink/90 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-paper opacity-0 backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 rounded-md border border-white/10 bg-ink/90 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-paper opacity-0 backdrop-blur transition-opacity duration-200 group-hover:opacity-100"
+              >
                 {item.label}
               </span>
             </a>
