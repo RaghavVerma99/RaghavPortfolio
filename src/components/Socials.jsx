@@ -13,7 +13,7 @@ export default function Socials() {
 
       {/* One delegated pointer listener for the whole grid — see useTilt. */}
       <ul ref={root} className="mt-7 grid gap-2.5 sm:mt-8 sm:gap-3 sm:grid-cols-2">
-        {socials.map((s, i) => (
+        {socials.filter((s) => s.label !== "Email").map((s, i) => (
           <li key={s.label} className="enter" style={{ "--d": `${120 + i * 80}ms` }}>
             <a
               href={s.href}

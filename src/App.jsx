@@ -48,7 +48,7 @@ export default function App() {
                     {project.stack.map((item) => <li key={item}>{item}</li>)}
                   </ul>
                   <a href={project.link} target="_blank" rel="noreferrer noopener" className="text-link">
-                    Explore <span aria-hidden="true">↗</span>
+                    GitHub <span aria-hidden="true">↗</span>
                   </a>
                 </div>
               </article>
