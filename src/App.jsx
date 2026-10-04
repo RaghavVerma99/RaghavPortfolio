@@ -1,165 +1,98 @@
-import { Suspense, lazy, useEffect, useRef, useState } from "react"
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion"
-import Lenis from "lenis"
-import Loader from "./components/Loader"
-import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
-import About from "./components/About"
-import Skills from "./components/Skills"
-import Experience from "./components/Experience"
-import Projects from "./components/Projects"
-import Contact from "./components/Contact"
-import Games from "./components/Games"
-import Footer from "./components/Footer"
-import Marquee from "./components/Marquee"
-import Cursor from "./components/Cursor"
-import Overview from "./components/Overview"
-import Proof from "./components/Proof"
-import RecruiterDock from "./components/RecruiterDock"
-import CommandPalette from "./components/CommandPalette"
-import Aurora from "./components/Aurora"
-
-const Architecture = lazy(() => import("./components/Architecture"))
-
-function LazyArchitecture() {
-  const ref = useRef(null)
-  const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShow(true)
-          obs.disconnect()
-        }
-      },
-      { rootMargin: "400px" }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  return (
-    <div ref={ref}>
-      {show ? (
-        <Suspense
-          fallback={<div className="h-[600px] animate-pulse bg-ink-2" aria-hidden />}
-        >
-          <Architecture />
-        </Suspense>
-      ) : (
-        <div className="h-[600px] bg-ink-2/40" aria-hidden />
-      )}
-    </div>
-  )
-}
+import Socials from "./components/Socials"
+import Banner from "./components/Banner"
+import CopyEmail from "./components/CopyEmail"
+import { site, projects, experience, education, skills } from "./data/content"
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
-
-  const { scrollYProgress } = useScroll()
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 28,
-    restDelta: 0.001,
-  })
-
-  useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.085,
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.6,
-      syncTouch: false,
-      autoRaf: false,
-    })
-    window.__lenis = lenis
-
-    let rafId
-    const raf = (time) => {
-      lenis.raf(time)
-      rafId = requestAnimationFrame(raf)
-    }
-    rafId = requestAnimationFrame(raf)
-
-    // Navbar owns the mobile overlay; freeze the scroller while it's open so
-    // the page underneath can't drift out from under the menu.
-    const lock = () => lenis.stop()
-    const unlock = () => lenis.start()
-    window.addEventListener("nav:lock", lock)
-    window.addEventListener("nav:unlock", unlock)
-
-    const onClick = (e) => {
-      const a = e.target.closest('a[href^="#"]')
-      if (!a) return
-      const id = a.getAttribute("href")
-      const el = id && id !== "#" && id !== "#top" ? document.querySelector(id) : null
-      if (el) {
-        e.preventDefault()
-        // Match the live nav height rather than assuming a fixed offset.
-        const nav = document.querySelector("header nav")
-        const offset = nav ? -(nav.getBoundingClientRect().height + 20) : -72
-        lenis.scrollTo(el, { offset, duration: 1.35 })
-      } else if (id === "#top" || id === "#") {
-        e.preventDefault()
-        lenis.scrollTo(0, { duration: 1.5 })
-      }
-    }
-    document.addEventListener("click", onClick)
-
-    return () => {
-      cancelAnimationFrame(rafId)
-      document.removeEventListener("click", onClick)
-      window.removeEventListener("nav:lock", lock)
-      window.removeEventListener("nav:unlock", unlock)
-      lenis.destroy()
-      window.__lenis = null
-    }
-  }, [])
-
   return (
-    <div className="relative min-h-screen bg-ink text-paper">
-      <a
-        href="#overview"
-        className="sr-only rounded-full bg-paper px-4 py-2 font-mono text-xs font-semibold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[130]"
-      >
+    <div className="relative min-h-screen">
+      <div className="backdrop" aria-hidden="true" />
+
+      {/* First tab stop — the page is one column, so this is the only thing
+          keyboard users need to skip past. */}
+      <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <Aurora />
-      <div className="grain" aria-hidden />
-      <Cursor />
-      <RecruiterDock />
-      <CommandPalette />
-      <div className="nav-progress pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px]" aria-hidden>
-        <motion.div
-          className="h-full origin-left bg-gradient-to-r from-accent via-cyan to-blue shadow-[0_0_18px_rgba(201,255,77,0.55)]"
-          style={{ scaleX: progress }}
-        />
-      </div>
-      <AnimatePresence>
-        {loading && <Loader key="loader" onDone={() => setLoading(false)} />}
-      </AnimatePresence>
-      <Navbar />
-      {/* Plain <main>: a transform here would promote the entire document to
-          its own composited layer, forcing the browser to keep a full-page
-          bitmap in memory and resampling text on every scroll frame. */}
-      <main id="main" className="relative z-10">
+
+      <header className="relative z-20">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-5 sm:px-8">
+          <p className="font-mono text-xs tracking-[0.12em] text-faint">
+            {site.name}
+          </p>
+          <div className="flex items-center gap-4">
+            <CopyEmail value={site.email}>Copy email</CopyEmail>
+          </div>
+        </div>
+      </header>
+
+      <main id="main" className="relative z-10 mx-auto max-w-3xl px-6 sm:px-8">
+        <div id="top" />
         <Hero />
-        <Marquee />
-        <Overview />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Proof />
-        <LazyArchitecture />
-        <Contact />
-        <Games />
+        <section className="work-section" id="work" aria-labelledby="work-title">
+          <div className="section-heading">
+            <p className="label">Selected work</p>
+            <h2 id="work-title">Things I’ve built</h2>
+          </div>
+          <div className="project-list">
+            {projects.map((project, index) => (
+              <article className="project-card" key={project.index} style={{ "--card-index": index }}>
+                <div className="project-topline">
+                  <span className="project-index">{project.index} / 0{projects.length}</span>
+                  <span className="project-metric"><strong>{project.metric}</strong> {project.metricLabel}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-bottomline">
+                  <ul className="tag-list" aria-label="Technologies">
+                    {project.stack.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                  <a href={project.link} target="_blank" rel="noreferrer noopener" className="text-link">
+                    Explore <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="experience-section" id="experience" aria-labelledby="experience-title">
+          <div className="section-heading">
+            <p className="label">Experience</p>
+            <h2 id="experience-title">Where I’ve contributed</h2>
+          </div>
+          <div className="timeline">
+            {experience.map((item) => (
+              <article className="timeline-item" key={`${item.company}-${item.role}`}>
+                <div className="timeline-date">{item.period}</div>
+                <div>
+                  <h3>{item.role} <span>· {item.company}</span></h3>
+                  <p>{item.summary}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="education-line"><span>Education</span><p>{education.degree} · {education.school} <small>{education.period}</small></p></div>
+        </section>
+
+        <section className="focus-section" aria-labelledby="focus-title">
+          <div className="section-heading">
+            <p className="label">Focus</p>
+            <h2 id="focus-title">Tools I reach for</h2>
+          </div>
+          <div className="focus-groups">
+            {skills.filter((group) => ["Languages", "Systems", "Backend", "Databases"].includes(group.title)).map((group) => (
+              <div className="focus-group" key={group.title}>
+                <h3>{group.title}</h3>
+                <p>{group.items.join(" · ")}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+        <Socials />
       </main>
-      <Footer />
+
+      <Banner />
     </div>
   )
 }
-

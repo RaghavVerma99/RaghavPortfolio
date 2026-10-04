@@ -19,14 +19,6 @@ export const site = {
     "I'm a Computer Science undergrad at Dronacharya Group of Institutions (B.Tech '27) focused on backend engineering and distributed systems. I've built an async Layer-7 reverse proxy in C++20 with epoll, an online compiler with a sandboxed execution pipeline, and a cross-platform task app in Flutter. I've solved 500+ DSA problems, contribute fixes to open-source C++ networking libraries, and mentor juniors in DSA and OOP.",
 }
 
-export const navLinks = [
-  { label: "Overview", href: "#overview" },
-  { label: "Experience", href: "#experience" },
-  { label: "Work", href: "#work" },
-  { label: "Proof", href: "#proof" },
-  { label: "Contact", href: "#contact" },
-]
-
 export const lookingFor = [
   "SDE / SWE internships",
   "New-grad / full-time SWE",
@@ -34,165 +26,16 @@ export const lookingFor = [
   "Full-stack product teams",
 ]
 
-export const snapshotFacts = [
-  { k: "Role", v: "SWE Intern · AmbiguityLabs" },
-  { k: "Degree", v: "B.Tech CSE · 2027" },
-  { k: "Focus", v: "Backend · systems · APIs" },
-  { k: "Base", v: "Greater Noida · IST" },
+export const stats = [
+  { value: "500+", label: "DSA problems solved" },
+  { value: "10K+", label: "Concurrent connections" },
+  { value: "60fps", label: "Smooth rendering" },
+  { value: "10+", label: "Juniors mentored" },
 ]
 
-export const focusAreas = [
-  {
-    title: "Backend APIs",
-    copy: "REST services in Node/Express with validation, caching, and clean error paths.",
-    tags: ["Node.js", "Express", "PostgreSQL", "Redis"],
-  },
-  {
-    title: "Distributed systems",
-    copy: "Load balancing, rate limits, circuit breakers, and cache locality under load.",
-    tags: ["Consistent hashing", "Token bucket", "Failover"],
-  },
-  {
-    title: "Systems in C++",
-    copy: "Event-driven IO with epoll, thread pools, and low per-connection overhead.",
-    tags: ["C++20", "epoll", "Concurrency"],
-  },
-  {
-    title: "Product surfaces",
-    copy: "React and Flutter UIs that talk to real APIs — not mock-only demos.",
-    tags: ["React", "Flutter", "WebSockets"],
-  },
-]
-
-export const csTopics = [
-  "Data Structures & Algorithms",
-  "Operating Systems",
-  "Computer Networks",
-  "DBMS / SQL",
-  "OOP",
-  "Concurrency",
-  "System design (fundamentals)",
-]
-
-export const proofLinks = [
-  {
-    label: "GitHub",
-    handle: "RaghavVerma99",
-    detail: "Projects & open source",
-    href: "https://github.com/RaghavVerma99",
-    cta: "View repos",
-  },
-  {
-    label: "LeetCode",
-    handle: "risshu_raghav",
-    detail: "500+ problems · DSA reps",
-    href: "https://leetcode.com/u/risshu_raghav",
-    cta: "View profile",
-  },
-  {
-    label: "LinkedIn",
-    handle: "raghav-verma7",
-    detail: "Experience & recommendations",
-    href: "https://linkedin.com/in/raghav-verma7",
-    cta: "Connect",
-  },
-  {
-    label: "Email",
-    handle: "risshu.verma7@gmail.com",
-    detail: "Screens or a quick intro",
-    href: "mailto:risshu.verma7@gmail.com?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma",
-    cta: "Write",
-  },
-]
-
-export const marquee = [
-  "C++20",
-  "Go",
-  "Java",
-  "Python",
-  "JavaScript",
-  "Dart",
-  "React.js",
-  "Node.js",
-  "Express.js",
-  "Flutter",
-  "Redis",
-  "MySQL",
-  "PostgreSQL",
-  "Docker",
-  "Linux",
-  "Git",
-]
-
-export const skills = [
-  {
-    title: "Languages",
-    items: ["C++20", "C", "Go", "Java", "JavaScript (ES6+)", "Python", "TypeScript", "Dart"],
-  },
-  {
-    title: "Frontend",
-    items: ["React", "Flutter", "Tailwind CSS", "Vite", "Redux Toolkit", "Responsive Design"],
-  },
-  {
-    title: "Systems",
-    items: ["epoll / async I/O", "Concurrency", "TCP/IP", "Load balancing", "Caching", "Circuit breakers"],
-  },
-  {
-    title: "Backend",
-    items: ["Node.js", "Express.js", "Fastify", "RESTful APIs", "WebSockets", "Flask"],
-  },
-  {
-    title: "Databases",
-    items: ["PostgreSQL", "MySQL", "Redis", "SQL", "Hive", "In-memory caching"],
-  },
-  {
-    title: "Tools & DevOps",
-    items: ["Git", "GitHub", "Docker", "Linux (Bash)", "CI / CD", "Vercel / Render"],
-  },
-]
-
-export const experience = [
-  {
-    role: "SWE Intern",
-    company: "AmbiguityLabs",
-    period: "Aug 2026 — Present",
-    summary:
-      "Full-stack software engineering intern building and shipping end-to-end features — from React frontends to Node.js APIs and database layers — in a fast-paced, production codebase.",
-    highlights: [
-      "Built and shipped end-to-end features across React, Node.js/Express, and PostgreSQL/Redis",
-      "Collaborated with frontend and backend teams through sprint planning, code reviews, and pair programming",
-      "Wrote and optimized REST APIs with proper validation, error handling, and caching",
-    ],
-    stack: ["React", "Node.js", "Express", "PostgreSQL", "Redis", "Git"],
-  },
-  {
-    role: "Open Source Contributor",
-    company: "C++ networking & distributed-systems utilities",
-    period: "2025 — 2026",
-    summary:
-      "Contributed bug fixes and performance patches to open-source distributed-systems utilities and C++ networking libraries.",
-    highlights: [
-      "Fixed concurrency and edge-case bugs in networking utilities",
-      "Submitted performance patches improving throughput under load",
-    ],
-    stack: ["C++", "Networking", "Concurrency"],
-  },
-
-]
-
-export const education = {
-  degree: "B.Tech — Computer Science Engineering",
-  school: "Dronacharya Group of Institutions, Greater Noida",
-  period: "2023 — 2027",
-  coursework: [
-    "Data Structures & Algorithms",
-    "Operating Systems",
-    "DBMS",
-    "Computer Networks (TCP/IP)",
-    "OOP",
-  ],
-}
-
+/* `description`, `stack` and `link` are what the page renders. The remaining
+   fields are the deeper write-ups kept from the previous build — retained so
+   the detail isn't lost, and available if a case-study view is ever restored. */
 export const projects = [
   {
     index: "01",
@@ -280,40 +123,120 @@ export const projects = [
   },
 ]
 
-export const stats = [
-  { value: 500, suffix: "+", label: "DSA problems solved" },
-  { value: 10, suffix: "K+", label: "Concurrent connections" },
-  { value: 60, suffix: "fps", label: "Smooth rendering" },
-  { value: 10, suffix: "+", label: "Juniors mentored" },
+export const experience = [
+  {
+    role: "SWE Intern",
+    company: "AmbiguityLabs",
+    period: "Aug 2026 — Present",
+    summary:
+      "Full-stack software engineering intern building and shipping end-to-end features — from React frontends to Node.js APIs and database layers — in a fast-paced, production codebase.",
+    highlights: [
+      "Built and shipped end-to-end features across React, Node.js/Express, and PostgreSQL/Redis",
+      "Collaborated with frontend and backend teams through sprint planning, code reviews, and pair programming",
+      "Wrote and optimized REST APIs with proper validation, error handling, and caching",
+    ],
+    stack: ["React", "Node.js", "Express", "PostgreSQL", "Redis", "Git"],
+  },
+  {
+    role: "Open Source Contributor",
+    company: "C++ networking & distributed-systems utilities",
+    period: "2025 — 2026",
+    summary:
+      "Contributed bug fixes and performance patches to open-source distributed-systems utilities and C++ networking libraries.",
+    highlights: [
+      "Fixed concurrency and edge-case bugs in networking utilities",
+      "Submitted performance patches improving throughput under load",
+    ],
+    stack: ["C++", "Networking", "Concurrency"],
+  },
 ]
 
+export const education = {
+  degree: "B.Tech — Computer Science Engineering",
+  school: "Dronacharya Group of Institutions, Greater Noida",
+  period: "2023 — 2027",
+}
+
+export const skills = [
+  {
+    title: "Languages",
+    items: ["C++20", "C", "Go", "Java", "JavaScript", "TypeScript", "Python", "Dart"],
+  },
+  {
+    title: "Frontend",
+    items: ["React", "Flutter", "Tailwind CSS", "Vite", "Redux Toolkit"],
+  },
+  {
+    title: "Systems",
+    items: ["epoll / async I/O", "Concurrency", "TCP/IP", "Load balancing", "Caching", "Circuit breakers"],
+  },
+  {
+    title: "Backend",
+    items: ["Node.js", "Express.js", "Fastify", "RESTful APIs", "WebSockets", "Flask"],
+  },
+  {
+    title: "Databases",
+    items: ["PostgreSQL", "MySQL", "Redis", "SQL", "In-memory caching"],
+  },
+  {
+    title: "Tools & DevOps",
+    items: ["Git", "GitHub", "Docker", "Linux (Bash)", "CI / CD", "Vercel / Render"],
+  },
+]
+
+/* Rendered as the tile grid. Kept in one place so the hrefs can't drift.
+   `hue` is the single knob each tile uses to tint its glow, ring and hover
+   wash — the palette stays coherent because every colour is derived from a
+   position on one spectrum rather than hand-picked per link. */
 export const socials = [
-  { label: "GitHub", href: "https://github.com/RaghavVerma99" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/raghav-verma7" },
-  { label: "LeetCode", href: "https://leetcode.com/u/risshu_raghav" },
-  { label: "Email", href: "mailto:risshu.verma7@gmail.com" },
-]
-
-export const profiles = [
   {
     label: "GitHub",
     handle: "RaghavVerma99",
-    stat: "Open source & projects",
+    detail: "Projects & open source",
     href: "https://github.com/RaghavVerma99",
+    external: true,
+    hue: 88,
     icon: "github",
+    brand: "#ffffff",
+  },
+  {
+    label: "LinkedIn",
+    handle: "raghav-verma7",
+    detail: "Experience & recommendations",
+    href: "https://linkedin.com/in/raghav-verma7",
+    external: true,
+    hue: 205,
+    icon: "linkedin",
+    brand: "#4a9ee8",
   },
   {
     label: "LeetCode",
     handle: "risshu_raghav",
-    stat: "500+ problems solved",
+    detail: "500+ problems solved",
     href: "https://leetcode.com/u/risshu_raghav",
-    icon: "braces",
+    external: true,
+    hue: 42,
+    icon: "leetcode",
+    brand: "#ffa116",
   },
   {
-    label: "LinkedIn",
-    handle: "Raghav Verma",
-    stat: "Software Engineer · Let's connect",
-    href: "https://linkedin.com/in/raghav-verma7",
-    icon: "link",
+    label: "Email",
+    handle: "risshu.verma7@gmail.com",
+    detail: "Screens or a quick intro",
+    href: "mailto:risshu.verma7@gmail.com?subject=SDE%20%2F%20SWE%20role%20%E2%80%94%20Raghav%20Verma",
+    external: false,
+    hue: 282,
+    icon: "mail",
+    brand: "#ff4d4d",
+  },
+  {
+    label: "Resume",
+    handle: "PDF",
+    detail: "Full experience & skills",
+    href: "/resume.html",
+    external: false,
+    hue: 160,
+    icon: "resume",
+    brand: "#b48bff",
   },
 ]

@@ -1,142 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #070708;
-  --color-ink-2: #0c0c10;
-  --color-ink-3: #121216;
-  --color-paper: #f2efe6;
+  --color-ink: #08080a;
+  --color-surface: #0f0f14;
+  --color-paper: #f2f2f5;
+  --color-muted: #9494a0;
+  --color-faint: #7e7e8c;
   --color-accent: #c9ff4d;
-  --color-accent-dim: #20321a;
-  --color-cyan: #00e5ff;
-  --color-blue: #7aa7ff;
-  --color-amber: #fbbf24;
-  --color-violet: #b48bff;
-  --color-muted: #a0a0a6;
-  --color-faint: #6b6b72;
-  --color-line: rgba(242, 239, 230, 0.09);
-  --font-display: "Syne", system-ui, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --color-line: rgba(242, 242, 245, 0.1);
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 24px 60px -32px rgba(0, 0, 0, 0.8);
-  --shadow-lift: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 40px 90px -40px rgba(0, 0, 0, 0.9);
   --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Registered custom properties — lets a gradient track a live pointer
-   position as a typed value rather than a string, so the browser can
-   interpolate it. */
-@property --poly-pos {
-  syntax: "<percentage>";
-  initial-value: 50%;
-  inherits: false;
-}
-
-@property --poly-hue {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-:root {
-  /* Elevation ramp. Each tier = ambient occlusion + contact shadow + specular top edge.
-     Real depth comes from stacking these, not from one big blur. */
-  --d1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px -6px rgba(0, 0, 0, 0.5);
-  --d2: 0 2px 4px rgba(0, 0, 0, 0.35), 0 12px 28px -12px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --d3: 0 4px 8px rgba(0, 0, 0, 0.35), 0 24px 56px -24px rgba(0, 0, 0, 0.75),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  --d4: 0 8px 16px rgba(0, 0, 0, 0.4), 0 48px 100px -36px rgba(0, 0, 0, 0.85),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
-  --edge-light: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.02) 22%,
-    transparent 55%
-  );
-
-  /* Vertical rhythm. Sections, headers, and card stacks all pull from this
-     scale so spacing stays consistent as components get added. */
-  --sp-section: 5rem;
-  --sp-section-lg: 8rem;
-  --sp-header: 1.75rem;
-  --sp-header-lg: 2.5rem;
-  --sp-lede: 1.5rem;
-  --sp-body: 3.5rem;
-  --sp-body-lg: 4.5rem;
-  --sp-card: 1.5rem;
-  --sp-card-lg: 2rem;
-
-  /* Minimum comfortable touch target (WCAG 2.5.5 / platform HIG). */
-  --tap: 44px;
-
-  --poly-spectrum: linear-gradient(
-    115deg,
-    #c9ff4d 0%,
-    #00e5ff 22%,
-    #7aa7ff 44%,
-    #b48bff 62%,
-    #fbbf24 82%,
-    #c9ff4d 100%
-  );
 }
 
 html {
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-[id] {
-  scroll-margin-top: 96px;
-}
-
-.font-mono {
-  font-variant-numeric: tabular-nums;
-}
-
-:root {
-  --accent-cyan: #00e5ff;
-  --accent-blue: #7aa7ff;
-  --accent-amber: #fbbf24;
-  --text-muted: var(--color-muted);
-  --mono: var(--font-mono);
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   background-color: var(--color-ink);
   color: var(--color-paper);
   font-family: var(--font-body);
-  overflow-x: hidden;
-  cursor: none;
-  font-feature-settings: "cv11", "ss01";
-  /* Kills the 300ms tap delay and the grey flash Android adds on tap.
-     `manipulation` is the one value that preserves pinch-zoom. */
-  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  /* The fixed recruiter dock sits over the footer; this keeps the last
-     line of content clear of it on small screens. */
-  padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem);
-}
-
-input,
-textarea,
-select,
-[contenteditable="true"] {
-  cursor: auto;
-  caret-color: var(--accent-cyan);
-}
-
-.cursor-dot.is-hidden,
-.cursor-ring.is-hidden {
-  display: none;
-}
-
-@media (pointer: coarse) {
-  body {
-    cursor: auto;
-  }
+  /* `pretty` balances the last line of every paragraph. Default ragged
+     bottoms on narrow columns are what make a text page look unfinished. */
+  text-wrap: pretty;
+  /* Long unbroken handles and the banner name must never force a sideways
+     scroll on a phone. */
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -144,100 +37,366 @@ select,
   color: var(--color-ink);
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-ink);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #23231d, #17171a);
-  border-radius: 999px;
-  border: 2px solid var(--color-ink);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
-}
-
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+  border-radius: 2px;
 }
 
-.surface,
-.glass,
-.glass-card {
-  position: relative;
-  background:
-    var(--edge-light),
-    linear-gradient(165deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  box-shadow: var(--d3);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
+/* Every glow, ring and wash on the page derives from one custom property, so
+   a tile only has to declare a hue to join the palette.
+
+   `inherits: true` is required, not stylistic: the value is set on the tile
+   but read by its ::before and ::after. A registered property declared
+   `inherits: false` resolves to the initial value inside those pseudo-
+   elements, which would silently drop every tile back to the same hue. */
+@property --hue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 88;
 }
 
-.glass-lux {
-  position: relative;
+/* ── Ambient depth ──────────────────────────────────────────────────────
+   Three layers, cheapest first:
+     .backdrop  — two static radial washes + two slowly drifting orbs.
+     .grain     — a static noise tile, so flat areas have tooth.
+     .spotlight — a light that follows the cursor (see Spotlight.jsx).
+   All are fixed, so scrolling never repaints them. The orbs animate only
+   `transform`, which keeps them on the compositor. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
   background:
-    var(--edge-light),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.025) 48%, rgba(201, 255, 77, 0.03) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+    radial-gradient(760px circle at 10% -10%, rgba(201, 255, 77, 0.1), transparent 62%),
+    radial-gradient(680px circle at 94% 2%, rgba(122, 167, 255, 0.1), transparent 60%);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.orb-a {
+  top: -18vh;
+  left: -12vw;
+  width: 52vw;
+  height: 52vw;
+  background: radial-gradient(circle, rgba(201, 255, 77, 0.16), transparent 68%);
+  animation: drift-a 28s ease-in-out infinite;
+}
+
+.orb-b {
+  top: 24vh;
+  right: -16vw;
+  width: 46vw;
+  height: 46vw;
+  background: radial-gradient(circle, rgba(180, 139, 255, 0.15), transparent 68%);
+  animation: drift-b 34s ease-in-out infinite;
+}
+
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(5vw, 7vh, 0) scale(1.14);
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.08);
+  }
+  50% {
+    transform: translate3d(-6vw, 5vh, 0) scale(0.92);
+  }
+}
+
+.spotlight-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.spotlight {
+  position: absolute;
+  top: -320px;
+  left: -320px;
+  width: 640px;
+  height: 640px;
+  border-radius: 999px;
+  /* Blurred once, then only translated. Animating the gradient itself would
+     force a repaint of a 640px surface every frame. */
+  background: radial-gradient(
+    circle,
+    rgba(201, 255, 77, 0.06) 0%,
+    rgba(122, 167, 255, 0.032) 34%,
+    transparent 62%
+  );
+  will-change: transform;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-line), rgba(242, 242, 245, 0.02) 70%, transparent);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+/* ── Motion ─────────────────────────────────────────────────────────────
+   One system. Everything fades and rises once, on mount, and never replays.
+   The stagger is a per-element delay passed as `--d`; the per-word variant
+   uses `--i`. Both animate only `transform` + `opacity`, and both are
+   flattened to a no-op under reduced-motion (see the end of this file). */
+.enter {
+  animation: enter 0.8s var(--ease-snap) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.word {
+  display: inline-block;
+  animation: enter 0.7s var(--ease-snap) both;
+  animation-delay: var(--i, 0ms);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Availability marker. The halo pulses; the core never moves, so it stays
+   legible against the pulsing ring. */
+.availability-dot {
+  position: relative;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* ── Spectrum text ────────────────────────────────────────────────────
+   A vertical gradient clipped to the glyphs, drifting on `background-position`.
+   The gradient is 3x the line box so there is somewhere to travel to; a 1x
+   gradient would have nowhere to go.
+
+   This is a background-position animation, not a transform one, so it does
+   repaint the text layer each frame. It is the single most expensive thing
+   on the page and is switched off under reduced-motion and on small screens,
+   where it would cost the most for the least visible gain. */
+.spectrum-text {
+  background-image: linear-gradient(
+    180deg,
+    #c9ff4d 0%,
+    #00e5ff 26%,
+    #7aa7ff 52%,
+    #b48bff 74%,
+    #c9ff4d 100%
+  );
+  background-size: 100% 300%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: spectrum-drift 8s ease-in-out infinite;
+}
+
+@keyframes spectrum-drift {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+}
+
+/* ── Brand marks ──────────────────────────────────────────────────────
+   A small tinted plate so each platform's colour reads at a glance without
+   the mark sitting naked on the tile. --brand is the platform's own colour;
+   the plate is a low-alpha wash of it so the tile stays dark. */
+.brand-mark {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.7rem;
+  color: var(--brand, var(--color-paper));
+  background: color-mix(in srgb, var(--brand, #fff) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand, #fff) 22%, transparent);
+  transition:
+    transform 0.45s var(--ease-snap),
+    background-color 0.45s var(--ease-snap),
+    box-shadow 0.45s var(--ease-snap);
+}
+
+.social-tile:hover .brand-mark,
+.social-tile:focus-visible .brand-mark {
+  transform: scale(1.08) rotate(-4deg);
+  background: color-mix(in srgb, var(--brand, #fff) 24%, transparent);
   box-shadow:
-    var(--d4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(26px) saturate(170%);
-  -webkit-backdrop-filter: blur(26px) saturate(170%);
+    inset 0 0 0 1px color-mix(in srgb, var(--brand, #fff) 38%, transparent),
+    0 6px 18px -8px var(--brand, #fff);
 }
 
-.glass-soft {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(242, 239, 230, 0.08);
+.availability-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent);
+  animation: halo 2.6s var(--ease-snap) infinite;
 }
 
-/* Elevation utilities — use instead of ad-hoc shadows. */
-.depth-1 {
-  box-shadow: var(--d1);
+@keyframes halo {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.7);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
 }
 
-.depth-2 {
-  box-shadow: var(--d2);
+/* ── Skip link ─────────────────────────────────────────────────────────
+   Off-screen until focused, then pinned top-left. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 50;
+  transform: translateY(-200%);
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  background: var(--color-accent);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  transition: transform 0.25s var(--ease-snap);
 }
 
-.depth-3 {
-  box-shadow: var(--d3);
+.skip-link:focus-visible {
+  transform: none;
 }
 
-.depth-4 {
-  box-shadow: var(--d4);
-}
+/* ── Social tiles ───────────────────────────────────────────────────────
+   The showpiece. A tiltable, glowing card whose entire colour identity comes
+   from `--hue`:
+     1. lifts and tilts toward the pointer (transform, from --px/--py)
+     2. a radial wash blooms from the pointer, in the tile's hue
+     3. a conic ring orbits the border
+     4. a specular sweep runs across the face
+   Transforms only, so the whole interaction stays on the compositor. */
+.social-tile {
+  --tilt-x: calc(var(--px, 0) * 6deg);
+  --tilt-y: calc(var(--py, 0) * -6deg);
+  --lift: calc(var(--py, 0) * -5px);
 
-/* ── Polymorphism ─────────────────────────────────────────────────────────
-   An animated conic gradient "caustic" that orbits the card edge. The angle
-   is a registered custom property, so the browser interpolates it on the
-   compositor instead of repainting a new gradient each frame. */
-.polymorph {
   position: relative;
   isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 1.15rem 1.3rem;
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.012));
+  transform: perspective(900px) translate3d(0, var(--lift), 0) rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y));
+  /* Short enough to feel attached to the pointer. The --px/--py values update
+     on every pointermove, so a long duration here would read as the card
+     dragging behind the cursor rather than leaning toward it. */
+  transition:
+    transform 0.28s var(--ease-snap),
+    border-color 0.45s var(--ease-snap),
+    box-shadow 0.45s var(--ease-snap);
 }
 
-.polymorph::before {
+.social-tile:hover,
+.social-tile:focus-visible {
+  border-color: hsl(var(--hue) 90% 70% / 0.45);
+  box-shadow:
+    0 24px 50px -28px hsl(var(--hue) 90% 50% / 0.55),
+    0 2px 10px -4px hsl(var(--hue) 90% 50% / 0.3);
+}
+
+/* 2 — pointer-tracked wash, in the tile's own hue. */
+.social-tile::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    320px circle at calc(50% + var(--px, 0) * 100%) calc(50% + var(--py, 0) * 100%),
+    hsl(var(--hue) 95% 62% / 0.16),
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-snap);
+}
+
+.social-tile:hover::before,
+.social-tile:focus-visible::before {
+  opacity: 1;
+}
+
+/* 3 — spectrum ring around the edge. Two full-size pseudo-elements minus
+   their common centre leave only a 1px band. Painted at a fixed angle and
+   then rotated: animating a conic's `from` angle would repaint the whole
+   gradient every frame, whereas rotating a painted layer is compositor-only. */
+.social-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   border-radius: inherit;
   padding: 1px;
   background: conic-gradient(
     from 0deg,
     transparent 0%,
-    rgba(201, 255, 77, 0.85) 12%,
-    rgba(0, 229, 255, 0.75) 26%,
-    rgba(122, 167, 255, 0.8) 40%,
-    rgba(180, 139, 255, 0.7) 54%,
-    transparent 72%,
+    hsl(var(--hue) 95% 68% / 0.95) 16%,
+    hsl(calc(var(--hue) + 45) 95% 70% / 0.85) 30%,
+    transparent 55%,
     transparent 100%
   );
   -webkit-mask:
@@ -249,938 +408,367 @@ select,
     linear-gradient(#000 0 0);
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.55s var(--ease-snap);
+  transition: opacity 0.5s var(--ease-snap);
   pointer-events: none;
-  z-index: 2;
 }
 
-.polymorph:hover::before,
-.polymorph:focus-within::before {
+.social-tile:hover::after,
+.social-tile:focus-visible::after {
   opacity: 1;
-  /* Static angle, spun by transform. Animating a conic's `from` angle forces a
-     repaint of the full gradient each frame; rotating the already-painted
-     layer is compositor-only. Identical result, a fraction of the cost. */
-  animation: poly-spin 3.6s linear infinite;
+  animation: ring-spin 3.6s linear infinite;
 }
 
-/* Soft interior aurora that blooms from the pointer-tracked --poly-pos point. */
-.polymorph::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    420px circle at var(--poly-pos) 50%,
-    rgba(201, 255, 77, 0.1),
-    rgba(0, 229, 255, 0.05) 40%,
-    transparent 68%
-  );
-  opacity: 0;
-  transition: opacity 0.55s var(--ease-snap);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.polymorph:hover::after,
-.polymorph:focus-within::after {
-  opacity: 1;
-}
-
-@keyframes poly-spin {
+@keyframes ring-spin {
   to {
     transform: rotate(1turn);
   }
 }
 
-/* Iridescent fill for accent surfaces. */
-.holo-surface {
-  background-image: var(--poly-spectrum);
-  background-size: 300% 300%;
-  animation: holo-drift 9s ease-in-out infinite;
+.social-tile-arrow {
+  flex-shrink: 0;
+  color: var(--color-faint);
+  transition:
+    transform 0.45s var(--ease-snap),
+    color 0.45s var(--ease-snap);
 }
 
-@keyframes holo-drift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+.social-tile:hover .social-tile-arrow,
+.social-tile:focus-visible .social-tile-arrow {
+  transform: translate(3px, -3px);
+  color: hsl(var(--hue) 95% 70%);
 }
 
-/* Chromatic refraction on text — a spectrum splits that resolves on hover. */
-.refract {
-  transition: text-shadow 0.5s var(--ease-snap);
+/* ── Footer name banner ────────────────────────────────────────────────
+   An inverted band. The name is genuinely near-black, which on a near-black
+   page is a 4/255 difference per channel and simply cannot be read — so the
+   band it sits on is light. That is what makes a true "carved" effect
+   possible: black glyphs with a *lighter* bevel behind them reads as pressed
+   into the surface, which is the opposite of the drop shadow you get from
+   light text on dark. */
+.banner {
+  background: linear-gradient(180deg, #e9e7df 0%, #dedbd0 100%);
+  /* A soft contact shadow along the seam, so the band looks like a physical
+     sheet laid over the page rather than a colour change. */
+  box-shadow: 0 -24px 60px -30px rgba(0, 0, 0, 0.9);
+  color-scheme: light;
+
+  /* Below-the-fold by definition. Skips layout and paint for the whole
+     subtree until it approaches the viewport. `contain-intrinsic-size` is
+     the reserved placeholder so the scrollbar doesn't jump when it does. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
 }
 
-.refract:hover {
-  text-shadow:
-    -0.022em 0 0 rgba(0, 229, 255, 0.5),
-    0.022em 0 0 rgba(201, 255, 77, 0.42),
-    0 0.03em 0 rgba(122, 167, 255, 0.22);
+.banner-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      58% 74% at 50% 34%,
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0) 68%
+    ),
+    radial-gradient(
+      90% 60% at 50% 100%,
+      rgba(201, 255, 77, 0.16),
+      transparent 70%
+    );
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 74%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 74%, transparent);
 }
 
-.glass-hover {
+.banner-stage {
   position: relative;
-  transition:
-    border-color 0.35s ease,
-    transform 0.5s var(--ease-snap),
-    box-shadow 0.5s var(--ease-snap);
-}
-
-.glass-hover:hover {
-  border-color: rgba(201, 255, 77, 0.38);
-  transform: translateY(-3px);
-  box-shadow: var(--d4);
-}
-
-/* Lift interaction with a springier arc than the flat translate. */
-.lift {
-  transition:
-    transform 0.5s var(--ease-spring),
-    box-shadow 0.5s var(--ease-snap),
-    border-color 0.4s ease;
-}
-
-.lift:hover {
-  transform: translateY(-6px);
-  border-color: rgba(201, 255, 77, 0.4);
-  box-shadow: var(--d4);
-}
-
-.lift:active {
-  transform: translateY(-2px) scale(0.99);
-}
-
-.glass-hover:hover .glass-shine {
-  animation: glass-sweep 1.1s var(--ease-snap);
-}
-
-.glass-shine {
-  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.08) 48%, transparent 72%);
-  transform: translateX(-60%);
-}
-
-@keyframes glass-sweep {
-  from {
-    transform: translateX(-70%);
-  }
-  to {
-    transform: translateX(70%);
-  }
-}
-
-/* ── Ambient mesh ────────────────────────────────────────────────────────
-   Orbs animate on `transform` only (compositor-friendly — no repaint of a
-   huge gradient every frame). Durations are coprime-ish so the loop never
-   visibly repeats. */
-.aurora {
+  margin-top: 3.5rem;
+  padding-block: 0.5rem;
+  user-select: none;
   pointer-events: none;
-  position: fixed;
-  inset: -10%;
-  z-index: 0;
-  contain: strict;
 }
 
-.aurora-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
+.banner-depth,
+.banner-face {
+  display: block;
+  font-weight: 700;
+  /* "RAGHAV VERMA" is 12 characters. At weight 700 with -0.05em tracking the
+     average advance is roughly 0.63em, so the string measures ~7.2em wide.
+     Capping the size at ~12.4vw is what keeps it inside a 375px viewport —
+     any larger and `overflow: hidden` starts clipping the name. */
+  font-size: clamp(2.4rem, 12.4vw, 12rem);
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  text-align: center;
+  white-space: nowrap;
 }
 
-.aurora-orb-1 {
-  top: -8%;
-  left: -6%;
-  width: 46vw;
-  height: 46vw;
-  background: radial-gradient(circle, rgba(201, 255, 77, 0.16), transparent 68%);
-  animation: drift-a 26s ease-in-out infinite;
-}
-
-.aurora-orb-2 {
-  top: 2%;
-  right: -10%;
-  width: 44vw;
-  height: 44vw;
-  background: radial-gradient(circle, rgba(122, 167, 255, 0.17), transparent 68%);
-  animation: drift-b 32s ease-in-out infinite;
-}
-
-.aurora-orb-3 {
-  bottom: -12%;
-  left: 46%;
-  width: 40vw;
-  height: 40vw;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.1), transparent 68%);
-  animation: drift-c 38s ease-in-out infinite;
-}
-
-.aurora-orb-4 {
-  bottom: -6%;
-  left: -8%;
-  width: 34vw;
-  height: 34vw;
-  background: radial-gradient(circle, rgba(180, 139, 255, 0.12), transparent 70%);
-  animation: drift-d 30s ease-in-out infinite;
-}
-
-@keyframes drift-a {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  33% {
-    transform: translate3d(6vw, 4vw, 0) scale(1.12);
-  }
-  66% {
-    transform: translate3d(-3vw, 7vw, 0) scale(0.94);
-  }
-}
-
-@keyframes drift-b {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1.05);
-  }
-  40% {
-    transform: translate3d(-7vw, 6vw, 0) scale(0.9);
-  }
-  70% {
-    transform: translate3d(2vw, -4vw, 0) scale(1.18);
-  }
-}
-
-@keyframes drift-c {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(0.95);
-  }
-  50% {
-    transform: translate3d(-8vw, -6vw, 0) scale(1.15);
-  }
-}
-
-@keyframes drift-d {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1.1);
-  }
-  45% {
-    transform: translate3d(9vw, -5vw, 0) scale(0.92);
-  }
-}
-
-/* Slow spectral sweep across the whole ambient layer. */
-.aurora-sweep {
-  position: absolute;
-  inset: 0;
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    transparent 0deg,
-    rgba(201, 255, 77, 0.05) 60deg,
-    rgba(0, 229, 255, 0.05) 130deg,
-    rgba(180, 139, 255, 0.05) 200deg,
-    transparent 300deg
+.banner-depth {
+  /* The lit bevel: a whiter copy nudged down-right, so it shows only along
+     the lower-right edge of each glyph. On a light surface a *lighter*
+     highlight is what reads as an inset edge. */
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.7) 100%
   );
-  animation: sweep-rotate 60s linear infinite;
-  will-change: transform;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transform: translate3d(0.02em, 0.045em, 0);
 }
 
-@keyframes sweep-rotate {
-  to {
-    transform: rotate(360deg);
+.banner-face {
+  margin-top: -0.82em;
+  /* The actual name. Near-black on the paper band, with a soft shadow above
+     it so the glyphs also read as raised off the surface. Both effects at
+     once — inset bevel below, cast shadow above — is what gives it the
+     pressed-metal look. */
+  color: #0a0a12;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55),
+    0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 10px 34px rgba(0, 0, 0, 0.28);
+}
+
+/* Meta line inside the band has to be dark — `--color-faint` is a light-theme
+   value and would be invisible here. */
+.banner-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #5c5b63;
+}
+
+.banner-rule {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(10, 10, 18, 0.16), rgba(10, 10, 18, 0.04) 70%, transparent);
+}
+
+/* ── Copy-email button ─────────────────────────────────────────────────
+   The two labels are stacked in one grid cell so the button's width is set by
+   the longer of the two and neither swap causes reflow. */
+.copy-btn {
+  display: inline-grid;
+  align-items: center;
+  min-height: 32px;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+  transition:
+    border-color 0.3s var(--ease-snap),
+    color 0.3s var(--ease-snap),
+    transform 0.3s var(--ease-snap);
+}
+
+.copy-btn:hover {
+  border-color: rgba(201, 255, 77, 0.42);
+  color: var(--color-paper);
+  transform: translateY(-1px);
+}
+
+.copy-btn[data-copied] {
+  border-color: rgba(201, 255, 77, 0.55);
+  color: var(--color-accent);
+}
+
+.copy-btn-label {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transition:
+    opacity 0.25s var(--ease-snap),
+    transform 0.25s var(--ease-snap);
+}
+
+.copy-btn-idle {
+  opacity: 1;
+}
+
+.copy-btn-done {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.copy-btn[data-copied] .copy-btn-idle {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.copy-btn[data-copied] .copy-btn-done {
+  opacity: 1;
+  transform: none;
+}
+
+/* Coarse pointers have no hover state, so the tilt and the lift would never
+   fire — and on touch a lifted card just reads as a misalignment. */
+@media (hover: none) {
+  .social-tile {
+    transform: none;
+  }
+
+  .social-tile::after,
+  .social-tile::before {
+    opacity: 0;
   }
 }
 
-/* Keeps the mesh from competing with body copy — dense in the margins,
-   transparent through the reading column. */
-.aurora-mask {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 78% 62% at 50% 32%, transparent 8%, rgba(7, 7, 8, 0.55) 72%, #070708 100%);
-}
-
-
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(242, 239, 230, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(242, 239, 230, 0.04) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse 85% 72% at 50% 18%, #000 30%, transparent 76%);
-}
-
-.bg-grid-fine {
-  background-image:
-    linear-gradient(rgba(242, 239, 230, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(242, 239, 230, 0.028) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 20%, transparent 75%);
-}
-
-.bg-dots {
-  background-image: radial-gradient(rgba(242, 239, 230, 0.12) 1px, transparent 1.5px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse 55% 55% at 50% 45%, #000 20%, transparent 72%);
-}
-
-.grain {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 70;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.text-gradient {
-  background: linear-gradient(112deg, #c9ff4d 0%, #f2efe6 40%, #7aa7ff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Full-spectrum text fill that drifts across the glyphs. */
-.text-holo {
-  background: var(--poly-spectrum);
-  background-size: 260% 260%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: holo-drift 9s ease-in-out infinite;
-}
-
-/* ── Mobile ─────────────────────────────────────────────────────────────
-   Three real costs dominate on phones: large blur radii, the full-viewport
-   grain pass, and the number of simultaneously-composited layers. Each is
-   dialled back here rather than removed, so the aesthetic survives. */
+/* ── Mobile ───────────────────────────────────────────────────────────
+   Phones are where this page is actually read, so it's where the budget goes.
+   Each of these is a real cost, paid on every frame, for a small gain:
+   1. `spectrum-text` repaints the text layer continuously. Kept — it's the
+      one piece of colour that makes the hero feel alive — but slowed, and
+      paused once the hero has scrolled away.
+   2. The orbs are blurred 90px over a 52vw surface. Radial gradients are already
+      soft, so most of that radius buys nothing.
+   3. `backdrop-filter` on the tiles forces a separate composite pass each.
+   4. The grain is a full-viewport fixed layer. Kept, but lighter. */
 @media (max-width: 767px) {
-  /* A 26px backdrop blur over a full-width card is the single most
-     expensive thing on the page. 26 → 12px is visually near-identical once
-     the card is opaque enough to read text on. */
-  .glass,
-  .surface,
-  .glass-card {
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  .orb {
+    filter: blur(56px);
   }
 
-  .glass-lux {
-    backdrop-filter: blur(14px) saturate(145%);
-    -webkit-backdrop-filter: blur(14px) saturate(145%);
+  .orb-a {
+    width: 78vw;
+    height: 78vw;
   }
 
-  /* 70px blur on a 46vw orb is heavy. Radial gradients are already soft, so
-     the extra filter radius buys almost nothing here. */
-  .aurora-orb {
-    filter: blur(46px);
+  .orb-b {
+    width: 68vw;
+    height: 68vw;
+    opacity: 0.7;
   }
 
-  /* Two orbs instead of four — roughly halves the composited area. */
-  .aurora-orb-3,
-  .aurora-orb-4 {
-    display: none;
-  }
-
-  .aurora-sweep {
-    animation-duration: 90s;
-  }
-
-  /* mix-blend-mode forces the whole page into a separate blend pass every
-     frame. Keep the texture, drop the blend. */
   .grain {
-    opacity: 0.035;
-    mix-blend-mode: normal;
+    opacity: 0.025;
   }
 
-  /* Type that was sized to be read on a desktop is unreadable at arm's
-     length. Nudge the smallest mono labels up one step. */
-  .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.22em;
+  .social-tile {
+    padding: 1rem 1.1rem;
   }
 
-  .wm {
-    font-size: clamp(3.5rem, 19vw, 8rem);
-    opacity: 0.75;
+  .brand-mark {
+    width: 2.35rem;
+    height: 2.35rem;
   }
 
-  /* Horizontal scroll is a common accidental outcome on narrow screens from
-     absolutely-positioned decoration. */
-  .aurora {
-    inset: -4%;
+  .banner {
+    contain-intrinsic-size: auto 300px;
   }
 }
 
-/* Landscape phones have almost no vertical room — the hero HUD and the
-   metadata strip both compete for the same 100svh. */
+/* Wider phones in landscape have almost no vertical room. */
 @media (max-height: 520px) and (orientation: landscape) {
-  .aurora-orb {
+  .orb {
     animation: none;
   }
 }
 
-/* Coarse pointers get no hover lift — it just makes taps feel laggy. */
-@media (hover: none) {
-  .lift:hover,
-  .glass-hover:hover {
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .social-tile,
+  .social-tile-arrow,
+  .social-tile::before,
+  .social-tile::after,
+  .copy-btn,
+  .copy-btn-label,
+  .skip-link {
+    transition-duration: 0.01ms;
+  }
+
+  .social-tile,
+  .social-tile:hover,
+  .copy-btn:hover {
     transform: none;
   }
 
-  .polymorph::before,
-  .polymorph::after {
-    opacity: 0;
+  /* Load-bearing: these default to opacity 0, so without an explicit
+     end-state the whole page would read as empty. */
+  .enter,
+  .word {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
-}
 
-/* ── Fade utilities ─────────────────────────────────────────────────────
-   Mask-based fades read as "emerging from fog" and stay on the compositor,
-   unlike a plain opacity fade which animates the pixel buffer. */
-.fade-y {
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
-}
-
-.fade-x {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-
-.fade-b {
-  -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent);
-  mask-image: linear-gradient(180deg, #000 62%, transparent);
-}
-
-.fade-t {
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 38%);
-  mask-image: linear-gradient(180deg, transparent, #000 38%);
-}
-
-/* Section seams dissolve into the next band instead of hard-cutting. */
-.seam-fade {
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
-}
-
-/* Soft floor shadow that grounds floating panels against the void. */
-.contact-shadow {
-  background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0, 0, 0, 0.55), transparent 70%);
-}
-
-
-.text-gradient-soft {
-  background: linear-gradient(112deg, #ffffff 0%, #a7a7ad 55%, #6d6d74 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.text-stroke {
-  color: transparent;
-  -webkit-text-stroke: 1.3px rgba(242, 239, 230, 0.34);
-}
-
-.text-stroke-accent {
-  color: transparent;
-  -webkit-text-stroke: 1.3px rgba(201, 255, 77, 0.42);
-}
-
-@media (max-width: 768px) {
-  .text-stroke,
-  .text-stroke-accent {
-    -webkit-text-stroke-width: 1px;
+  .orb,
+  .spectrum-text,
+  .social-tile::after,
+  .availability-dot::after {
+    animation: none !important;
   }
-}
 
-.font-serif {
-  font-family: var(--font-serif);
-}
-
-.italic-display {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
-.hairline {
-  height: 1px;
-  background: linear-gradient(90deg, rgba(242, 239, 230, 0.16), rgba(242, 239, 230, 0.04) 60%, transparent);
-}
-
-.hairline-v {
-  width: 1px;
-  background: linear-gradient(180deg, rgba(242, 239, 230, 0.16), rgba(242, 239, 230, 0.03) 70%, transparent);
-}
-
-.wm {
-  pointer-events: none;
-  position: absolute;
-  top: clamp(1.5rem, 1vw, 2.5rem);
-  right: -0.02em;
-  z-index: 0;
-  font-family: var(--font-display);
-  font-size: clamp(4.5rem, 13.5vw, 13rem);
-  font-weight: 700;
-  line-height: 0.8;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  color: transparent;
-  background: linear-gradient(180deg, rgba(242, 239, 230, 0.11), rgba(242, 239, 230, 0.02));
-  -webkit-background-clip: text;
-  background-clip: text;
-  user-select: none;
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  border-radius: 999px;
-  border: 1px solid var(--color-line);
-  /* Generous vertical padding: chips sit tight against body copy otherwise. */
-  padding: 0.45rem 0.9rem;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--color-muted);
-  white-space: nowrap;
-  transition:
-    border-color 0.25s ease,
-    color 0.25s ease,
-    background-color 0.25s ease,
-    transform 0.25s var(--ease-snap);
-}
-
-.chip:hover {
-  border-color: rgba(201, 255, 77, 0.4);
-  color: var(--color-accent);
-  transform: translateY(-1px);
-}
-
-.chip-ink {
-  background: rgba(0, 0, 0, 0.28);
-  color: var(--color-paper);
-  opacity: 0.88;
-}
-
-.chip-ink:hover {
-  opacity: 1;
-}
-
-.chip-solid {
-  border-color: rgba(201, 255, 77, 0.5);
-  background: rgba(201, 255, 77, 0.1);
-  color: var(--color-accent);
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 34s linear infinite;
-  will-change: transform;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-.marquee-mask {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
+  /* The ambient motion stops but the colour stays painted, so the page keeps
+     its depth and its hue instead of collapsing to flat black. */
+  .spectrum-text {
+    background-position: 0% 22%;
   }
-  to {
-    transform: translateX(-50%);
-  }
-}
 
-.cursor-dot,
-.cursor-ring {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 120;
-  border-radius: 999px;
-  mix-blend-mode: difference;
-}
-
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  background: #f2efe6;
-}
-
-.cursor-ring {
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0 -18px;
-  border: 1px solid rgba(242, 239, 230, 0.65);
-  transition:
-    width 0.25s var(--ease-snap),
-    height 0.25s var(--ease-snap),
-    margin 0.25s var(--ease-snap),
-    background-color 0.25s ease;
-}
-
-.cursor-ring.is-hover {
-  width: 58px;
-  height: 58px;
-  margin: -29px 0 0 -29px;
-  background: rgba(201, 255, 77, 0.1);
-  border-color: #c9ff4d;
-}
-
-.nav-progress {
-  transform-origin: 0 50%;
-}
-
-@media (pointer: coarse) {
-  .cursor-dot,
-  .cursor-ring {
-    display: none;
-  }
-}
-
-.flip-scene {
-  perspective: 1200px;
-}
-
-.flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.55s var(--ease-snap);
-}
-
-.flip-inner.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.flip-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.flip-back {
-  transform: rotateY(180deg);
-}
-
-.terminal-card {
-  overflow: hidden;
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 13px 18px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.22);
-}
-
-.terminal-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--color-paper);
-}
-
-.terminal-window-buttons {
-  display: flex;
-  gap: 6px;
-}
-
-.terminal-window-button {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-}
-
-.terminal-window-button.red {
-  background: #ff5f56;
-}
-
-.terminal-window-button.yellow {
-  background: #ffbd2e;
-}
-
-.terminal-window-button.green {
-  background: #27c93f;
-}
-
-.terminal-output {
-  max-height: 340px;
-  overflow-y: auto;
-  padding: 18px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.75;
-}
-
-.terminal-line {
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.terminal-line-system {
-  color: var(--accent-cyan);
-  font-weight: 600;
-}
-
-.terminal-line-info {
-  color: #8f8f98;
-}
-
-.terminal-line-input {
-  color: var(--color-paper);
-  font-weight: 600;
-}
-
-.terminal-line-success {
-  color: var(--color-accent);
-}
-
-.terminal-line-error {
-  color: #ff6b6b;
-}
-
-.terminal-line-code {
-  color: var(--accent-cyan);
-  font-size: 11px;
-  line-height: 1.6;
-}
-
-.terminal-line-output {
-  color: #c9c9c3;
-}
-
-.code-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 16px;
-  margin-bottom: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #9b9ba3;
-}
-
-.code-block {
-  margin: 0;
-  max-width: 100%;
-  min-width: 0;
-  overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.34));
-  padding: 16px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1.7;
-  color: var(--accent-cyan);
-  white-space: pre;
-}
-
-.code-block code {
-  display: block;
-  min-width: max-content;
-}
-
-.script-block {
-  color: #9b9ba3;
-}
-
-.architect-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.architect-node-badge {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.node-icon-box {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.node-title-box h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--color-paper);
-}
-
-.node-title-box p {
-  margin-top: 3px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: #9b9ba3;
-}
-
-.metric-card {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.metric-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #9b9ba3;
-}
-
-.metric-value {
-  display: block;
-  margin-top: 4px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--color-paper);
-}
-
-.caret-accent {
-  animation: caret-blink 1.1s steps(2) infinite;
-}
-
-@keyframes caret-blink {
-  to {
-    opacity: 0;
-  }
-}
-
-.spin-slow {
-  animation: spin-slow 14s linear infinite;
-}
-
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.pulse-soft {
-  animation: pulse-soft 2.4s ease-in-out infinite;
-}
-
-@keyframes pulse-soft {
-  0%,
-  100% {
+  .social-tile::after {
     opacity: 1;
   }
-  50% {
-    opacity: 0.35;
+
+  .brand-mark {
+    transition: none;
   }
-}
-
-.grid-snap {
-  display: grid;
-  gap: 1px;
-  background: rgba(242, 239, 230, 0.06);
-  border: 1px solid rgba(242, 239, 230, 0.09);
-  overflow: hidden;
-  border-radius: 1.25rem;
-}
-
-.grid-snap > * {
-  background: var(--color-ink-2);
 }
 
 @media print {
-  .aurora,
+  .backdrop,
+  .spotlight-layer,
   .grain,
-  .cursor-dot,
-  .cursor-ring,
-  .nav-progress,
-  .recruiter-dock,
-  .watermark {
+  .skip-link,
+  .copy-btn,
+  .availability-dot::after,
+  .social-tile::after {
     display: none !important;
+  }
+
+  .enter,
+  .word {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .social-tile,
+  section,
+  .banner-stage {
+    break-inside: avoid;
   }
 
   body {
     background: #fff;
-    color: #0b0b0b;
-    cursor: auto;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    color: #111;
   }
 
-  body {
-    cursor: auto;
+  /* On paper the href is invisible, so print it. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9px;
+    color: #666;
   }
 
-  .cursor-dot,
-  .cursor-ring,
-  .marquee-track,
-  .caret-accent {
-    animation: none !important;
+  /* The name is near-black by design and the bevel behind it is a gradient
+     fill, so the whole thing would print as a smudge. Swap to solid ink. */
+  .banner {
+    background: #fff;
+    box-shadow: none;
   }
 
-  .cursor-dot,
-  .cursor-ring {
+  .banner-depth {
     display: none;
   }
 
-  /* Ambient motion freezes but the mesh stays painted, so the page keeps
-     its depth instead of collapsing to flat black. */
-  .aurora-orb,
-  .aurora-sweep,
-  .text-holo,
-  .holo-surface,
-  .polymorph::before {
-    animation: none !important;
+  .banner-face {
+    color: #111;
+    text-shadow: none;
   }
 
-  .polymorph::before {
-    opacity: 0.55;
+  .spectrum-text {
+    color: #111;
+    background: none;
   }
 }
