@@ -2,12 +2,17 @@ import Hero from "./components/Hero"
 import Socials from "./components/Socials"
 import Banner from "./components/Banner"
 import CopyEmail from "./components/CopyEmail"
+import CustomCursor from "./components/CustomCursor"
 import { site, projects, experience, education, skills } from "./data/content"
+import useReveal from "./hooks/useReveal"
 
 export default function App() {
+  useReveal()
+
   return (
     <div className="relative min-h-screen">
       <div className="backdrop" aria-hidden="true" />
+      <CustomCursor />
 
       {/* First tab stop — the page is one column, so this is the only thing
           keyboard users need to skip past. */}
@@ -20,6 +25,10 @@ export default function App() {
           <p className="font-mono text-xs tracking-[0.12em] text-faint">
             {site.name}
           </p>
+          <nav className="site-nav" aria-label="Main navigation">
+            <a href="#work">Work</a>
+            <a href="#experience">Experience</a>
+          </nav>
           <div className="flex items-center gap-4">
             <CopyEmail value={site.email}>Copy email</CopyEmail>
           </div>
@@ -36,7 +45,7 @@ export default function App() {
           </div>
           <div className="project-list">
             {projects.map((project, index) => (
-              <article className="project-card" key={project.index} style={{ "--card-index": index }}>
+              <article className="project-card" data-reveal key={project.index} style={{ "--card-index": index }}>
                 <div className="project-topline">
                   <span className="project-index">{project.index} / 0{projects.length}</span>
                   <span className="project-metric"><strong>{project.metric}</strong> {project.metricLabel}</span>
@@ -63,7 +72,7 @@ export default function App() {
           </div>
           <div className="timeline">
             {experience.map((item) => (
-              <article className="timeline-item" key={`${item.company}-${item.role}`}>
+              <article className="timeline-item" data-reveal key={`${item.company}-${item.role}`}>
                 <div className="timeline-date">{item.period}</div>
                 <div>
                   <h3>{item.role} <span>· {item.company}</span></h3>
@@ -82,7 +91,7 @@ export default function App() {
           </div>
           <div className="focus-groups">
             {skills.filter((group) => ["Languages", "Systems", "Backend", "Databases"].includes(group.title)).map((group) => (
-              <div className="focus-group" key={group.title}>
+              <div className="focus-group" data-reveal key={group.title}>
                 <h3>{group.title}</h3>
                 <p>{group.items.join(" · ")}</p>
               </div>
