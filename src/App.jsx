@@ -3,6 +3,7 @@ import Socials from "./components/Socials"
 import Banner from "./components/Banner"
 import CopyEmail from "./components/CopyEmail"
 import CustomCursor from "./components/CustomCursor"
+import ScrollProgress from "./components/ScrollProgress"
 import { site, projects, experience, education, skills } from "./data/content"
 import useReveal from "./hooks/useReveal"
 
@@ -13,6 +14,7 @@ export default function App() {
     <div className="relative min-h-screen">
       <div className="backdrop" aria-hidden="true" />
       <CustomCursor />
+      <ScrollProgress />
 
       {/* First tab stop — the page is one column, so this is the only thing
           keyboard users need to skip past. */}
@@ -28,6 +30,7 @@ export default function App() {
           <nav className="site-nav" aria-label="Main navigation">
             <a href="#work">Work</a>
             <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
           </nav>
           <div className="flex items-center gap-4">
             <CopyEmail value={site.email}>Copy email</CopyEmail>
@@ -39,9 +42,12 @@ export default function App() {
         <div id="top" />
         <Hero />
         <section className="work-section" id="work" aria-labelledby="work-title">
-          <div className="section-heading">
-            <p className="label">Selected work</p>
-            <h2 id="work-title">Things I’ve built</h2>
+          <div className="section-heading" data-reveal>
+            <div className="section-heading-copy">
+              <p className="label"><span>01</span> / Selected work</p>
+              <h2 id="work-title">Things I’ve built</h2>
+            </div>
+            <span className="section-note">SYSTEMS · TOOLS · PRODUCTS</span>
           </div>
           <div className="project-list">
             {projects.map((project, index) => (
@@ -66,9 +72,12 @@ export default function App() {
         </section>
 
         <section className="experience-section" id="experience" aria-labelledby="experience-title">
-          <div className="section-heading">
-            <p className="label">Experience</p>
-            <h2 id="experience-title">Where I’ve contributed</h2>
+          <div className="section-heading" data-reveal>
+            <div className="section-heading-copy">
+              <p className="label"><span>02</span> / Experience</p>
+              <h2 id="experience-title">Where I’ve contributed</h2>
+            </div>
+            <span className="section-note">INTERNSHIP · OPEN SOURCE</span>
           </div>
           <div className="timeline">
             {experience.map((item) => (
@@ -85,9 +94,12 @@ export default function App() {
         </section>
 
         <section className="focus-section" aria-labelledby="focus-title">
-          <div className="section-heading">
-            <p className="label">Focus</p>
-            <h2 id="focus-title">Tools I reach for</h2>
+          <div className="section-heading" data-reveal>
+            <div className="section-heading-copy">
+              <p className="label"><span>03</span> / Focus</p>
+              <h2 id="focus-title">Tools I reach for</h2>
+            </div>
+            <span className="section-note">A PRACTICAL TOOLKIT</span>
           </div>
           <div className="focus-groups">
             {skills.filter((group) => ["Languages", "Systems", "Backend", "Databases"].includes(group.title)).map((group) => (
