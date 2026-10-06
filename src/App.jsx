@@ -22,18 +22,30 @@ export default function App() {
         Skip to content
       </a>
 
-      <header className="relative z-20">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-5 sm:px-8">
-          <p className="font-mono text-xs tracking-[0.12em] text-faint">
-            {site.name}
-          </p>
+      <header className="site-header">
+        <div className="header-inner mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-5 sm:px-8">
+          <a className="header-brand" href="#top" aria-label={`${site.name} — home`}>
+            <span className="header-brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M11 29V11h8.5c4.1 0 6.5 2 6.5 5.5S23.6 22 19.5 22H11m8.5 0L28 29" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="30" cy="10" r="2" fill="currentColor" />
+              </svg>
+            </span>
+            <span className="header-brand-copy">
+              <strong>{site.name}</strong>
+              <small>SOFTWARE ENGINEER</small>
+            </span>
+          </a>
           <nav className="site-nav" aria-label="Main navigation">
             <a href="#work">Work</a>
             <a href="#experience">Experience</a>
             <a href="#contact">Contact</a>
           </nav>
-          <div className="flex items-center gap-4">
-            <CopyEmail value={site.email}>Copy email</CopyEmail>
+          <div className="header-actions">
+            <CopyEmail value={site.email}>
+              <span>Copy email</span>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.25" y="3.25" width="11.5" height="9.5" rx="2" stroke="currentColor" strokeWidth="1.25" /><path d="m3 4 5 4 5-4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </CopyEmail>
           </div>
         </div>
       </header>

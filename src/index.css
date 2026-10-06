@@ -395,110 +395,6 @@
   color: hsl(var(--hue) 95% 70%);
 }
 
-/* ── Footer name banner ────────────────────────────────────────────────
-   An inverted band. The name is genuinely near-black, which on a near-black
-   page is a 4/255 difference per channel and simply cannot be read — so the
-   band it sits on is light. That is what makes a true "carved" effect
-   possible: black glyphs with a *lighter* bevel behind them reads as pressed
-   into the surface, which is the opposite of the drop shadow you get from
-   light text on dark. */
-.banner {
-  background: linear-gradient(180deg, #e9e7df 0%, #dedbd0 100%);
-  /* A soft contact shadow along the seam, so the band looks like a physical
-     sheet laid over the page rather than a colour change. */
-  box-shadow: 0 -24px 60px -30px rgba(0, 0, 0, 0.9);
-  color-scheme: light;
-
-  /* Below-the-fold by definition. Skips layout and paint for the whole
-     subtree until it approaches the viewport. `contain-intrinsic-size` is
-     the reserved placeholder so the scrollbar doesn't jump when it does. */
-  content-visibility: auto;
-  contain-intrinsic-size: auto 420px;
-}
-
-.banner-light {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      58% 74% at 50% 34%,
-      rgba(255, 255, 255, 0.85),
-      rgba(255, 255, 255, 0) 68%
-    ),
-    radial-gradient(
-      90% 60% at 50% 100%,
-      rgba(201, 255, 77, 0.16),
-      transparent 70%
-    );
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 74%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 74%, transparent);
-}
-
-.banner-stage {
-  position: relative;
-  margin-top: 3.5rem;
-  padding-block: 0.5rem;
-  user-select: none;
-  pointer-events: none;
-}
-
-.banner-depth,
-.banner-face {
-  display: block;
-  font-weight: 700;
-  /* "RAGHAV VERMA" is 12 characters. At weight 700 with -0.05em tracking the
-     average advance is roughly 0.63em, so the string measures ~7.2em wide.
-     Capping the size at ~12.4vw is what keeps it inside a 375px viewport —
-     any larger and `overflow: hidden` starts clipping the name. */
-  font-size: clamp(2.4rem, 12.4vw, 12rem);
-  line-height: 0.82;
-  letter-spacing: -0.05em;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.banner-depth {
-  /* The lit bevel: a whiter copy nudged down-right, so it shows only along
-     the lower-right edge of each glyph. On a light surface a *lighter*
-     highlight is what reads as an inset edge. */
-  color: transparent;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(255, 255, 255, 0.7) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  transform: translate3d(0.02em, 0.045em, 0);
-}
-
-.banner-face {
-  margin-top: -0.82em;
-  /* The actual name. Near-black on the paper band, with a soft shadow above
-     it so the glyphs also read as raised off the surface. Both effects at
-     once — inset bevel below, cast shadow above — is what gives it the
-     pressed-metal look. */
-  color: #0a0a12;
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.55),
-    0 -1px 0 rgba(0, 0, 0, 0.12),
-    0 10px 34px rgba(0, 0, 0, 0.28);
-}
-
-/* Meta line inside the band has to be dark — `--color-faint` is a light-theme
-   value and would be invisible here. */
-.banner-meta {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: #5c5b63;
-}
-
-.banner-rule {
-  height: 1px;
-  background: linear-gradient(90deg, rgba(10, 10, 18, 0.16), rgba(10, 10, 18, 0.04) 70%, transparent);
-}
-
 /* ── Copy-email button ─────────────────────────────────────────────────
    The two labels are stacked in one grid cell so the button's width is set by
    the longer of the two and neither swap causes reflow. */
@@ -608,9 +504,6 @@
     height: 2.35rem;
   }
 
-  .banner {
-    contain-intrinsic-size: auto 300px;
-  }
 }
 
 /* Wider phones in landscape have almost no vertical room. */
@@ -691,8 +584,7 @@
   }
 
   .social-tile,
-  section,
-  .banner-stage {
+  section {
     break-inside: avoid;
   }
 
@@ -706,22 +598,6 @@
     content: " (" attr(href) ")";
     font-size: 9px;
     color: #666;
-  }
-
-  /* The name is near-black by design and the bevel behind it is a gradient
-     fill, so the whole thing would print as a smudge. Swap to solid ink. */
-  .banner {
-    background: #fff;
-    box-shadow: none;
-  }
-
-  .banner-depth {
-    display: none;
-  }
-
-  .banner-face {
-    color: #111;
-    text-shadow: none;
   }
 
   .spectrum-text {
@@ -753,8 +629,6 @@ body { background:#0b0e0c; color:#edf0e9; }
   mask-image:linear-gradient(to bottom,black,transparent 86%);
 }
 .grain,.spotlight-layer { display:none; }
-header.relative.z-20 { border-bottom:1px solid rgba(237,240,233,.08); }
-header.relative.z-20 > div { max-width:62rem; padding-block:1.2rem; }
 main#main { max-width:62rem; }
 .hero { display:flex; align-items:center; justify-content:space-between; gap:2rem; min-height:36rem; }
 .hero-copy { position:relative; z-index:1; max-width:41rem; }
@@ -831,13 +705,6 @@ main#main { max-width:62rem; }
 .social-tile:hover,.social-tile:focus-visible { border-color:rgba(184,214,154,.32); box-shadow:0 14px 30px -24px rgba(0,0,0,.75); }
 .social-tile::before { background:radial-gradient(320px circle at calc(50% + var(--px,0)*100%) calc(50% + var(--py,0)*100%),rgba(184,214,154,.09),transparent 68%); }
 .brand-mark { width:2.2rem; height:2.2rem; border-radius:.65rem; }
-.banner { margin-top:0; color:#edf0e9; border-top:1px solid var(--color-line); background:#0e120f; box-shadow:none; }
-.banner-light,.banner-stage { display:none; }
-.banner-meta { color:#889389; }
-.banner-rule { background:var(--color-line); }
-.site-nav { display:flex; align-items:center; gap:1.4rem; margin-left:auto; margin-right:1.5rem; }
-.site-nav a { color:#a2aaa1; font-size:.78rem; transition:color .2s; }
-.site-nav a:hover { color:#c6dcb1; }
 html.has-reveal [data-reveal] { opacity:0; transform:translateY(18px); transition:opacity .65s var(--ease-snap),transform .65s var(--ease-snap); }
 html.has-reveal [data-reveal].is-visible { opacity:1; transform:translateY(0); }
 .custom-cursor { position:fixed; z-index:100; top:0; left:0; width:32px; height:32px; margin:-16px 0 0 -16px; border:1px solid rgba(184,214,154,.68); border-radius:50%; pointer-events:none; opacity:0; transition:width .25s var(--ease-snap),height .25s var(--ease-snap),margin .25s var(--ease-snap),background .25s,opacity .2s; }
@@ -870,8 +737,6 @@ html.has-custom-cursor .custom-cursor { opacity:1; }
   .hero-copy { max-width:100%; }
   .hero-art { position:absolute; top:2rem; right:-2.1rem; width:9rem; opacity:.16; }
   .hero-title { font-size:clamp(4rem,17vw,5.7rem); }
-  .site-nav { gap:.8rem; margin-right:.8rem; }
-  .site-nav a { font-size:.69rem; }
 }
 @media(hover:none),(pointer:coarse) { .custom-cursor { display:none; } }
 @media(prefers-reduced-motion:reduce) {
@@ -922,45 +787,21 @@ body {
   initial-value: 88;
 }
 
-/* Small finishing details for navigation and section rhythm. */
-header.relative.z-20 {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: rgba(11, 14, 12, .76);
-  border-bottom-color: rgba(237, 240, 233, .09);
-  backdrop-filter: blur(18px) saturate(125%);
-  -webkit-backdrop-filter: blur(18px) saturate(125%);
-}
-header.relative.z-20 > div { max-width:62rem; padding-block:.95rem; }
+/* Reading progress and section hierarchy. */
 .scroll-progress {
-  position:fixed;
-  z-index:60;
-  inset:0 auto auto 0;
-  width:100%;
-  height:2px;
-  transform:scaleX(0);
-  transform-origin:left center;
-  background:linear-gradient(90deg,#92b780,#d4e5be 55%,#a7c98e);
-  box-shadow:0 0 12px rgba(184,214,154,.24);
-  pointer-events:none;
+  position: fixed;
+  z-index: 60;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #92b780, #d4e5be 55%, #a7c98e);
+  box-shadow: 0 0 12px rgba(184, 214, 154, .24);
+  pointer-events: none;
 }
-.section-heading { align-items:flex-end; }
-.section-heading-copy .label { margin:0 0 .6rem; }
-.section-heading-copy .label span { color:#c1d6b2; }
-.section-heading-copy h2 { margin:0; }
-.section-note { padding-bottom:.2rem; color:#778478; font:9px var(--font-mono); letter-spacing:.14em; }
-.site-nav a { position:relative; padding-block:.35rem; }
-.site-nav a::after { content:""; position:absolute; right:0; bottom:0; left:0; height:1px; transform:scaleX(0); transform-origin:right; background:#c6dcb1; transition:transform .3s var(--ease-snap); }
-.site-nav a:hover::after,.site-nav a:focus-visible::after { transform:scaleX(1); transform-origin:left; }
-.project-card,.social-tile { transition-timing-function:var(--ease-snap); }
-@media(max-width:640px) {
-  .section-heading { align-items:flex-start; }
-  .section-note { display:none; }
-  header.relative.z-20 > div { padding-block:.8rem; }
-  .site-nav { gap:.55rem; margin-right:.55rem; }
-  .copy-btn { padding-inline:.5rem; font-size:10px; }
-}
-@media(prefers-reduced-motion:reduce) {
-  .site-nav a::after { transition:none; }
-}
+.section-heading-copy .label { margin: 0 0 .6rem; }
+.section-heading-copy .label span { color: #c1d6b2; }
+.section-heading-copy h2 { margin: 0; }
+.section-note { padding-bottom: .2rem; color: #778478; font: 9px var(--font-mono); letter-spacing: .14em; }
+@media (max-width: 640px) { .section-note { display: none; } }

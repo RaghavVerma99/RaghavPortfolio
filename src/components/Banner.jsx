@@ -1,32 +1,44 @@
 import { site } from "../data/content"
 
-/* Two layers of the name, stacked to read as carved rather than printed:
-   .banner-depth — a light silhouette nudged down-right. Because the face
-                   above it is near-black, this only shows as a lit bevel
-                   around the lower edge of every glyph.
-   .banner-face  — the pitch-black front, which is why the depth layer is
-                   load-bearing: on its own, black-on-black is invisible.
-   The footer also carries a soft light source behind them, so the black has
-   something to sit against. */
 export default function Banner() {
-  const name = site.name.toUpperCase()
-
   return (
-    <footer className="banner relative overflow-hidden">
-      <div className="banner-light" aria-hidden="true" />
+    <footer className="site-footer">
+      <div className="footer-glow" aria-hidden="true" />
+      <svg className="footer-orbit" viewBox="0 0 360 260" fill="none" aria-hidden="true">
+        <circle cx="220" cy="130" r="96" />
+        <circle cx="220" cy="130" r="63" />
+        <ellipse cx="220" cy="130" rx="122" ry="39" transform="rotate(-28 220 130)" />
+        <circle className="footer-orbit-point" cx="310" cy="81" r="4" />
+      </svg>
 
-      <div className="banner-stage" aria-hidden="true">
-        <span className="banner-depth">{name}</span>
-        <span className="banner-face">{name}</span>
-      </div>
+      <div className="footer-inner">
+        <div className="footer-topline">
+          <div className="footer-signature">
+            <span className="footer-signature-mark" aria-hidden="true">RV</span>
+            <span><strong>{site.name}</strong><small>{site.location}</small></span>
+          </div>
+          <a className="footer-backtop" href="#top">
+            Back to top
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 12.5v-9m-4 4 4-4 4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </a>
+        </div>
 
-      <div className="relative z-10 mx-auto max-w-3xl px-6 pb-10 sm:px-8 sm:pb-12">
-        <div className="banner-rule mb-6" />
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-          <p className="banner-meta">
-            {site.name} · {site.location} · {site.timezone}
-          </p>
-          <p className="banner-meta">{site.availability}</p>
+        <div className="footer-main" data-reveal>
+          <p className="footer-eyebrow"><span /> OPEN TO GOOD CONVERSATIONS</p>
+          <h2>Let’s build<br /><em>thoughtfully.</em></h2>
+          <div className="footer-invite">
+            <p>Have a product, platform, or tricky system to work on?</p>
+            <a className="footer-cta" href={`mailto:${site.email}?subject=Let’s%20work%20together`}>
+              <span>Start a conversation</span>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9m-4-4 4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </a>
+          </div>
+        </div>
+
+        <div className="footer-bottomline">
+          <span>© {new Date().getFullYear()} {site.name}</span>
+          <span>Made with care · {site.timezone}</span>
+          <a href="https://github.com/RaghavVerma99" target="_blank" rel="noreferrer noopener">GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </footer>
